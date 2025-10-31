@@ -158,3 +158,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Third-party app settings
 
 TAGGIT_CASE_INSENSITIVE = True
+
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
