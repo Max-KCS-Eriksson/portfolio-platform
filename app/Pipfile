@@ -9,6 +9,8 @@ psycopg2-binary = "*"
 gunicorn = "*"
 fontawesomefree = "*"
 django-taggit = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
