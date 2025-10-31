@@ -25,7 +25,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG", False))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1").split(" ")
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS",
+    "localhost 127.0.0.1 web",  # Name of Docker service
+).split()
 
 CSRF_TRUSTED_ORIGINS = os.environ.get(
     "DJANGO_CSRF_TRUSTED_ORIGINS", "http://localhost:1337 https://localhost:1337"
@@ -54,6 +57,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Third-party
+    "corsheaders.middleware.CorsMiddleware",  # Needs to be before Django middleware
+    # Default Django
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -61,8 +67,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # Third-party
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -158,3 +162,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Third-party app settings
 
 TAGGIT_CASE_INSENSITIVE = True
+
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    "DJANGO_CORS_ALLOWED_ORIGINS",
+    "http://localhost:5173 http://127.0.0.1:5173",
+).split()
