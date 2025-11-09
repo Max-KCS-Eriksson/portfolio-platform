@@ -1,14 +1,8 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import About
 from .serializers import AboutSerializer
-
-
-class IndexView(TemplateView):
-    template_name = "core/index.html"
 
 
 class AboutView(APIView):
@@ -20,11 +14,3 @@ class AboutView(APIView):
         except About.DoesNotExist:
             return Response({})
         return Response(AboutSerializer(about).data)
-
-
-class Status404View(TemplateView):
-    template_name = "core/status/404.html"
-
-
-class Status500View(TemplateView):
-    template_name = "core/status/500.html"
