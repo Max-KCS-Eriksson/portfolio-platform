@@ -1,22 +1,25 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import TemplateView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import About
+from .serializers import AboutSerializer
 
 
 class IndexView(TemplateView):
     template_name = "core/index.html"
 
 
-class AboutView(TemplateView):
+class AboutView(APIView):
     template_name = "core/about.html"
 
-    def get_context_data(self, **kwargs):
+    def get(self, request):
         try:
-            about = About.objects.get(featured=True).text
-        except ObjectDoesNotExist:
-            about = None
-        return {"about": about}
+            about = About.objects.get(featured=True)
+        except About.DoesNotExist:
+            return Response({})
+        return Response(AboutSerializer(about).data)
 
 
 class Status404View(TemplateView):
