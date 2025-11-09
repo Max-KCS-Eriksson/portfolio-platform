@@ -36,7 +36,7 @@ class BlogPostParagraph(models.Model):
     text = models.TextField(help_text="A blog post paragraph.")
 
     def __str__(self):
-        return f"{self.blog_post.title} (p.{self.pk})"
+        return f"{self.blog_post.title} (p.{self.heading})"
 
 
 class BlogPostSnippet(models.Model):
@@ -55,4 +55,6 @@ class BlogPostSnippet(models.Model):
     )
 
     def __str__(self):
-        return f"{self.paragraph.blog_post.title} (p.{self.paragraph.pk}, s.{self.pk})"
+        blog_title = self.paragraph.blog_post.title
+        paragraph_heading = self.paragraph.heading
+        return f"{blog_title} (p.{paragraph_heading}, s.{self.pk})"
