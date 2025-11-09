@@ -15,18 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from core.views import Status404View, Status500View
 from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
     # Default Django URLs
     path("admin/", admin.site.urls),
-    # Project URLs
-    path("blog/", include("blog.urls")),
     # Project API
     path("api/", include("core.urls")),
     path("api/portfolio/", include("portfolio.urls")),
+    path("api/blog/", include("blog.urls")),
 ]
-handler404 = Status404View.as_view()
-handler500 = Status500View.as_view()
