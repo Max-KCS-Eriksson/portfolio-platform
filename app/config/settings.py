@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "portfolio",
     "blog",
     # Third-party apps
+    "corsheaders",
+    "rest_framework",
     "fontawesomefree",
     "taggit",
 ]
@@ -59,6 +61,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Third-party
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -154,3 +158,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Third-party app settings
 
 TAGGIT_CASE_INSENSITIVE = True
+
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
