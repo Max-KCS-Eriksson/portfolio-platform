@@ -23,9 +23,9 @@ urlpatterns = [
     # Default Django URLs
     path("admin/", admin.site.urls),
     # Project URLs
-    path("", include("core.urls")),
     path("blog/", include("blog.urls")),
     # Project API
+    path("api/", include("core.urls")),
     path("api/portfolio/", include("portfolio.urls")),
 ]
 handler404 = Status404View.as_view()
