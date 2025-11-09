@@ -1,28 +1,27 @@
 from django.http import Http404
-from django.views.generic import DetailView, ListView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Project
+from .serializers import ProjectSerializer
 
 
-class ProjectsListView(ListView):
+class ProjectsListView(APIView):
     """Overview of all showcased projects."""
 
-    model = Project
-    context_object_name = "project_list"
-
-    def get_queryset(self):
-        return Project.objects.filter(publish=True)
+    def get(self, request):
+        projects = Project.objects.filter(publish=True)
+        return Response(ProjectSerializer(projects, many=True).data)
 
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(APIView):
     """Detail view of a project."""
 
-    model = Project
-    context_object_name = "project"
-
-    def get_context_data(self, **kwargs):
-        project = super().get_context_data(**kwargs)["project"]
-        if not project.publish:
+    def get(self, request, slug):
+        try:
+            project = Project.objects.get(slug=slug)
+            if not project.publish:
+                raise Http404
+        except Project.DoesNotExist:
             raise Http404
-
-        return {self.context_object_name: project}
+        return Response(ProjectSerializer(project).data)
