@@ -12,16 +12,24 @@ services:
       - ./.env
     depends_on:
       - db
+
   db:
     image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - frontend_build:/frontend-build
+
   nginx:
     build: ./nginx
     volumes:
       - static_volume:/home/app/web/staticfiles
+      - frontend_build:/usr/share/nginx/html
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/lib/letsencrypt:/var/lib/letsencrypt
       - /var/www/html:/var/www/html
@@ -32,6 +40,8 @@ services:
       - ./.env
     depends_on:
       - web
+      - frontend
+
   certbot:
     image: certbot/certbot
     volumes:
@@ -44,3 +54,4 @@ services:
 volumes:
   postgres_data:
   static_volume:
+  frontend_build:
