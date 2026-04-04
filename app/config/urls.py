@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from api.views import FrontendContextView
 from django.contrib import admin
 from django.urls import include, path
 
@@ -25,4 +26,5 @@ urlpatterns = [
     path("api/", include("core.urls")),
     path("api/portfolio/", include("portfolio.urls")),
     path("api/blog/", include("blog.urls")),
+    path("api/context/", FrontendContextView.as_view()),
 ]
