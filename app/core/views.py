@@ -6,8 +6,6 @@ from .serializers import AboutSerializer
 
 
 class AboutView(APIView):
-    template_name = "core/about.html"
-
     def get(self, request):
         try:
             about = About.objects.get(featured=True)
