@@ -19,9 +19,6 @@ class BlogPostListView(APIView):
             blog_posts = BlogPost.objects.filter(publish=True)
         return Response(BlogPostSerializer(blog_posts, many=True).data)
 
-    model = BlogPost
-    context_object_name = "blog_post_list"
-
 
 class BlogPostDetailView(APIView):
     """Detail view of a blog post."""
