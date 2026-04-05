@@ -10,6 +10,9 @@ services:
       - ./.env
     depends_on:
       - db
+    profiles:
+      - prod
+      - dev
 
   db:
     image: postgres:15
@@ -17,6 +20,9 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
+    profiles:
+      - prod
+      - dev
 
 volumes:
   postgres_data:

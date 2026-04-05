@@ -3,8 +3,6 @@ services:
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
-    profiles:
-      - prod
     ports:
       - 80:80
       - 443:443
@@ -19,14 +17,16 @@ services:
       - DOMAIN=${DOMAIN}
     depends_on:
       - web
+    profiles:
+      - prod
 
   certbot:
     image: certbot/certbot
-    profiles:
-      - prod
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/lib/letsencrypt:/var/lib/letsencrypt
     env_file:
       - ./.env
     command: certbot certonly --standalone -d ${DOMAIN}
+    profiles:
+      - prod
