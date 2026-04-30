@@ -22,8 +22,17 @@ class Project(models.Model):
         blank=True,
         help_text="A detailed description of the project.",
     )
+
     slug = models.SlugField(unique=True, default="")
+
     publish = models.BooleanField(default=True)
+    display_order = models.PositiveIntegerField(
+        default=0,
+        help_text="Lower numbers appear first.",
+    )
+
+    class Meta:
+        ordering = ["display_order", "-id"]
 
     def save(self, *args, **kwargs):
         """Generate a slug field and save the instance."""
