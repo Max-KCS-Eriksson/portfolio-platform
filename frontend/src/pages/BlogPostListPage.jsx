@@ -10,6 +10,7 @@ function BlogPostListPage() {
   const [blogPosts, setBlogPosts] = useState([]);
   const [allBlogPosts, setAllBlogPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [isTagsMenuOpen, setIsTagsMenuOpen] = useState(false);
 
   usePageTitle("Blog");
 
@@ -38,6 +39,21 @@ function BlogPostListPage() {
 
   const selectedTag = tags.find((tagItem) => tagItem.slug === tag);
 
+  function toggleTagsMenu() {
+    setIsTagsMenuOpen((current) => !current);
+  }
+
+  function closeTagsMenu() {
+    setIsTagsMenuOpen(false);
+  }
+
+  function handleTagsMenuKeyDown(event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleTagsMenu();
+    }
+  }
+
   if (error) {
     return (
       <div className="main-menu">
@@ -51,21 +67,30 @@ function BlogPostListPage() {
     <>
       {tags.length > 0 && (
         <nav id="tags-nav">
-          <i id="tags-menu-button" className="fa-solid fa-tag tags-menu-button"></i>
+          <i
+            id="tags-menu-button"
+            className={`fa-solid fa-tag tags-menu-button ${isTagsMenuOpen ? "active" : ""}`}
+            role="button"
+            tabIndex="0"
+            aria-label="Toggle tags menu"
+            aria-expanded={isTagsMenuOpen}
+            onClick={toggleTagsMenu}
+            onKeyDown={handleTagsMenuKeyDown}
+          ></i>
 
           {selectedTag && (
             <>
               <h1 className="tag">{selectedTag.name}</h1>
-              <Link className="remove-tag-filter" to={buildRoute.blog()}>
+              <Link className="remove-tag-filter" to={buildRoute.blog()} onClick={closeTagsMenu}>
                 <i className="fa-solid fa-xmark"></i>
               </Link>
             </>
           )}
 
-          <ul id="tags-menu">
+          <ul id="tags-menu" className={isTagsMenuOpen ? "active" : ""}>
             {tags.map((tagItem) => (
               <li className="nav-item" key={tagItem.slug}>
-                <Link className="nav-link" to={buildRoute.blogTag(tagItem.slug)}>
+                <Link className="nav-link" to={buildRoute.blogTag(tagItem.slug)} onClick={closeTagsMenu}>
                   {tagItem.name}
                   <span className="path">/</span>
                 </Link>
