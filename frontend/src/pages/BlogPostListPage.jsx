@@ -58,6 +58,18 @@ function BlogPostListPage() {
     setIsTagsMenuOpen(false);
   }
 
+  function isTagsMenuActive() {
+    return isTagsMenuOpen;
+  }
+
+  function getTagsMenuButtonClassName() {
+    return `fa-solid fa-tag tags-menu-button ${isTagsMenuActive() ? "active" : ""}`;
+  }
+
+  function getTagsMenuClassName() {
+    return isTagsMenuActive() ? "active" : "";
+  }
+
   function handleTagsMenuKeyDown(event) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -80,7 +92,7 @@ function BlogPostListPage() {
         <nav id="tags-nav">
           <i
             id="tags-menu-button"
-            className={`fa-solid fa-tag tags-menu-button ${isTagsMenuOpen ? "active" : ""}`}
+            className={getTagsMenuButtonClassName()}
             role="button"
             tabIndex="0"
             aria-label="Toggle tags menu"
@@ -98,7 +110,7 @@ function BlogPostListPage() {
             </>
           )}
 
-          <ul id="tags-menu" className={isTagsMenuOpen ? "active" : ""}>
+          <ul id="tags-menu" className={getTagsMenuClassName()}>
             {tags.map((tagItem) => (
               <li className="nav-item" key={tagItem.slug}>
                 <Link className="nav-link" to={buildRoute.blogTag(tagItem.slug)} onClick={closeTagsMenu}>
