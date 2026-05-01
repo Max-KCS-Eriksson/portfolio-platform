@@ -3,18 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { getBlogPost } from "../api/blogApi";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { buildRoute } from "../routes/paths";
-
-function renderLinebreaks(text) {
-  return text?.split(/\r?\n/).map((line, index) => <p key={index}>{line}</p>);
-}
-
-function slugifyTag(tag) {
-  return tag
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+import { renderLinebreaks } from "../utils/renderLinebreaks";
+import { slugifyTag } from "../utils/slugifyTag";
 
 async function copySnippet(snippet) {
   await navigator.clipboard.writeText(snippet);

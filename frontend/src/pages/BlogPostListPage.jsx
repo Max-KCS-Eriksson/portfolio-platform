@@ -3,14 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getBlogPosts, getBlogPostsByTag } from "../api/blogApi";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { buildRoute } from "../routes/paths";
-
-function slugifyTag(tag) {
-  return tag
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+import { slugifyTag } from "../utils/slugifyTag";
 
 function BlogPostListPage() {
   const { tag } = useParams();

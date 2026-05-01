@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProject } from "../api/projectsApi";
 import { usePageTitle } from "../hooks/usePageTitle";
-
-function renderLinebreaks(text) {
-  return text?.split(/\r?\n/).map((line, index) => <p key={index}>{line}</p>);
-}
+import { renderLinebreaks } from "../utils/renderLinebreaks";
 
 function ProjectDetailPage() {
   const { slug } = useParams();

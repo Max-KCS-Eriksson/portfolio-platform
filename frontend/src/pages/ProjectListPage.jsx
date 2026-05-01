@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getProjects } from "../api/projectsApi";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { buildRoute } from "../routes/paths";
+import { renderLinebreaks } from "../utils/renderLinebreaks";
 
 function ProjectListPage() {
   const [projects, setProjects] = useState([]);
@@ -41,11 +42,7 @@ function ProjectListPage() {
                 </Link>
               </h2>
 
-              <div className="summary">
-                {project.summary?.split("\n").map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
-              </div>
+              <div className="summary">{renderLinebreaks(project.summary)}</div>
             </li>
           ))}
         </ul>

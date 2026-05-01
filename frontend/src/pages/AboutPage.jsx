@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAboutPage } from "../api/coreApi";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import { usePageTitle } from "../hooks/usePageTitle";
+import { renderLinebreaks } from "../utils/renderLinebreaks";
 
 function AboutPage() {
   const [about, setAbout] = useState(null);
@@ -27,11 +28,7 @@ function AboutPage() {
       <SocialMediaLinks />
 
       {aboutText ? (
-        <div className="description">
-          {aboutText.split("\n").map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
-        </div>
+        <div className="description">{renderLinebreaks(aboutText)}</div>
       ) : (
         <p className="description">Coming soon</p>
       )}
