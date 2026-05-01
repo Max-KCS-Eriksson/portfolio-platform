@@ -6,6 +6,7 @@ export const ROUTES = {
   blogTag: "/blog/tag/:tag",
   blogPostDetail: "/blog/:slug",
   about: "/about/",
+  status500: "/500/",
   notFound: "*",
 };
 
