@@ -91,7 +91,12 @@ function BlogPostDetailPage() {
                 <pre className="snippet-box">
                   <code className={`snippet${snippet.side_scroll ? " scroll" : ""}`}>{snippet.snippet}</code>
                 </pre>
-                <button className="copy-snippet" onClick={() => copySnippet(snippet.snippet)}>
+                <button
+                  className="copy-snippet"
+                  type="button"
+                  aria-label="Copy snippet"
+                  onClick={() => copySnippet(snippet.snippet)}
+                >
                   <i className="fa-regular fa-copy"></i>
                 </button>
               </section>

@@ -8,6 +8,14 @@ const socialMediaIcons = {
   yt: "fa-brands fa-youtube",
 };
 
+const socialMediaLabels = {
+  gh: "GitHub",
+  in: "LinkedIn",
+  fb: "Facebook",
+  ig: "Instagram",
+  yt: "YouTube",
+};
+
 function SocialMediaLinks() {
   const { contextData } = useFrontendContext();
 
@@ -21,8 +29,9 @@ function SocialMediaLinks() {
     <ul className="social-media-links">
       {socialMediaLinks.map((socialMediaLink) => {
         const iconClassName = socialMediaIcons[socialMediaLink.social_media];
+        const label = socialMediaLabels[socialMediaLink.social_media];
 
-        if (!iconClassName) {
+        if (!iconClassName || !label) {
           return null;
         }
 
@@ -33,6 +42,7 @@ function SocialMediaLinks() {
               href={socialMediaLink.url}
               target="_blank"
               rel="noreferrer"
+              aria-label={label}
             >
               <i className={iconClassName}></i>
             </a>

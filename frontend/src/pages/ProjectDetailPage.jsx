@@ -53,14 +53,14 @@ function ProjectDetailPage() {
 
       <ul className="project-links">
         <li className="project-links-item">
-          <a className="project-link" href={project.repo_url}>
+          <a className="project-link" href={project.repo_url} aria-label={`${project.title} repository`}>
             <i className="fa-brands fa-github"></i>
           </a>
         </li>
 
         {hasLiveUrl && (
           <li className="project-links-item">
-            <a className="project-link" href={project.live_url}>
+            <a className="project-link" href={project.live_url} aria-label={`${project.title} live site`}>
               <i className="fa-solid fa-globe"></i>
             </a>
           </li>

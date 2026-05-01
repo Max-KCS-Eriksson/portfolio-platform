@@ -100,7 +100,12 @@ function BlogPostListPage() {
           {selectedTag && (
             <>
               <h1 className="tag">{selectedTag.name}</h1>
-              <Link className="remove-tag-filter" to={buildRoute.blog()} onClick={closeTagsMenu}>
+              <Link
+                className="remove-tag-filter"
+                to={buildRoute.blog()}
+                aria-label="Remove tag filter"
+                onClick={closeTagsMenu}
+              >
                 <i className="fa-solid fa-xmark"></i>
               </Link>
             </>
