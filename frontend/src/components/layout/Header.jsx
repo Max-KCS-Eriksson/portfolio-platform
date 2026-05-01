@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFrontendContext } from "../../context/useFrontendContext";
+import { ROUTES } from "../../routes/paths";
 import NavLinks from "./NavLinks";
 
 function Header() {
@@ -20,7 +21,7 @@ function Header() {
   return (
     <header className="navbar">
       <h1>
-        <Link className="home-link" to="/" onClick={closeMenu}>
+        <Link className="home-link" to={ROUTES.home} onClick={closeMenu}>
           {domainName}
         </Link>
       </h1>
