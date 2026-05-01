@@ -1,17 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import { usePageTitle } from "./hooks/usePageTitle";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import BlogPostListPage from "./pages/BlogPostListPage";
+import BlogPostDetailPage from "./pages/BlogPostDetailPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import ProjectListPage from "./pages/ProjectListPage";
 import { ROUTES } from "./routes/paths";
-
-function TemporaryPage({ title }) {
-  usePageTitle(title);
-  return <h2>{title}</h2>;
-}
 
 function App() {
   return (
@@ -23,7 +18,7 @@ function App() {
           <Route path={ROUTES.projectDetail} element={<ProjectDetailPage />} />
           <Route path={ROUTES.blog} element={<BlogPostListPage />} />
           <Route path={ROUTES.blogTag} element={<BlogPostListPage />} />
-          <Route path={ROUTES.blogPostDetail} element={<TemporaryPage title="Blog post" />} />
+          <Route path={ROUTES.blogPostDetail} element={<BlogPostDetailPage />} />
           <Route path={ROUTES.about} element={<AboutPage title="About" />} />
         </Route>
       </Routes>
