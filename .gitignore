@@ -20,6 +20,9 @@ dist
 dist-ssr
 *.local
 
+# Vite
+.vite
+
 # Backup files
 *.bak
 
