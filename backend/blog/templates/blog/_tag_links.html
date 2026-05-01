@@ -1,9 +1,0 @@
-<ul id="tags-menu">
-  {% for tag in tags %}
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'blog:blog_tag' tag.slug %}">
-        {{ tag.name }}<span class="path">/</span>
-      </a>
-    </li>
-  {% endfor %}
-</ul>
