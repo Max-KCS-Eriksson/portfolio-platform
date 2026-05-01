@@ -58,16 +58,12 @@ function BlogPostListPage() {
     setIsTagsMenuOpen(false);
   }
 
-  function isTagsMenuActive() {
-    return isTagsMenuOpen;
-  }
-
   function getTagsMenuButtonClassName() {
-    return `fa-solid fa-tag tags-menu-button ${isTagsMenuActive() ? "active" : ""}`;
+    return `fa-solid fa-tag tags-menu-button ${isTagsMenuOpen ? "active" : ""}`;
   }
 
   function getTagsMenuClassName() {
-    return isTagsMenuActive() ? "active" : "";
+    return isTagsMenuOpen ? "active" : "";
   }
 
   function handleTagsMenuKeyDown(event) {

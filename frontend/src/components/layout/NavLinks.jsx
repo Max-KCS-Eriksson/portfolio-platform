@@ -13,8 +13,12 @@ function NavLinks({ isMenuOpen, onNavigate }) {
     return `nav-link${isCurrentRoute(path) ? " current" : ""}`;
   }
 
+  function getNavMenuClassName() {
+    return `nav-menu ${isMenuOpen ? "active" : ""}`;
+  }
+
   return (
-    <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
+    <ul className={getNavMenuClassName()}>
       {!isHomePage && (
         <li className="nav-item">
           <Link className={getNavLinkClassName(ROUTES.home)} to={ROUTES.home} onClick={onNavigate}>

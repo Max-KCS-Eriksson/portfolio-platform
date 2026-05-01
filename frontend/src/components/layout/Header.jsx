@@ -18,6 +18,10 @@ function Header() {
     setIsMenuOpen(false);
   }
 
+  function getHamburgerClassName() {
+    return `hamburger ${isMenuOpen ? "active" : ""}`;
+  }
+
   return (
     <header className="navbar">
       <h1>
@@ -30,7 +34,7 @@ function Header() {
         <NavLinks isMenuOpen={isMenuOpen} onNavigate={closeMenu} />
 
         <button
-          className={`hamburger ${isMenuOpen ? "active" : ""}`}
+          className={getHamburgerClassName()}
           type="button"
           aria-label="Toggle navigation menu"
           aria-expanded={isMenuOpen}
