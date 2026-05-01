@@ -19,9 +19,20 @@ function BlogPostListPage() {
     setAllBlogPosts([]);
     setError(null);
 
-    const blogPostsRequest = tag ? getBlogPostsByTag(tag) : getBlogPosts();
+    if (!tag) {
+      getBlogPosts()
+        .then((blogPosts) => {
+          setBlogPosts(blogPosts);
+          setAllBlogPosts(blogPosts);
+        })
+        .catch((error) => {
+          console.error(error);
+          setError(error);
+        });
+      return;
+    }
 
-    Promise.all([blogPostsRequest, getBlogPosts()])
+    Promise.all([getBlogPostsByTag(tag), getBlogPosts()])
       .then(([blogPosts, allBlogPosts]) => {
         setBlogPosts(blogPosts);
         setAllBlogPosts(allBlogPosts);
