@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProjects } from "../api/projectsApi";
 import { usePageTitle } from "../hooks/usePageTitle";
+import { ROUTES } from "../routes/paths";
 
 function ProjectListPage() {
   const [projects, setProjects] = useState([]);
@@ -34,7 +35,7 @@ function ProjectListPage() {
           {projects.map((project) => (
             <li className="nav-item" key={project.id ?? project.slug}>
               <h2>
-                <Link className="nav-link" to={`/portfolio/${project.slug}/`}>
+                <Link className="nav-link" to={ROUTES.projectDetail(project.slug)}>
                   {project.title}
                   <span className="path">/</span>
                 </Link>
