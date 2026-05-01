@@ -3,32 +3,48 @@ import { ROUTES } from "../../routes/paths";
 
 function NavLinks({ isMenuOpen, onNavigate }) {
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
+  const isHomePage = location.pathname === ROUTES.home;
+
+  function isCurrentRoute(path) {
+    return location.pathname === path;
+  }
+
+  function getNavLinkClassName(path) {
+    return `nav-link${isCurrentRoute(path) ? " current" : ""}`;
+  }
 
   return (
     <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
       {!isHomePage && (
         <li className="nav-item">
-          <Link className="nav-link" to={ROUTES.home} onClick={onNavigate}>
+          <Link className={getNavLinkClassName(ROUTES.home)} to={ROUTES.home} onClick={onNavigate}>
             Home<span className="path">/</span>
           </Link>
         </li>
       )}
 
       <li className="nav-item">
-        <Link className="nav-link" to={ROUTES.portfolio} onClick={onNavigate}>
+        <Link
+          className={getNavLinkClassName(ROUTES.portfolio)}
+          to={ROUTES.portfolio}
+          onClick={onNavigate}
+        >
           Portfolio<span className="path">/</span>
         </Link>
       </li>
 
       <li className="nav-item">
-        <Link className="nav-link" to={ROUTES.blog} onClick={onNavigate}>
+        <Link className={getNavLinkClassName(ROUTES.blog)} to={ROUTES.blog} onClick={onNavigate}>
           Blog<span className="path">/</span>
         </Link>
       </li>
 
       <li className="nav-item">
-        <Link className="nav-link" to={ROUTES.about} onClick={onNavigate}>
+        <Link
+          className={getNavLinkClassName(ROUTES.about)}
+          to={ROUTES.about}
+          onClick={onNavigate}
+        >
           About<span className="path">/</span>
         </Link>
       </li>
