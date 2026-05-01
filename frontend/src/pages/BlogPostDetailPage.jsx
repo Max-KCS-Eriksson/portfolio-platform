@@ -7,7 +7,22 @@ import { renderLinebreaks } from "../utils/renderLinebreaks";
 import { slugifyTag } from "../utils/slugifyTag";
 
 async function copySnippet(snippet) {
-  await navigator.clipboard.writeText(snippet);
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(snippet);
+    return;
+  }
+
+  // DOM selection fallback for contexts without the async Clipboard API.
+  // The temporary textarea is placed off-screen so it can be selected without affecting layout.
+  const textarea = document.createElement("textarea");
+  textarea.value = snippet;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "absolute";
+  textarea.style.left = "-9999px";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
 }
 
 function BlogPostDetailPage() {
@@ -70,15 +85,11 @@ function BlogPostDetailPage() {
 
           {paragraph.snippets?.map((snippet) => (
             <section className="snippet-section" key={snippet.id}>
-              {snippet.intended_location && (
-                <h1 className="snippet-intendet-location">{snippet.intended_location}</h1>
-              )}
+              {snippet.intended_location && <h1 className="snippet-intendet-location">{snippet.intended_location}</h1>}
 
               <section>
                 <pre className="snippet-box">
-                  <code className={`snippet${snippet.side_scroll ? " scroll" : ""}`}>
-                    {snippet.snippet}
-                  </code>
+                  <code className={`snippet${snippet.side_scroll ? " scroll" : ""}`}>{snippet.snippet}</code>
                 </pre>
                 <button className="copy-snippet" onClick={() => copySnippet(snippet.snippet)}>
                   <i className="fa-regular fa-copy"></i>
