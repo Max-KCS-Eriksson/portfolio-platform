@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  web:
-    build: ./app
+  backend:
+    build: ./backend
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/app/web/staticfiles
@@ -31,7 +31,7 @@ services:
     env_file:
       - ./.env
     depends_on:
-      - web
+      - backend
   certbot:
     image: certbot/certbot
     volumes:

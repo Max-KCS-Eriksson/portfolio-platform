@@ -27,7 +27,7 @@ DEBUG = bool(os.environ.get("DEBUG", False))
 
 ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS",
-    "localhost 127.0.0.1 web",  # Name of Docker service
+    "localhost 127.0.0.1 backend",  # Name of Docker service
 ).split()
 
 CSRF_TRUSTED_ORIGINS = os.environ.get(
