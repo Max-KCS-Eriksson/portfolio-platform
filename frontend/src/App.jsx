@@ -1,7 +1,33 @@
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/layout/Layout";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import BlogPostListPage from "./pages/BlogPostListPage";
+import BlogPostDetailPage from "./pages/BlogPostDetailPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
+import ProjectListPage from "./pages/ProjectListPage";
+import Status404Page from "./pages/Status404Page";
+import Status500Page from "./pages/Status500Page";
+import { ROUTES } from "./routes/paths";
 
 function App() {
-  return <></>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path={ROUTES.home} element={<HomePage title="Home" />} />
+          <Route path={ROUTES.portfolio} element={<ProjectListPage title="Portfolio" />} />
+          <Route path={ROUTES.projectDetail} element={<ProjectDetailPage />} />
+          <Route path={ROUTES.blog} element={<BlogPostListPage />} />
+          <Route path={ROUTES.blogTag} element={<BlogPostListPage />} />
+          <Route path={ROUTES.blogPostDetail} element={<BlogPostDetailPage />} />
+          <Route path={ROUTES.about} element={<AboutPage title="About" />} />
+          <Route path={ROUTES.status500} element={<Status500Page />} />
+          <Route path={ROUTES.notFound} element={<Status404Page />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
