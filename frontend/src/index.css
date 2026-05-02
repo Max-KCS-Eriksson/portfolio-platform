@@ -356,10 +356,6 @@ main,
   color: var(--color-accent-cyan);
 }
 
-.nav-link .path {
-  color: var(--color-accent);
-}
-
 .hamburger {
   display: none;
   width: 2.6rem;
