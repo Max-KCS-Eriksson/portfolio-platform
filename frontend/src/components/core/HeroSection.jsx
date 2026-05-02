@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import SocialMediaLinks from "../layout/SocialMediaLinks";
 import { ROUTES } from "../../routes/paths";
 import { renderLinebreaks } from "../../utils/renderLinebreaks";
-import "./HomeHero.css";
+import "./HeroSection.css";
 
 const skillIcons = {
   Python: "fa-brands fa-python",
@@ -30,7 +30,7 @@ function getSkillKey(skill) {
   return skill.id ?? skill.slug ?? getSkillLabel(skill);
 }
 
-function HomeHero({ headline, intro, skills }) {
+function HeroSection({ headline, intro, skills }) {
   return (
     <section className="home-hero panel">
       <div className="home-hero__content">
@@ -76,4 +76,4 @@ function HomeHero({ headline, intro, skills }) {
   );
 }
 
-export default HomeHero;
+export default HeroSection;
