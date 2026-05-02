@@ -4,7 +4,7 @@ import { getProject } from "../api/projectsApi";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { renderLinebreaks } from "../utils/renderLinebreaks";
 
-function ProjectDetailPage() {
+function ProjectPage() {
   const { slug } = useParams();
   const [project, setProject] = useState(null);
   const [error, setError] = useState(null);
@@ -45,9 +45,7 @@ function ProjectDetailPage() {
 
   return (
     <>
-      <h1 className="title">
-        {hasLiveUrl ? <a href={project.live_url}>{project.title}</a> : project.title}
-      </h1>
+      <h1 className="title">{hasLiveUrl ? <a href={project.live_url}>{project.title}</a> : project.title}</h1>
 
       <div className="summary">{renderLinebreaks(project.summary)}</div>
 
@@ -72,4 +70,4 @@ function ProjectDetailPage() {
   );
 }
 
-export default ProjectDetailPage;
+export default ProjectPage;

@@ -5,7 +5,7 @@ import { usePageTitle } from "../hooks/usePageTitle";
 import { buildRoute } from "../routes/paths";
 import { renderLinebreaks } from "../utils/renderLinebreaks";
 
-function ProjectListPage() {
+function PortfolioPage() {
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(null);
 
@@ -56,4 +56,4 @@ function ProjectListPage() {
   );
 }
 
-export default ProjectListPage;
+export default PortfolioPage;
