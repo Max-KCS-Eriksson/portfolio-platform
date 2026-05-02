@@ -1,8 +1,9 @@
 import { useFrontendContext } from "../../context/useFrontendContext";
+import "./SocialMediaLinks.css";
 
 const socialMediaIcons = {
   gh: "fa-brands fa-github",
-  in: "fa-brands fa-linkedin-in",
+  in: "fa-brands fa-linkedin",
   fb: "fa-brands fa-facebook",
   ig: "fa-brands fa-instagram",
   yt: "fa-brands fa-youtube",
@@ -44,7 +45,9 @@ function SocialMediaLinks() {
               rel="noreferrer"
               aria-label={label}
             >
-              <i className={iconClassName}></i>
+              <i className={iconClassName} aria-hidden="true"></i>
+              <span>{label}</span>
+              <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
             </a>
           </li>
         );

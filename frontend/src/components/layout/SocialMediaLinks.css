@@ -1,0 +1,31 @@
+.social-media-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-7);
+  margin-block: var(--space-5);
+}
+
+.social-media-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.5rem;
+  color: var(--color-text-soft);
+  font-weight: 700;
+}
+
+.social-media-link i:first-child {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+.social-media-link i:last-child {
+  color: var(--color-text-subtle);
+  font-size: 0.75rem;
+}
+
+.social-media-link:hover,
+.social-media-link:hover i {
+  color: var(--color-accent-strong);
+}
