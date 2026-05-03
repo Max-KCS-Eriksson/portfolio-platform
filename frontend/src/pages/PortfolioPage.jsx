@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getProjects } from "../api/projectsApi";
+import HeroSection from "../components/core/HeroSection";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
 import { usePageTitle } from "../hooks/usePageTitle";
 
@@ -31,6 +32,8 @@ function PortfolioPage() {
 
   return (
     <div className="portfolio-page">
+      <HeroSection headline="Portfolio" intro="Portfolio intro TBD" />
+
       {error ? <p className="portfolio-page__empty">Could not load projects.</p> : null}
 
       <section className="portfolio-section" aria-labelledby="featured-projects-heading">
