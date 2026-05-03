@@ -49,7 +49,6 @@ export function mapProject(project) {
     summary: asString(project.summary, "Project summary TBD"),
     description: asString(project.description, "Project description TBD"),
     slug: asString(project.slug),
-    publish: asBoolean(project.publish, true),
     featured: asBoolean(project.featured, false),
     highlighted: asBoolean(project.highlighted, false),
     techStack: mapTechStack(project),

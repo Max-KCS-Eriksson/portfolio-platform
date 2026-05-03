@@ -21,9 +21,8 @@ function PortfolioPage() {
   }, []);
 
   const { featuredProjects, otherProjects } = useMemo(() => {
-    const visibleProjects = projects.filter((project) => project.publish !== false);
-    const featured = visibleProjects.filter((project) => project.featured === true || project.highlighted === true);
-    const other = visibleProjects.filter((project) => !featured.includes(project));
+    const featured = projects.filter((project) => project.featured === true || project.highlighted === true);
+    const other = projects.filter((project) => !featured.includes(project));
 
     return {
       featuredProjects: featured,
