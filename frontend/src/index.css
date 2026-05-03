@@ -181,8 +181,21 @@ a:hover {
   color: var(--color-accent-strong);
 }
 
-.button-link,
 .cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.cta-link:hover {
+  color: var(--color-accent-strong);
+}
+
+.button-link,
+.cta-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -196,21 +209,21 @@ a:hover {
 }
 
 .button-link:hover,
-.cta-link:hover {
+.cta-button:hover {
   color: var(--color-text-inverse);
   background: var(--color-accent-strong);
   border-color: var(--color-accent-strong);
 }
 
 .button-link.secondary,
-.cta-link.secondary {
+.cta-button.secondary {
   color: var(--color-text);
   background: var(--color-transparent);
   border-color: var(--color-border-visible);
 }
 
 .button-link.secondary:hover,
-.cta-link.secondary:hover {
+.cta-button.secondary:hover {
   color: var(--color-accent-strong);
   background: var(--color-surface-hover);
   border-color: var(--color-border-accent-alpha);

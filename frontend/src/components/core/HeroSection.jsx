@@ -56,10 +56,10 @@ function HeroSection({ headline, intro, skills }) {
         </ul>
 
         <div className="home-actions">
-          <Link className="cta-link" to={ROUTES.portfolio}>
+          <Link className="cta cta-button" to={ROUTES.portfolio}>
             View Portfolio<span aria-hidden="true">-&gt;</span>
           </Link>
-          <Link className="cta-link secondary" to={ROUTES.about}>
+          <Link className="cta cta-button secondary" to={ROUTES.about}>
             About Me
           </Link>
 
