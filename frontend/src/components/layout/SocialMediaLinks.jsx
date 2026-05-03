@@ -17,10 +17,19 @@ const socialMediaLabels = {
   yt: "YouTube",
 };
 
-function SocialMediaLinks() {
+/**
+ * Render social media links from explicit props or frontend context.
+ *
+ * @param {object} props
+ * @param {Array<{id: number|string, social_media: string, url: string}>} [props.links]
+ * Optional social-media link data to render instead of the site-wide links from frontend context.
+ * @param {string} [props.linkClassName]
+ * Optional class name for each anchor so callers can reuse provider icons with caller-owned link styling.
+ */
+function SocialMediaLinks({ links, linkClassName = "social-media-link" }) {
   const { contextData } = useFrontendContext();
 
-  const socialMediaLinks = contextData?.social_media_links ?? [];
+  const socialMediaLinks = links ?? contextData?.social_media_links ?? [];
 
   if (socialMediaLinks.length === 0) {
     return null;
@@ -38,13 +47,7 @@ function SocialMediaLinks() {
 
         return (
           <li className="social-media-item" key={socialMediaLink.id}>
-            <a
-              className="social-media-link"
-              href={socialMediaLink.url}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={label}
-            >
+            <a className={linkClassName} href={socialMediaLink.url} target="_blank" rel="noreferrer" aria-label={label}>
               <i className={iconClassName} aria-hidden="true"></i>
               <span>{label}</span>
               <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
