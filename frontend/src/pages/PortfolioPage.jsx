@@ -3,6 +3,7 @@ import { getProjects } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
 import { usePageTitle } from "../hooks/usePageTitle";
+import "./PortfolioPage.css";
 
 function PortfolioPage() {
   const [projects, setProjects] = useState([]);
