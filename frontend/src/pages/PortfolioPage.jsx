@@ -37,9 +37,9 @@ function PortfolioPage() {
 
       {error ? <p className="portfolio-page__empty">Could not load projects.</p> : null}
 
-      {featuredProjects.length > 0 && <ProjectsSection projects={featuredProjects} ctaCards={true} />}
+      {featuredProjects.length > 0 && <ProjectsSection projects={featuredProjects} cardIcon={true} ctaCards={true} />}
 
-      {otherProjects.length > 0 && <ProjectsSection projects={otherProjects} tight={true} />}
+      {otherProjects.length > 0 && <ProjectsSection projects={otherProjects} cardIcon={true} tight={true} />}
     </div>
   );
 }
