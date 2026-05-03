@@ -124,6 +124,7 @@
   color: var(--color-accent-strong);
 }
 
+/* X-Small devices */
 @media (max-width: 480px) {
   .project-card {
     padding: var(--space-4);

@@ -105,6 +105,7 @@
   box-shadow: var(--shadow-panel);
 }
 
+/* Small devices */
 @media (max-width: 760px) {
   .home-hero {
     grid-template-columns: 1fr;
@@ -126,6 +127,7 @@
   }
 }
 
+/* X-Small devices */
 @media (max-width: 480px) {
   .home-hero {
     padding: var(--space-4);
