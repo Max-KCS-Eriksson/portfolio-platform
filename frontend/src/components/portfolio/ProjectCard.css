@@ -24,7 +24,7 @@
   border-radius: var(--radius-card);
 }
 
-.project-card__icon i {
+.project-card__icon svg {
   font-size: 1.2rem;
 }
 
@@ -46,7 +46,7 @@
   border-radius: var(--radius-sm);
 }
 
-.project-card__badge i {
+.project-card__badge svg {
   color: var(--color-accent);
   font-size: 0.75rem;
 }
@@ -128,7 +128,7 @@
   font-weight: 700;
 }
 
-.project-card__link i:last-child {
+.project-card__link svg:last-child {
   font-size: 0.75rem;
 }
 
@@ -136,7 +136,7 @@
   color: var(--color-text-soft);
 }
 
-.project-card__link.primary i:first-child {
+.project-card__link.primary svg:first-child {
   color: var(--color-accent-cyan);
 }
 
@@ -144,12 +144,12 @@
   color: var(--color-text-muted);
 }
 
-.project-card__link.secondary i:first-child {
+.project-card__link.secondary svg:first-child {
   color: var(--color-text-muted);
 }
 
 .project-card__link:hover,
-.project-card__link:hover i {
+.project-card__link:hover svg {
   color: var(--color-accent-strong);
 }
 

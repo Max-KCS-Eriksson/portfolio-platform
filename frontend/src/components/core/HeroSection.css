@@ -74,7 +74,7 @@
   min-height: 2.15rem;
 }
 
-.hero-section__skill i {
+.hero-section__skill svg {
   color: var(--color-accent-cyan);
 }
 

@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { faArrowRight, faArrowUpRightFromSquare, faCode, faDisplay } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import SocialMediaLinks from "../layout/SocialMediaLinks";
 import { buildRoute } from "../../routes/paths";
@@ -41,13 +44,13 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
     <article className={getProjectCardClassName(ctaCard, tight)}>
       {icon && (
         <div className="project-card__icon" aria-hidden="true">
-          <i className="fa-solid fa-code"></i>
+          <FontAwesomeIcon icon={faCode} />
         </div>
       )}
 
       {project.featured && ctaCard && (
         <p className="project-card__badge">
-          <i className="fa-regular fa-star" aria-hidden="true"></i>
+          <FontAwesomeIcon icon={faStar} aria-hidden="true" />
           <span>Featured</span>
         </p>
       )}
@@ -64,16 +67,17 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
 
       <div className="project-card__links">
         <Link className="cta-link" to={detailPath}>
-          View project <span aria-hidden="true">-&gt;</span>
+          <span>View project</span>
+          <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
         </Link>
 
         <SocialMediaLinks links={repoLinks} linkClassName="project-card__link secondary" />
 
         {hasLiveUrl && (
           <a className="project-card__link primary" href={project.live_url} target="_blank" rel="noreferrer">
-            <i className="fa-solid fa-display" aria-hidden="true"></i>
+            <FontAwesomeIcon icon={faDisplay} aria-hidden="true" />
             <span>Live demo</span>
-            <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />
           </a>
         )}
       </div>

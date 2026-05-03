@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileLines } from "@fortawesome/free-regular-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { getBlogPosts } from "../api/blogApi";
 import { getProjects } from "../api/projectsApi";
@@ -63,7 +66,8 @@ function HomePage() {
   const heroActions = (
     <>
       <Link className="cta cta-button" to={ROUTES.portfolio}>
-        View Portfolio<span aria-hidden="true">-&gt;</span>
+        <span>View Portfolio</span>
+        <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
       </Link>
       <Link className="cta cta-button secondary" to={ROUTES.about}>
         About Me
@@ -85,7 +89,8 @@ function HomePage() {
         <div className="home-section__header">
           <h2 id="home-writing-heading">Latest Writing</h2>
           <Link className="section-link" to={ROUTES.blog}>
-            View all posts <span aria-hidden="true">-&gt;</span>
+            <span>View all posts</span>
+            <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
           </Link>
         </div>
 
@@ -94,7 +99,7 @@ function HomePage() {
             {blogPosts.map((blogPost) => (
               <li className="home-writing-card card" key={blogPost.id ?? blogPost.slug}>
                 <div className="home-writing-icon" aria-hidden="true">
-                  <i className="fa-regular fa-file-lines"></i>
+                  <FontAwesomeIcon icon={faFileLines} />
                 </div>
 
                 <div>
@@ -109,7 +114,8 @@ function HomePage() {
                 )}
 
                 <Link className="section-link" to={buildRoute.blogPostDetail(blogPost.slug)}>
-                  Read more <span aria-hidden="true">-&gt;</span>
+                  <span>Read more</span>
+                  <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
                 </Link>
               </li>
             ))}

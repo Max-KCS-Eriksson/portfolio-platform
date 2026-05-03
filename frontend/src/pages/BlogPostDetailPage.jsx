@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import { getBlogPost } from "../api/blogApi";
 import { usePageTitle } from "../hooks/usePageTitle";
@@ -97,7 +99,7 @@ function BlogPostDetailPage() {
                   aria-label="Copy snippet"
                   onClick={() => copySnippet(snippet.snippet)}
                 >
-                  <i className="fa-regular fa-copy"></i>
+                  <FontAwesomeIcon icon={faCopy} aria-hidden="true" />
                 </button>
               </section>
 

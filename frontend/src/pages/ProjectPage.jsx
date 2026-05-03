@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import { getProject } from "../api/projectsApi";
 import { usePageTitle } from "../hooks/usePageTitle";
@@ -52,14 +55,14 @@ function ProjectPage() {
       <ul className="project-links">
         <li className="project-links-item">
           <a className="project-link" href={project.repo_url} aria-label={`${project.title} repository`}>
-            <i className="fa-brands fa-github"></i>
+            <FontAwesomeIcon icon={faGithub} aria-hidden="true" />
           </a>
         </li>
 
         {hasLiveUrl && (
           <li className="project-links-item">
             <a className="project-link" href={project.live_url} aria-label={`${project.title} live site`}>
-              <i className="fa-solid fa-globe"></i>
+              <FontAwesomeIcon icon={faGlobe} aria-hidden="true" />
             </a>
           </li>
         )}

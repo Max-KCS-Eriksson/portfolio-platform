@@ -1,12 +1,15 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faGithub, faInstagram, faLinkedin, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { useFrontendContext } from "../../context/useFrontendContext";
 import "./SocialMediaLinks.css";
 
 const socialMediaIcons = {
-  gh: "fa-brands fa-github",
-  in: "fa-brands fa-linkedin",
-  fb: "fa-brands fa-facebook",
-  ig: "fa-brands fa-instagram",
-  yt: "fa-brands fa-youtube",
+  gh: faGithub,
+  in: faLinkedin,
+  fb: faFacebook,
+  ig: faInstagram,
+  yt: faYoutube,
 };
 
 const socialMediaLabels = {
@@ -38,19 +41,19 @@ function SocialMediaLinks({ links, linkClassName = "social-media-link" }) {
   return (
     <ul className="social-media-links">
       {socialMediaLinks.map((socialMediaLink) => {
-        const iconClassName = socialMediaIcons[socialMediaLink.social_media];
+        const icon = socialMediaIcons[socialMediaLink.social_media];
         const label = socialMediaLabels[socialMediaLink.social_media];
 
-        if (!iconClassName || !label) {
+        if (!icon || !label) {
           return null;
         }
 
         return (
           <li className="social-media-item" key={socialMediaLink.id}>
             <a className={linkClassName} href={socialMediaLink.url} target="_blank" rel="noreferrer" aria-label={label}>
-              <i className={iconClassName} aria-hidden="true"></i>
+              <FontAwesomeIcon icon={icon} aria-hidden="true" />
               <span>{label}</span>
-              <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />
             </a>
           </li>
         );

@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import ProjectCard from "./ProjectCard";
 import "./ProjectsSection.css";
 
@@ -47,7 +49,8 @@ function ProjectsSection({ projects, cardIcon = false, ctaCards = false, tight =
       <div className="projects-section-block__header">
         <h2 id={headingId}>{heading}</h2>
         <a className="projects-section-block__link" href={linkHref}>
-          {linkText} <span aria-hidden="true">-&gt;</span>
+          <span>{linkText}</span>
+          <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
         </a>
       </div>
 

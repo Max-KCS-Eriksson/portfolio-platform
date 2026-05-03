@@ -15,17 +15,17 @@
   font-weight: 700;
 }
 
-.social-media-link i:first-child {
+.social-media-link svg:first-child {
   color: var(--color-text-muted);
   font-size: 1.1rem;
 }
 
-.social-media-link i:last-child {
+.social-media-link svg:last-child {
   color: var(--color-text-subtle);
   font-size: 0.75rem;
 }
 
 .social-media-link:hover,
-.social-media-link:hover i {
+.social-media-link:hover svg {
   color: var(--color-accent-strong);
 }

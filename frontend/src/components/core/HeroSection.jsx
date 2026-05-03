@@ -1,14 +1,17 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDocker, faJava, faLinux, faPostgresql, faPython } from "@fortawesome/free-brands-svg-icons";
+import { faD, faLeaf, faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { renderLinebreaks } from "../../utils/renderLinebreaks";
 import "./HeroSection.css";
 
 const skillIcons = {
-  Python: "fa-brands fa-python",
-  Django: "fa-solid fa-d",
-  Java: "fa-brands fa-java",
-  "Spring Boot": "fa-solid fa-leaf",
-  PostgreSQL: "fa-brands fa-postgresql",
-  Docker: "fa-brands fa-docker",
-  Linux: "fa-brands fa-linux",
+  Python: faPython,
+  Django: faD,
+  Java: faJava,
+  "Spring Boot": faLeaf,
+  PostgreSQL: faPostgresql,
+  Docker: faDocker,
+  Linux: faLinux,
 };
 
 function getSkillLabel(skill) {
@@ -66,7 +69,7 @@ function HeroSection({ headline, intro, skills = [], actions = null }) {
 
                   return (
                     <li className="tag hero-section__skill" key={getSkillKey(skill)}>
-                      {skillIcons[label] && <i className={skillIcons[label]} aria-hidden="true"></i>}
+                      {skillIcons[label] && <FontAwesomeIcon icon={skillIcons[label]} aria-hidden="true" />}
                       <span>{label}</span>
                     </li>
                   );
@@ -81,7 +84,7 @@ function HeroSection({ headline, intro, skills = [], actions = null }) {
 
       <div className="hero-section__visual" aria-hidden="true">
         <div className="hero-section__terminal">
-          <i className="fa-solid fa-terminal"></i>
+          <FontAwesomeIcon icon={faTerminal} />
         </div>
       </div>
     </section>
