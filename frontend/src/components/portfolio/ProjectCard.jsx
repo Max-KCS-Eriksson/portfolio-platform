@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
-import { faArrowRight, faArrowUpRightFromSquare, faCode, faDisplay } from "@fortawesome/free-solid-svg-icons";
+import { faFileCode, faStar } from "@fortawesome/free-regular-svg-icons";
+import { faArrowRight, faArrowUpRightFromSquare, faDisplay } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import SocialMediaLinks from "../layout/SocialMediaLinks";
 import { buildRoute } from "../../routes/paths";
@@ -39,12 +39,13 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
   const hasLiveUrl = Boolean(project.live_url);
   const repoLinks = getRepoLinks(project);
   const detailPath = buildRoute.projectDetail(getProjectSlug(project));
+  const techStack = project.techStack?.length > 0 ? project.techStack : ["Project tech stack TBD"];
 
   return (
     <article className={getProjectCardClassName(ctaCard, tight)}>
       {icon && (
         <div className="project-card__icon" aria-hidden="true">
-          <FontAwesomeIcon icon={faCode} />
+          <FontAwesomeIcon icon={faFileCode} />
         </div>
       )}
 
@@ -62,7 +63,11 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
       <div className="project-card__summary">{renderLinebreaks(project.summary)}</div>
 
       <ul className="project-card__tags" aria-label={`${project.title} technologies`}>
-        <li className="project-card__tag">Project tech stack TBD</li>
+        {techStack.map((tech) => (
+          <li className="project-card__tag" key={tech}>
+            {tech}
+          </li>
+        ))}
       </ul>
 
       <div className="project-card__links">
