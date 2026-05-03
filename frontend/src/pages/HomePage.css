@@ -1,0 +1,138 @@
+.home-page {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.home-section {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.home-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.home-section__header h2 {
+  position: relative;
+  margin: 0;
+  padding-inline-start: var(--space-4);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+}
+
+.home-section__header h2::before {
+  position: absolute;
+  top: 0.12em;
+  bottom: 0.12em;
+  left: 0;
+  width: 0.22rem;
+  content: "";
+  background: var(--color-accent);
+  border-radius: 999px;
+}
+
+.section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.section-link:hover {
+  color: var(--color-accent-strong);
+}
+
+.home-writing-card h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.home-writing-card h3 a {
+  color: var(--color-text);
+}
+
+.home-writing-card h3 a:hover {
+  color: var(--color-accent-strong);
+}
+
+.home-writing-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: 0;
+}
+
+.home-writing-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+}
+
+.home-writing-icon {
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  aspect-ratio: 1;
+  color: var(--color-accent-cyan);
+  background: var(--color-cyan-300-alpha-08);
+  border: 1px solid var(--color-border-cyan);
+  border-radius: var(--radius-card);
+}
+
+.home-writing-icon i {
+  font-size: 1.35rem;
+}
+
+.home-writing-card p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+.home-writing-card time {
+  align-self: start;
+  color: var(--color-text-subtle);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.home-writing-card .section-link {
+  grid-column: 3;
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.home-empty-state {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* X-Small devices */
+@media (max-width: 480px) {
+  .home-writing-card {
+    padding: var(--space-4);
+  }
+
+  .home-section__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .home-writing-card {
+    grid-template-columns: 1fr;
+  }
+
+  .home-writing-card time,
+  .home-writing-card .section-link {
+    grid-column: auto;
+  }
+
+  .home-writing-icon {
+    width: 3.1rem;
+  }
+}
