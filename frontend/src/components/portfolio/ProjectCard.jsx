@@ -27,16 +27,24 @@ function getProjectSlug(project) {
  * Project data rendered in the card.
  * @param {boolean} [props.ctaCard]
  * Applies accent card styling when the caller needs visual focus.
+ * @param {boolean} [props.icon]
+ * Renders the default project card icon.
  * @param {boolean} [props.tight]
  * Applies compact card density for secondary project lists.
  */
-function ProjectCard({ project, ctaCard = false, tight = false }) {
+function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) {
   const hasLiveUrl = Boolean(project.live_url);
   const repoLinks = getRepoLinks(project);
   const detailPath = buildRoute.projectDetail(getProjectSlug(project));
 
   return (
     <article className={getProjectCardClassName(ctaCard, tight)}>
+      {icon && (
+        <div className="project-card__icon" aria-hidden="true">
+          <i className="fa-solid fa-code"></i>
+        </div>
+      )}
+
       {project.featured && ctaCard && (
         <p className="project-card__badge">
           <i className="fa-regular fa-star" aria-hidden="true"></i>

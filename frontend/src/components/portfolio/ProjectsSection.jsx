@@ -33,10 +33,12 @@ function getProjectsSectionClassName(tight) {
  * Non-empty project data rendered as a titled card section.
  * @param {boolean} [props.ctaCards]
  * Applies CTA card styling to every rendered project card.
+ * @param {boolean} [props.cardIcon]
+ * Renders the default project card icon on every rendered project card.
  * @param {boolean} [props.tight]
  * Applies compact grid density for secondary project lists.
  */
-function ProjectsSection({ projects, ctaCards = false, tight = false }) {
+function ProjectsSection({ projects, cardIcon = false, ctaCards = false, tight = false }) {
   const { id, heading, linkHref, linkText } = getProjectsSectionConfig(projects);
   const headingId = `${id}-heading`;
 
@@ -52,7 +54,7 @@ function ProjectsSection({ projects, ctaCards = false, tight = false }) {
       <ul className={getProjectsSectionClassName(tight)}>
         {projects.map((project) => (
           <li className="projects-section__item" key={project.id ?? project.slug}>
-            <ProjectCard ctaCard={ctaCards} project={project} tight={tight} />
+            <ProjectCard project={project} icon={cardIcon} ctaCard={ctaCards} tight={tight} />
           </li>
         ))}
       </ul>
