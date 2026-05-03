@@ -25,7 +25,7 @@ class Project(models.Model):
 
     slug = models.SlugField(unique=True, default="")
 
-    publish = models.BooleanField(default=True)
+    public = models.BooleanField(default=True)
     display_order = models.PositiveIntegerField(
         default=0,
         help_text="Lower numbers appear first.",
