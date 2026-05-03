@@ -520,7 +520,6 @@ main {
 }
 
 .project-links,
-.social-media-links,
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -530,7 +529,6 @@ main {
 }
 
 .project-link,
-.social-media-link,
 .remove-tag-filter,
 .copy-snippet,
 #tags-menu-button,
@@ -547,7 +545,6 @@ main {
 }
 
 .project-link:hover,
-.social-media-link:hover,
 .remove-tag-filter:hover,
 .copy-snippet:hover,
 #tags-menu-button:hover,
