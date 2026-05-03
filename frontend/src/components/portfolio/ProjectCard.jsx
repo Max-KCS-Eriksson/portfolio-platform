@@ -5,10 +5,8 @@ import { renderLinebreaks } from "../../utils/renderLinebreaks";
 import { slugifyTag } from "../../utils/slugifyTag";
 import "./ProjectCard.css";
 
-function getProjectCardClassName(project) {
-  const featured = project.featured === true;
-
-  return `project-card card ${featured ? "project-card--featured" : ""}`;
+function getProjectCardClassName(ctaCard, tight) {
+  return ["project-card card", ctaCard ? "cta-card" : "", tight ? "secondary" : ""].filter(Boolean).join(" ");
 }
 
 function getRepoLinks(project) {
@@ -21,15 +19,25 @@ function getProjectSlug(project) {
   return project.slug || slugifyTag(project.title);
 }
 
-function ProjectCard({ project }) {
+/**
+ * Render a project summary card.
+ *
+ * @param {object} props
+ * @param {object} props.project
+ * Project data rendered in the card.
+ * @param {boolean} [props.ctaCard]
+ * Applies accent card styling when the caller needs visual focus.
+ * @param {boolean} [props.tight]
+ * Applies compact card density for secondary project lists.
+ */
+function ProjectCard({ project, ctaCard = false, tight = false }) {
   const hasLiveUrl = Boolean(project.live_url);
-  const featured = project.featured === true;
   const repoLinks = getRepoLinks(project);
   const detailPath = buildRoute.projectDetail(getProjectSlug(project));
 
   return (
-    <article className={getProjectCardClassName(project)}>
-      {featured && (
+    <article className={getProjectCardClassName(ctaCard, tight)}>
+      {project.featured && ctaCard && (
         <p className="project-card__badge">
           <i className="fa-regular fa-star" aria-hidden="true"></i>
           <span>Featured</span>

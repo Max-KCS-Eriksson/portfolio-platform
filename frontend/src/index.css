@@ -229,6 +229,10 @@ a:hover {
   border-color: var(--color-border-accent-alpha);
 }
 
+.cta-card {
+  border-color: var(--color-accent);
+}
+
 a:focus-visible,
 button:focus-visible,
 [role="button"]:focus-visible {
