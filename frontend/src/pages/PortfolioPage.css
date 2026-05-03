@@ -3,44 +3,7 @@
   gap: var(--space-6);
 }
 
-.portfolio-section {
-  display: grid;
-  gap: var(--space-4);
-}
-
-.portfolio-section__header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-4);
-}
-
-.portfolio-section__header h2 {
-  position: relative;
-  margin: 0;
-  padding-inline-start: var(--space-4);
-}
-
-.portfolio-section__header h2::before {
-  position: absolute;
-  top: 0.12em;
-  bottom: 0.12em;
-  left: 0;
-  width: 0.22rem;
-  content: "";
-  background: var(--color-accent);
-  border-radius: 999px;
-}
-
 .portfolio-page__empty {
   margin: 0;
   color: var(--color-text-muted);
-}
-
-/* X-Small devices */
-@media (max-width: 480px) {
-  .portfolio-section__header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
 }

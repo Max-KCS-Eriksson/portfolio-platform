@@ -37,26 +37,9 @@ function PortfolioPage() {
 
       {error ? <p className="portfolio-page__empty">Could not load projects.</p> : null}
 
-      <section className="portfolio-section" aria-labelledby="featured-projects-heading">
-        <div className="portfolio-section__header">
-          <h2 id="featured-projects-heading">Featured Projects</h2>
-          <a className="section-link" href="#other-projects">
-            View all featured <span aria-hidden="true">-&gt;</span>
-          </a>
-        </div>
-        <ProjectsSection ctaCards={true} projects={featuredProjects} />
-      </section>
+      {featuredProjects.length > 0 && <ProjectsSection projects={featuredProjects} ctaCards={true} />}
 
-      <section className="portfolio-section" aria-labelledby="other-projects-heading" id="other-projects">
-        <div className="portfolio-section__header">
-          <h2 id="other-projects-heading">Other Projects</h2>
-          <a className="section-link" href="#other-projects">
-            View all projects <span aria-hidden="true">-&gt;</span>
-          </a>
-        </div>
-
-        <ProjectsSection projects={otherProjects} tight={true} />
-      </section>
+      {otherProjects.length > 0 && <ProjectsSection projects={otherProjects} tight={true} />}
     </div>
   );
 }

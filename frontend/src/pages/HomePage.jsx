@@ -59,6 +59,7 @@ function HomePage() {
   const headline = homeContent.headline || "Hero headline TBD";
   const intro = homeContent.intro || "Hero intro TBD";
   const skills = homeContent.skills?.length > 0 ? homeContent.skills : ["Skills TBD"];
+  const featuredProjects = projects.filter((project) => project.featured === true || project.highlighted === true);
   const heroActions = (
     <>
       <Link className="cta cta-button" to={ROUTES.portfolio}>
@@ -76,20 +77,9 @@ function HomePage() {
     <div className="home-page">
       <HeroSection headline={headline} intro={intro} skills={skills} actions={heroActions} />
 
-      <section className="home-section" aria-labelledby="home-projects-heading">
-        <div className="home-section__header">
-          <h2 id="home-projects-heading">Featured Projects</h2>
-          <Link className="section-link" to={ROUTES.portfolio}>
-            View all projects <span aria-hidden="true">-&gt;</span>
-          </Link>
-        </div>
+      {projectsError ? <p className="home-empty-state">Could not load projects.</p> : null}
 
-        {projectsError ? (
-          <p className="home-empty-state">Could not load projects.</p>
-        ) : (
-          <ProjectsSection projects={projects} />
-        )}
-      </section>
+      {!projectsError && featuredProjects.length > 0 ? <ProjectsSection projects={featuredProjects} /> : null}
 
       <section className="home-section" aria-labelledby="home-writing-heading">
         <div className="home-section__header">
