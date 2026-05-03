@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getBlogPosts } from "../api/blogApi";
 import { getProjects } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
+import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
 import { useFrontendContext } from "../context/useFrontendContext";
 import { usePageTitle } from "../hooks/usePageTitle";
@@ -58,10 +59,22 @@ function HomePage() {
   const headline = homeContent.headline || "Hero headline TBD";
   const intro = homeContent.intro || "Hero intro TBD";
   const skills = homeContent.skills?.length > 0 ? homeContent.skills : ["Skills TBD"];
+  const heroActions = (
+    <>
+      <Link className="cta cta-button" to={ROUTES.portfolio}>
+        View Portfolio<span aria-hidden="true">-&gt;</span>
+      </Link>
+      <Link className="cta cta-button secondary" to={ROUTES.about}>
+        About Me
+      </Link>
+
+      <SocialMediaLinks />
+    </>
+  );
 
   return (
     <div className="home-page">
-      <HeroSection headline={headline} intro={intro} skills={skills} />
+      <HeroSection headline={headline} intro={intro} skills={skills} actions={heroActions} />
 
       <section className="home-section" aria-labelledby="home-projects-heading">
         <div className="home-section__header">

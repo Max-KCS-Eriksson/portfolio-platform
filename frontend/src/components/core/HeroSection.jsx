@@ -1,6 +1,3 @@
-import { Link } from "react-router-dom";
-import SocialMediaLinks from "../layout/SocialMediaLinks";
-import { ROUTES } from "../../routes/paths";
 import { renderLinebreaks } from "../../utils/renderLinebreaks";
 import "./HeroSection.css";
 
@@ -30,45 +27,60 @@ function getSkillKey(skill) {
   return skill.id ?? skill.slug ?? getSkillLabel(skill);
 }
 
-function HeroSection({ headline, intro, skills }) {
+/**
+ * Render the shared page hero.
+ *
+ * @param {object} props
+ * @param {string} props.headline
+ * Primary hero heading.
+ * @param {string} props.intro
+ * Introductory body copy rendered below the heading.
+ * @param {Array<string|object>} [props.skills]
+ * Optional skills rendered as technology tags.
+ * @param {import("react").ReactNode} [props.actions]
+ * Optional action links rendered at the bottom of the hero copy.
+ */
+function HeroSection({ headline, intro, skills = [], actions = null }) {
+  const hasSkills = skills.length > 0;
+  const hasActions = actions !== null;
+
   return (
-    <section className="home-hero panel">
-      <div className="home-hero__content">
-        <h1 className="home-hero__title">{headline}</h1>
+    <section className="hero-section panel">
+      <div className="hero-section__content">
+        <div className="hero-section__copy">
+          <h1 className="hero-section__title">{headline}</h1>
 
-        <div className="home-hero__intro">{renderLinebreaks(intro)}</div>
-
-        <ul className="home-skills" aria-label="Core technologies">
-          {skills.map((skill) => {
-            const label = getSkillLabel(skill);
-
-            if (!label) {
-              return null;
-            }
-
-            return (
-              <li className="tag home-skill" key={getSkillKey(skill)}>
-                {skillIcons[label] && <i className={skillIcons[label]} aria-hidden="true"></i>}
-                <span>{label}</span>
-              </li>
-            );
-          })}
-        </ul>
-
-        <div className="home-actions">
-          <Link className="cta cta-button" to={ROUTES.portfolio}>
-            View Portfolio<span aria-hidden="true">-&gt;</span>
-          </Link>
-          <Link className="cta cta-button secondary" to={ROUTES.about}>
-            About Me
-          </Link>
-
-          <SocialMediaLinks />
+          <div className="hero-section__intro">{renderLinebreaks(intro)}</div>
         </div>
+
+        {(hasSkills || hasActions) && (
+          <div className="hero-section__footer">
+            {hasSkills && (
+              <ul className="hero-section__skills" aria-label="Core technologies">
+                {skills.map((skill) => {
+                  const label = getSkillLabel(skill);
+
+                  if (!label) {
+                    return null;
+                  }
+
+                  return (
+                    <li className="tag hero-section__skill" key={getSkillKey(skill)}>
+                      {skillIcons[label] && <i className={skillIcons[label]} aria-hidden="true"></i>}
+                      <span>{label}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+
+            {hasActions && <div className="hero-section__actions">{actions}</div>}
+          </div>
+        )}
       </div>
 
-      <div className="home-hero__visual" aria-hidden="true">
-        <div className="terminal-mark">
+      <div className="hero-section__visual" aria-hidden="true">
+        <div className="hero-section__terminal">
           <i className="fa-solid fa-terminal"></i>
         </div>
       </div>
