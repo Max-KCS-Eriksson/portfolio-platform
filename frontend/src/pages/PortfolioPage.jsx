@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import { getProjects } from "../api/projectsApi";
+import ProjectsSection from "../components/portfolio/ProjectsSection";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { buildRoute } from "../routes/paths";
-import { renderLinebreaks } from "../utils/renderLinebreaks";
 
 function PortfolioPage() {
   const [projects, setProjects] = useState([]);
@@ -20,38 +18,41 @@ function PortfolioPage() {
       });
   }, []);
 
-  if (error) {
-    return (
-      <div className="main-menu">
-        <h1 className="title">Projects</h1>
-        <p className="description">Could not load projects.</p>
-      </div>
-    );
-  }
+  const { featuredProjects, otherProjects } = useMemo(() => {
+    const visibleProjects = projects.filter((project) => project.publish !== false);
+    const featured = visibleProjects.filter((project) => project.featured === true || project.highlighted === true);
+    const other = visibleProjects.filter((project) => !featured.includes(project));
+
+    return {
+      featuredProjects: featured,
+      otherProjects: other,
+    };
+  }, [projects]);
 
   return (
-    <div className="main-menu">
-      {projects.length > 0 ? (
-        <ul>
-          {projects.map((project) => (
-            <li className="nav-item" key={project.id ?? project.slug}>
-              <h2>
-                <Link className="nav-link" to={buildRoute.projectDetail(project.slug)}>
-                  {project.title}
-                  <span className="path">/</span>
-                </Link>
-              </h2>
+    <div className="portfolio-page">
+      {error ? <p className="portfolio-page__empty">Could not load projects.</p> : null}
 
-              <div className="summary">{renderLinebreaks(project.summary)}</div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <>
-          <h1 className="title">Projects</h1>
-          <p className="description">Coming soon</p>
-        </>
-      )}
+      <section className="portfolio-section" aria-labelledby="featured-projects-heading">
+        <div className="portfolio-section__header">
+          <h2 id="featured-projects-heading">Featured Projects</h2>
+          <a className="section-link" href="#other-projects">
+            View all featured <span aria-hidden="true">-&gt;</span>
+          </a>
+        </div>
+        <ProjectsSection ctaCards={true} projects={featuredProjects} />
+      </section>
+
+      <section className="portfolio-section" aria-labelledby="other-projects-heading" id="other-projects">
+        <div className="portfolio-section__header">
+          <h2 id="other-projects-heading">Other Projects</h2>
+          <a className="section-link" href="#other-projects">
+            View all projects <span aria-hidden="true">-&gt;</span>
+          </a>
+        </div>
+
+        <ProjectsSection projects={otherProjects} tight={true} />
+      </section>
     </div>
   );
 }
