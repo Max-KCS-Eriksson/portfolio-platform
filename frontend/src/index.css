@@ -419,6 +419,10 @@ main {
   min-height: 18rem;
 }
 
+.wide-content {
+  width: 100%;
+}
+
 .main-content>*:last-child,
 .main-menu>*:last-child,
 .paragraph-section>*:last-child,
