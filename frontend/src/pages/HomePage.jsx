@@ -4,7 +4,7 @@ import { faFileLines } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { getBlogPosts } from "../api/blogApi";
-import { getProjects } from "../api/projectsApi";
+import { getProjectsByFeatured } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
@@ -35,7 +35,7 @@ function formatDate(value) {
 
 function HomePage() {
   const { contextData } = useFrontendContext();
-  const [projects, setProjects] = useState([]);
+  const [featuredProjects, setFeaturedProjects] = useState([]);
   const [blogPosts, setBlogPosts] = useState([]);
   const [projectsError, setProjectsError] = useState(null);
   const [blogPostsError, setBlogPostsError] = useState(null);
@@ -43,8 +43,8 @@ function HomePage() {
   usePageTitle("");
 
   useEffect(() => {
-    getProjects()
-      .then(setProjects)
+    getProjectsByFeatured(true)
+      .then(setFeaturedProjects)
       .catch((error) => {
         console.error(error);
         setProjectsError(error);
@@ -62,7 +62,6 @@ function HomePage() {
   const headline = homeContent.headline || "Hero headline TBD";
   const intro = homeContent.intro || "Hero intro TBD";
   const skills = homeContent.skills?.length > 0 ? homeContent.skills : ["Skills TBD"];
-  const featuredProjects = projects.filter((project) => project.featured === true || project.highlighted === true);
   const heroActions = (
     <>
       <Link className="cta cta-button" to={ROUTES.portfolio}>

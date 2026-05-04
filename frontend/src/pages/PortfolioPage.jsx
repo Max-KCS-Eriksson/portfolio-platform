@@ -1,34 +1,28 @@
-import { useEffect, useMemo, useState } from "react";
-import { getProjects } from "../api/projectsApi";
+import { useEffect, useState } from "react";
+import { getProjectsByFeatured } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
 import { usePageTitle } from "../hooks/usePageTitle";
 import "./PortfolioPage.css";
 
 function PortfolioPage() {
-  const [projects, setProjects] = useState([]);
+  const [featuredProjects, setFeaturedProjects] = useState([]);
+  const [otherProjects, setOtherProjects] = useState([]);
   const [error, setError] = useState(null);
 
   usePageTitle("Portfolio");
 
   useEffect(() => {
-    getProjects()
-      .then(setProjects)
+    Promise.all([getProjectsByFeatured(true), getProjectsByFeatured(false)])
+      .then(([featuredProjects, otherProjects]) => {
+        setFeaturedProjects(featuredProjects);
+        setOtherProjects(otherProjects);
+      })
       .catch((error) => {
         console.error(error);
         setError(error);
       });
   }, []);
-
-  const { featuredProjects, otherProjects } = useMemo(() => {
-    const featured = projects.filter((project) => project.featured === true || project.highlighted === true);
-    const other = projects.filter((project) => !featured.includes(project));
-
-    return {
-      featuredProjects: featured,
-      otherProjects: other,
-    };
-  }, [projects]);
 
   return (
     <div className="portfolio-page">

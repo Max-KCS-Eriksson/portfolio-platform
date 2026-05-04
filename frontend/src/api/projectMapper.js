@@ -12,6 +12,10 @@ function asBoolean(value, fallback) {
   return typeof value === "boolean" ? value : fallback;
 }
 
+function asNumber(value, fallback = 0) {
+  return typeof value === "number" ? value : fallback;
+}
+
 // Mappers
 
 function mapTechStack(project) {
@@ -51,6 +55,7 @@ export function mapProject(project) {
     slug: asString(project.slug),
     featured: asBoolean(project.featured, false),
     highlighted: asBoolean(project.highlighted, false),
+    display_order: asNumber(project.display_order ?? project.displayOrder),
     techStack: mapTechStack(project),
   };
 }
