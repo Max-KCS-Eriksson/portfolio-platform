@@ -6,11 +6,28 @@ from .models import Project
 from .serializers import ProjectSerializer
 
 
+def get_featured_filter(value):
+    if value == "true":
+        return True
+
+    if value == "false":
+        return False
+
+    return None
+
+
 class ProjectsListView(APIView):
     """Overview of all showcased projects."""
 
     def get(self, request):
-        projects = Project.objects.filter(public=True)
+        project_filters = {"public": True}
+        featured = get_featured_filter(request.query_params.get("featured"))
+
+        if featured is not None:
+            project_filters["featured"] = featured
+
+        projects = Project.objects.filter(**project_filters)
+
         return Response(ProjectSerializer(projects, many=True).data)
 
 
