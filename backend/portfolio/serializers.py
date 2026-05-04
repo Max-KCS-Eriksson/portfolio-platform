@@ -14,4 +14,6 @@ class ProjectSerializer(serializers.ModelSerializer):
             "summary",
             "description",
             "slug",
+            "featured",
+            "display_order",
         )
