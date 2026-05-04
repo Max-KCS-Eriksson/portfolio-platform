@@ -229,10 +229,6 @@ a:hover {
   border-color: var(--color-border-accent-alpha);
 }
 
-.cta-card {
-  border-color: var(--color-accent);
-}
-
 a:focus-visible,
 button:focus-visible,
 [role="button"]:focus-visible {
@@ -497,6 +493,15 @@ main {
 .main-menu>ul>.nav-item:hover {
   background: var(--color-surface-strong);
   border-color: var(--color-border-accent-alpha);
+}
+
+.card.cta-card {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-panel-featured);
+}
+
+.card.cta-card:hover {
+  border-color: var(--color-accent-strong);
 }
 
 .main-menu {

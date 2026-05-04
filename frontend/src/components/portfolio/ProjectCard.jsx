@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileCode, faStar } from "@fortawesome/free-regular-svg-icons";
-import { faArrowRight, faArrowUpRightFromSquare, faDisplay } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faDisplay } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import SocialMediaLinks from "../layout/SocialMediaLinks";
 import { buildRoute } from "../../routes/paths";
@@ -39,10 +39,13 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
   const hasLiveUrl = Boolean(project.live_url);
   const repoLinks = getRepoLinks(project);
   const detailPath = buildRoute.projectDetail(getProjectSlug(project));
+  const titleId = `project-card-title-${project.id ?? getProjectSlug(project)}`;
   const techStack = project.techStack?.length > 0 ? project.techStack : ["Project tech stack TBD"];
 
   return (
     <article className={getProjectCardClassName(ctaCard, tight)}>
+      <Link className="project-card__overlay-link" to={detailPath} aria-labelledby={titleId} />
+
       {icon && (
         <div className="project-card__icon" aria-hidden="true">
           <FontAwesomeIcon icon={faFileCode} />
@@ -56,8 +59,8 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
         </p>
       )}
 
-      <h3 className="project-card__title">
-        <Link to={detailPath}>{project.title}</Link>
+      <h3 className="project-card__title" id={titleId}>
+        {project.title}
       </h3>
 
       <div className="project-card__summary">{renderLinebreaks(project.summary)}</div>
@@ -71,11 +74,6 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
       </ul>
 
       <div className="project-card__links">
-        <Link className="cta-link" to={detailPath}>
-          <span>View project</span>
-          <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
-        </Link>
-
         <SocialMediaLinks links={repoLinks} linkClassName="project-card__link secondary" />
 
         {hasLiveUrl && (
