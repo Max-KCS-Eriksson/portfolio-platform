@@ -44,24 +44,24 @@ function ProjectPage() {
     );
   }
 
-  const hasLiveUrl = project.live_url !== "";
+  const hasLiveUrl = project.liveUrl !== "";
 
   return (
     <>
-      <h1 className="title">{hasLiveUrl ? <a href={project.live_url}>{project.title}</a> : project.title}</h1>
+      <h1 className="title">{hasLiveUrl ? <a href={project.liveUrl}>{project.title}</a> : project.title}</h1>
 
       <div className="summary">{renderLinebreaks(project.summary)}</div>
 
       <ul className="project-links">
         <li className="project-links-item">
-          <a className="project-link" href={project.repo_url} aria-label={`${project.title} repository`}>
+          <a className="project-link" href={project.repoUrl} aria-label={`${project.title} repository`}>
             <FontAwesomeIcon icon={faGithub} aria-hidden="true" />
           </a>
         </li>
 
         {hasLiveUrl && (
           <li className="project-links-item">
-            <a className="project-link" href={project.live_url} aria-label={`${project.title} live site`}>
+            <a className="project-link" href={project.liveUrl} aria-label={`${project.title} live site`}>
               <FontAwesomeIcon icon={faGlobe} aria-hidden="true" />
             </a>
           </li>

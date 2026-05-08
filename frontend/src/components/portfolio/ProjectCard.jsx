@@ -15,7 +15,7 @@ function getProjectCardClassName(ctaCard, tight) {
 function getRepoLinks(project) {
   const slug = getProjectSlug(project);
 
-  return [{ id: `${project.id ?? slug}-repo`, socialMedia: "gh", url: project.repo_url }];
+  return [{ id: `${project.id ?? slug}-repo`, socialMedia: "gh", url: project.repoUrl }];
 }
 
 function getProjectSlug(project) {
@@ -36,7 +36,7 @@ function getProjectSlug(project) {
  * Applies compact card density for secondary project lists.
  */
 function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) {
-  const hasLiveUrl = Boolean(project.live_url);
+  const hasLiveUrl = Boolean(project.liveUrl);
   const repoLinks = getRepoLinks(project);
   const detailPath = buildRoute.projectDetail(getProjectSlug(project));
   const titleId = `project-card-title-${project.id ?? getProjectSlug(project)}`;
@@ -77,7 +77,7 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
         <SocialMediaLinks links={repoLinks} linkClassName="project-card__link secondary" />
 
         {hasLiveUrl && (
-          <a className="project-card__link primary" href={project.live_url} target="_blank" rel="noreferrer">
+          <a className="project-card__link primary" href={project.liveUrl} target="_blank" rel="noreferrer">
             <FontAwesomeIcon icon={faDisplay} aria-hidden="true" />
             <span>Live demo</span>
             <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />

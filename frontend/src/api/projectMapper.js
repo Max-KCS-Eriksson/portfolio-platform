@@ -26,14 +26,14 @@ export function mapProject(project) {
   return {
     id: project.id ?? null,
     title: asString(project.title, "Project title TBD"),
-    repo_url: asString(project.repo_url ?? project.repoUrl),
-    live_url: asString(project.live_url ?? project.liveUrl),
+    repoUrl: asString(project.repo_url ?? project.repoUrl),
+    liveUrl: asString(project.live_url ?? project.liveUrl),
     summary: asString(project.summary, "Project summary TBD"),
     description: asString(project.description, "Project description TBD"),
     slug: asString(project.slug),
     featured: asBoolean(project.featured, false),
     highlighted: asBoolean(project.highlighted, false),
-    display_order: asNumber(project.display_order ?? project.displayOrder),
+    displayOrder: asNumber(project.display_order ?? project.displayOrder),
     techStack: mapTechStack(project),
   };
 }
