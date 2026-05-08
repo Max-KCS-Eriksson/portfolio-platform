@@ -138,6 +138,8 @@
 }
 
 .project-card__links a {
+  position: relative;
+  z-index: 1;
   pointer-events: auto;
 }
 
@@ -155,6 +157,15 @@
 
 .project-card__link svg:last-child {
   font-size: 0.75rem;
+}
+
+.project-card__link.detail {
+  color: var(--color-accent);
+}
+
+.project-card:has(.project-card__overlay-link:hover) .project-card__link.detail,
+.project-card:has(.project-card__overlay-link:hover) .project-card__link.detail svg {
+  color: var(--color-accent-strong);
 }
 
 .project-card__link.primary {

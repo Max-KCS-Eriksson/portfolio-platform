@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileCode, faStar } from "@fortawesome/free-regular-svg-icons";
-import { faArrowUpRightFromSquare, faDisplay } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faArrowUpRightFromSquare, faDisplay } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import SocialMediaLinks from "../layout/SocialMediaLinks";
 import { buildRoute } from "../../routes/paths";
@@ -74,6 +74,11 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
       </ul>
 
       <div className="project-card__links">
+        <span className="project-card__link detail">
+          <span>View project</span>
+          <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
+        </span>
+
         <SocialMediaLinks links={repoLinks} linkClassName="project-card__link secondary" />
 
         {hasLiveUrl && (
