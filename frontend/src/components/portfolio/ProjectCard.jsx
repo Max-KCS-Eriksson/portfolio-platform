@@ -63,7 +63,7 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
         {project.title}
       </h3>
 
-      <div className="project-card__summary">{renderLinebreaks(project.summary)}</div>
+      <div className="project-card__summary">{renderLinebreaks(project.description)}</div>
 
       <ul className="project-card__tags" aria-label={`${project.title} technologies`}>
         {techStack.map((tech) => (
