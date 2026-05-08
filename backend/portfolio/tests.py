@@ -5,15 +5,15 @@ from .models import Project
 from .views import ProjectsListView
 
 
-def create_project(title, public=True, featured=False, display_order=0):
-    return Project.objects.create(
-        title=title,
-        repo_url=f"https://github.com/example/{title.lower().replace(' ', '-')}",
-        summary=f"{title} summary",
-        public=public,
-        featured=featured,
-        display_order=display_order,
-    )
+def create_project(title, **field_values):
+    field_values = {
+        "title": title,
+        "repo_url": f"https://github.com/example/{title.lower().replace(' ', '-')}",
+        "summary": f"{title} summary",
+        **field_values,
+    }
+
+    return Project.objects.create(**field_values)
 
 
 class ProjectsListViewTests(TestCase):
