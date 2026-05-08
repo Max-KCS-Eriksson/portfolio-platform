@@ -1,7 +1,8 @@
 import { apiGet } from "./client";
+import { mapFrontendContext } from "./coreMapper";
 
 export function getFrontendContext() {
-  return apiGet("/context/");
+  return apiGet("/context/").then(mapFrontendContext);
 }
 
 export function getAboutPage() {

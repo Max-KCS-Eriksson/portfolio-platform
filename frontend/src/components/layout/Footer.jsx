@@ -5,7 +5,7 @@ function Footer() {
   const { contextData } = useFrontendContext();
 
   const currentYear = new Date().getFullYear();
-  const siteOwner = contextData?.site_owner ?? "";
+  const siteOwner = contextData?.siteOwner ?? "";
 
   return (
     <footer className="footer">

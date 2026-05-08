@@ -24,7 +24,7 @@ const socialMediaLabels = {
  * Render social media links from explicit props or frontend context.
  *
  * @param {object} props
- * @param {Array<{id: number|string, social_media: string, url: string}>} [props.links]
+ * @param {Array<{id: number|string, socialMedia: string, url: string}>} [props.links]
  * Optional social-media link data to render instead of the site-wide links from frontend context.
  * @param {string} [props.linkClassName]
  * Optional class name for each anchor so callers can reuse provider icons with caller-owned link styling.
@@ -32,7 +32,7 @@ const socialMediaLabels = {
 function SocialMediaLinks({ links, linkClassName = "social-media-link" }) {
   const { contextData } = useFrontendContext();
 
-  const socialMediaLinks = links ?? contextData?.social_media_links ?? [];
+  const socialMediaLinks = links ?? contextData?.socialMediaLinks ?? [];
 
   if (socialMediaLinks.length === 0) {
     return null;
@@ -41,8 +41,8 @@ function SocialMediaLinks({ links, linkClassName = "social-media-link" }) {
   return (
     <ul className="social-media-links">
       {socialMediaLinks.map((socialMediaLink) => {
-        const icon = socialMediaIcons[socialMediaLink.social_media];
-        const label = socialMediaLabels[socialMediaLink.social_media];
+        const icon = socialMediaIcons[socialMediaLink.socialMedia];
+        const label = socialMediaLabels[socialMediaLink.socialMedia];
 
         if (!icon || !label) {
           return null;

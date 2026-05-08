@@ -8,7 +8,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { contextData } = useFrontendContext();
 
-  const domainName = contextData?.domain_name ?? "";
+  const domainName = contextData?.domainName ?? "";
 
   function toggleMenu() {
     setIsMenuOpen((current) => !current);

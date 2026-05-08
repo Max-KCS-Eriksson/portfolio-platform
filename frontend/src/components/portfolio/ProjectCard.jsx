@@ -15,7 +15,7 @@ function getProjectCardClassName(ctaCard, tight) {
 function getRepoLinks(project) {
   const slug = getProjectSlug(project);
 
-  return [{ id: `${project.id ?? slug}-repo`, social_media: "gh", url: project.repo_url }];
+  return [{ id: `${project.id ?? slug}-repo`, socialMedia: "gh", url: project.repo_url }];
 }
 
 function getProjectSlug(project) {

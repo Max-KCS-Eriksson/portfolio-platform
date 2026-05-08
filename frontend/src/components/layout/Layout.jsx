@@ -14,7 +14,7 @@ function Layout() {
   const location = useLocation();
   const { contextData } = useFrontendContext();
 
-  const domainName = contextData?.domain_name ?? "";
+  const domainName = contextData?.domainName ?? "";
   const userHost = domainName ? `guest@${domainName.toLowerCase()}` : "guest@";
   const mainContentClassName = getMainContentClassName(location.pathname);
 
