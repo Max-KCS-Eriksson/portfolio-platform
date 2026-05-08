@@ -11,12 +11,15 @@ from .models import BlogPost
 class BlogPostListView(APIView):
     """Overview of all blog posts."""
 
+    ordering = ("-date_added", "-id")
+
     def get(self, request, tag=None):
         if tag:
             tag = get_object_or_404(Tag, slug=tag)
             blog_posts = BlogPost.objects.filter(publish=True, tags__in=[tag])
         else:
             blog_posts = BlogPost.objects.filter(publish=True)
+        blog_posts = blog_posts.order_by(*self.ordering)
         return Response(BlogPostSerializer(blog_posts, many=True).data)
 
 
