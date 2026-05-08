@@ -4,19 +4,12 @@ import { ROUTES } from "../../routes/paths";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const wideContentRoutes = [ROUTES.home, ROUTES.portfolio];
-
-function getMainContentClassName(pathname) {
-  return wideContentRoutes.includes(pathname) ? "main-content wide-content" : "main-content";
-}
-
 function Layout() {
   const location = useLocation();
   const { contextData } = useFrontendContext();
 
   const domainName = contextData?.domainName ?? "";
   const userHost = domainName ? `guest@${domainName.toLowerCase()}` : "guest@";
-  const mainContentClassName = getMainContentClassName(location.pathname);
 
   return (
     <>
@@ -24,11 +17,10 @@ function Layout() {
 
       <main>
         <h1 className="breadcrumb">
-          <span className="user-host">{userHost}</span>:
-          <span className="path">~{location.pathname}</span>
+          <span className="user-host">{userHost}</span>:<span className="path">~{location.pathname}</span>
         </h1>
 
-        <section className={mainContentClassName}>
+        <section className="main-content">
           <Outlet />
         </section>
       </main>

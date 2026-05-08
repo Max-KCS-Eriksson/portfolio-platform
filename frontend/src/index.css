@@ -116,7 +116,6 @@
   --radius-chip: 6px;
   --page-gutter: 4rem;
   --container-width: 96rem;
-  --content-width: 74rem;
 
   color: var(--color-text-soft);
   background: var(--color-bg);
@@ -415,12 +414,8 @@ main {
 }
 
 .main-content {
-  width: min(var(--content-width), 100%);
-  min-height: 18rem;
-}
-
-.wide-content {
   width: 100%;
+  min-height: 18rem;
 }
 
 .main-content>*:last-child,
