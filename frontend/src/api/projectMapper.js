@@ -1,31 +1,9 @@
-// Helpers
-
-function isObject(value) {
-  return value !== null && typeof value === "object" && !Array.isArray(value);
-}
-
-function asString(value, fallback = "") {
-  return typeof value === "string" ? value : fallback;
-}
-
-function asBoolean(value, fallback) {
-  return typeof value === "boolean" ? value : fallback;
-}
-
-function asNumber(value, fallback = 0) {
-  return typeof value === "number" ? value : fallback;
-}
-
-// Mappers
+import { asArray, asBoolean, asNumber, asString, isObject } from "./mapperUtils";
 
 function mapTechStack(project) {
   const techStack = project.techStack ?? project.tech_stack;
 
-  if (!Array.isArray(techStack)) {
-    return [];
-  }
-
-  return techStack
+  return asArray(techStack)
     .map((tech) => {
       if (typeof tech === "string") {
         return tech;
@@ -61,9 +39,5 @@ export function mapProject(project) {
 }
 
 export function mapProjects(projects) {
-  if (!Array.isArray(projects)) {
-    return [];
-  }
-
-  return projects.map(mapProject).filter(Boolean);
+  return asArray(projects).map(mapProject).filter(Boolean);
 }
