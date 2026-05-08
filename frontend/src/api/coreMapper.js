@@ -1,5 +1,16 @@
 import { asArray, asOptionalNumber, asString, isObject } from "./mapperUtils";
 
+export function mapAboutPage(aboutPage) {
+  if (!isObject(aboutPage)) {
+    return {};
+  }
+
+  return {
+    id: aboutPage.id ?? null,
+    text: asString(aboutPage.text),
+  };
+}
+
 function mapSocialMediaLink(socialMediaLink) {
   if (!isObject(socialMediaLink)) {
     return null;
