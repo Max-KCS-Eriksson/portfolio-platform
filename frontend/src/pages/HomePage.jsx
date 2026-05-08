@@ -8,6 +8,7 @@ import { getProjectsByFeatured } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
+import { getBlogOverviewLimit, getProjectOverviewLimit, limitOverviewItems } from "../config/overviewLimits";
 import { useFrontendContext } from "../context/useFrontendContext";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { buildRoute, ROUTES } from "../routes/paths";
@@ -62,6 +63,8 @@ function HomePage() {
   const headline = homeContent.headline || "Hero headline TBD";
   const intro = homeContent.intro || "Hero intro TBD";
   const skills = homeContent.skills?.length > 0 ? homeContent.skills : ["Skills TBD"];
+  const overviewFeaturedProjects = limitOverviewItems(featuredProjects, getProjectOverviewLimit(contextData));
+  const overviewBlogPosts = limitOverviewItems(blogPosts, getBlogOverviewLimit(contextData));
   const heroActions = (
     <>
       <Link className="cta cta-button" to={ROUTES.portfolio}>
@@ -82,7 +85,9 @@ function HomePage() {
 
       {projectsError ? <p className="home-empty-state">Could not load projects.</p> : null}
 
-      {!projectsError && featuredProjects.length > 0 ? <ProjectsSection projects={featuredProjects} /> : null}
+      {!projectsError && overviewFeaturedProjects.length > 0 ? (
+        <ProjectsSection projects={overviewFeaturedProjects} />
+      ) : null}
 
       <section className="home-section" aria-labelledby="home-writing-heading">
         <div className="home-section__header">
@@ -93,9 +98,9 @@ function HomePage() {
           </Link>
         </div>
 
-        {blogPosts.length > 0 ? (
+        {overviewBlogPosts.length > 0 ? (
           <ul className="home-writing-list">
-            {blogPosts.map((blogPost) => (
+            {overviewBlogPosts.map((blogPost) => (
               <li className="home-writing-card card" key={blogPost.id ?? blogPost.slug}>
                 <div className="home-writing-icon" aria-hidden="true">
                   <FontAwesomeIcon icon={faFileLines} />
