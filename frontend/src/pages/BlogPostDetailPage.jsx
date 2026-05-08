@@ -87,11 +87,11 @@ function BlogPostDetailPage() {
 
           {paragraph.snippets?.map((snippet) => (
             <section className="snippet-section" key={snippet.id}>
-              {snippet.intended_location && <h1 className="snippet-intendet-location">{snippet.intended_location}</h1>}
+              {snippet.intendedLocation && <h1 className="snippet-intendet-location">{snippet.intendedLocation}</h1>}
 
               <section>
                 <pre className="snippet-box">
-                  <code className={`snippet${snippet.side_scroll ? " scroll" : ""}`}>{snippet.snippet}</code>
+                  <code className={`snippet${snippet.sideScroll ? " scroll" : ""}`}>{snippet.snippet}</code>
                 </pre>
                 <button
                   className="copy-snippet"

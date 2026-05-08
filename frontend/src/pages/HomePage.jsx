@@ -108,8 +108,8 @@ function HomePage() {
                   <p>{blogPost.intro}</p>
                 </div>
 
-                {formatDate(blogPost.date_added) && (
-                  <time dateTime={blogPost.date_added}>{formatDate(blogPost.date_added)}</time>
+                {formatDate(blogPost.dateAdded) && (
+                  <time dateTime={blogPost.dateAdded}>{formatDate(blogPost.dateAdded)}</time>
                 )}
 
                 <Link className="section-link" to={buildRoute.blogPostDetail(blogPost.slug)}>
