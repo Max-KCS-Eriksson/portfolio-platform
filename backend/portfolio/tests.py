@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 
 from .models import Project
-from .views import ProjectsListView
+from .views import ProjectDetailView, ProjectsListView
 
 
 def create_project(title, **field_values):
@@ -114,3 +114,58 @@ class ProjectModelTests(TestCase):
         projects = list(Project.objects.all())
 
         self.assertEqual(projects, [first_project, newest_project, older_project])
+
+
+class ProjectApiResponseTests(TestCase):
+    def setUp(self):
+        self.list_view = ProjectsListView.as_view()
+        self.detail_view = ProjectDetailView.as_view()
+        self.request_factory = APIRequestFactory()
+
+    def get_projects(self, path):
+        request = self.request_factory.get(path)
+        return self.list_view(request)
+
+    def get_project(self, slug):
+        request = self.request_factory.get(f"/api/portfolio/{slug}/")
+        return self.detail_view(request, slug=slug)
+
+    def test_list_response_serializes_frontend_project_fields(self):
+        project = create_project("API Project", featured=True, display_order=3)
+        project.live_url = "https://example.com/live"
+        project.description = "API project description"
+        project.save()
+
+        response = self.get_projects("/api/portfolio/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.data[0],
+            {
+                "id": project.id,
+                "title": "API Project",
+                "repo_url": project.repo_url,
+                "live_url": "https://example.com/live",
+                "summary": "API Project summary",
+                "description": "API project description",
+                "slug": "api-project",
+                "featured": True,
+                "display_order": 3,
+            },
+        )
+
+    def test_detail_response_serializes_frontend_project_fields(self):
+        project = create_project("Detail API Project", featured=True, display_order=4)
+
+        response = self.get_project(project.slug)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["id"], project.id)
+        self.assertEqual(response.data["title"], "Detail API Project")
+        self.assertEqual(response.data["repo_url"], project.repo_url)
+        self.assertEqual(response.data["live_url"], "")
+        self.assertEqual(response.data["summary"], "Detail API Project summary")
+        self.assertEqual(response.data["description"], "")
+        self.assertEqual(response.data["slug"], "detail-api-project")
+        self.assertTrue(response.data["featured"])
+        self.assertEqual(response.data["display_order"], 4)
