@@ -49,3 +49,14 @@ export function mapProject(project) {
 export function mapProjects(projects) {
   return asArray(projects).map(mapProject).filter(Boolean);
 }
+
+export function mapPortfolioContext(portfolioContext) {
+  if (!isObject(portfolioContext)) {
+    return null;
+  }
+
+  return {
+    id: portfolioContext.id ?? null,
+    intro: asString(portfolioContext.intro),
+  };
+}

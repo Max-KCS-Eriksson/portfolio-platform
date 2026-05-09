@@ -1,5 +1,5 @@
 import { apiGet } from "./client";
-import { mapProject, mapProjects } from "./projectMapper";
+import { mapPortfolioContext, mapProject, mapProjects } from "./projectMapper";
 
 const API_PATH = "/portfolio";
 
@@ -13,4 +13,8 @@ export function getProjectsByFeatured(featured) {
 
 export function getProject(slug) {
   return apiGet(`${API_PATH}/${encodeURIComponent(slug)}/`).then(mapProject);
+}
+
+export function getPortfolioContext() {
+  return apiGet(`${API_PATH}/context`).then(mapPortfolioContext);
 }
