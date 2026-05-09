@@ -10,10 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name="project",
-            options={"ordering": ["display_order", "-id"]},
-        ),
         migrations.CreateModel(
             name="PortfolioContext",
             fields=[
@@ -29,13 +25,5 @@ class Migration(migrations.Migration):
                 ("featured", models.BooleanField(default=True)),
                 ("intro", models.TextField()),
             ],
-        ),
-        migrations.AddField(
-            model_name="project",
-            name="display_order",
-            field=models.PositiveIntegerField(
-                default=0,
-                help_text="Lower numbers appear first.",
-            ),
         ),
     ]

@@ -10,18 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name="project",
-            options={"ordering": ["display_order", "-id"]},
-        ),
-        migrations.AddField(
-            model_name="project",
-            name="display_order",
-            field=models.PositiveIntegerField(
-                default=0,
-                help_text="Lower numbers appear first.",
-            ),
-        ),
         migrations.AddField(
             model_name="project",
             name="tech_stack",

@@ -1,9 +1,9 @@
-from django.test import TestCase, override_settings
-from rest_framework.test import APIClient, APIRequestFactory
+from django.test import TestCase
+from rest_framework.test import APIRequestFactory
 
-from .models import Project
-from .views import ProjectDetailView, ProjectsListView
+from .models import PortfolioContext, Project
 from .serializers import ProjectSerializer
+from .views import ProjectDetailView, ProjectsListView
 
 
 def create_project(title, **field_values):
@@ -11,6 +11,11 @@ def create_project(title, **field_values):
         "title": title,
         "repo_url": f"https://github.com/example/{title.lower().replace(' ', '-')}",
         "summary": f"{title} summary",
+        "tech_stack": "Python, Django",
+        "problem": f"{title} problem",
+        "solution": f"{title} solution",
+        "tech_choices": f"{title} tech choices",
+        "competencies_demonstrated": f"{title} competencies",
         **field_values,
     }
 
@@ -65,7 +70,14 @@ class ProjectModelTests(TestCase):
         project = create_project("Defaulted Project")
 
         self.assertEqual(project.live_url, "")
-        self.assertEqual(project.description, "")
+        self.assertEqual(project.tech_stack, "Python, Django")
+        self.assertEqual(project.problem, "Defaulted Project problem")
+        self.assertEqual(project.solution, "Defaulted Project solution")
+        self.assertEqual(project.tech_choices, "Defaulted Project tech choices")
+        self.assertEqual(
+            project.competencies_demonstrated,
+            "Defaulted Project competencies",
+        )
         self.assertTrue(project.public)
         self.assertFalse(project.featured)
         self.assertEqual(project.display_order, 0)
@@ -93,12 +105,18 @@ class ProjectModelTests(TestCase):
         project = create_project("Original Project")
 
         project.summary = "Updated summary"
-        project.description = "Updated description"
+        project.problem = "Updated problem"
+        project.solution = "Updated solution"
+        project.tech_choices = "Updated tech choices"
+        project.competencies_demonstrated = "Updated competencies"
         project.save()
 
         project.refresh_from_db()
         self.assertEqual(project.summary, "Updated summary")
-        self.assertEqual(project.description, "Updated description")
+        self.assertEqual(project.problem, "Updated problem")
+        self.assertEqual(project.solution, "Updated solution")
+        self.assertEqual(project.tech_choices, "Updated tech choices")
+        self.assertEqual(project.competencies_demonstrated, "Updated competencies")
 
     def test_deletes_project(self):
         project = create_project("Deleted Project")
@@ -132,10 +150,17 @@ class ProjectApiResponseTests(TestCase):
         return self.detail_view(request, slug=slug)
 
     def test_list_response_serializes_frontend_project_fields(self):
-        project = create_project("API Project", featured=True, display_order=3)
-        project.live_url = "https://example.com/live"
-        project.description = "API project description"
-        project.save()
+        project = create_project(
+            "API Project",
+            featured=True,
+            display_order=3,
+            live_url="https://example.com/live",
+            tech_stack="Python, Django, PostgreSQL",
+            problem="API project problem",
+            solution="API project solution",
+            tech_choices="API project tech choices",
+            competencies_demonstrated="API project competencies",
+        )
 
         response = self.get_projects("/api/portfolio/")
 
@@ -148,7 +173,11 @@ class ProjectApiResponseTests(TestCase):
                 "repo_url": project.repo_url,
                 "live_url": "https://example.com/live",
                 "summary": "API Project summary",
-                "description": "API project description",
+                "tech_stack": ["Python", "Django", "PostgreSQL"],
+                "problem": "API project problem",
+                "solution": "API project solution",
+                "tech_choices": "API project tech choices",
+                "competencies_demonstrated": "API project competencies",
                 "slug": "api-project",
                 "featured": True,
                 "display_order": 3,
@@ -156,7 +185,16 @@ class ProjectApiResponseTests(TestCase):
         )
 
     def test_detail_response_serializes_frontend_project_fields(self):
-        project = create_project("Detail API Project", featured=True, display_order=4)
+        project = create_project(
+            "Detail API Project",
+            featured=True,
+            display_order=4,
+            tech_stack="Python, Django",
+            problem="Detail API Project problem",
+            solution="Detail API Project solution",
+            tech_choices="Detail API Project tech choices",
+            competencies_demonstrated="Detail API Project competencies",
+        )
 
         response = self.get_project(project.slug)
 
@@ -166,10 +204,21 @@ class ProjectApiResponseTests(TestCase):
         self.assertEqual(response.data["repo_url"], project.repo_url)
         self.assertEqual(response.data["live_url"], "")
         self.assertEqual(response.data["summary"], "Detail API Project summary")
-        self.assertEqual(response.data["description"], "")
+        self.assertEqual(response.data["tech_stack"], ["Python", "Django"])
+        self.assertEqual(response.data["problem"], "Detail API Project problem")
+        self.assertEqual(response.data["solution"], "Detail API Project solution")
+        self.assertEqual(
+            response.data["tech_choices"],
+            "Detail API Project tech choices",
+        )
+        self.assertEqual(
+            response.data["competencies_demonstrated"],
+            "Detail API Project competencies",
+        )
         self.assertEqual(response.data["slug"], "detail-api-project")
         self.assertTrue(response.data["featured"])
         self.assertEqual(response.data["display_order"], 4)
+        self.assertNotIn("description", response.data)
 
 
 class ProjectSerializerTest(TestCase):
@@ -186,43 +235,24 @@ class ProjectSerializerTest(TestCase):
             ["Python", "Django", "PostgreSQL", "Docker"],
         )
 
-
-# Endpoint tests exercise URL routing - omit message middleware so they do not depend
-# on a locally configured SECRET_KEY.
-@override_settings(
-    MIDDLEWARE=[
-        "corsheaders.middleware.CorsMiddleware",
-        "django.middleware.security.SecurityMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.middleware.common.CommonMiddleware",
-        "django.middleware.csrf.CsrfViewMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    ]
-)
-class ProjectViewTest(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-
-    def test_project_list_includes_tech_stack(self):
-        create_project("List Project", tech_stack="Python, Django, PostgreSQL")
-
-        response = self.client.get("/api/portfolio/")
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.data[0]["tech_stack"],
-            ["Python", "Django", "PostgreSQL"],
+    def test_serializes_project_case_study_fields(self):
+        project = create_project(
+            "Case Study Project",
+            problem="Problem statement",
+            solution="What was built",
+            tech_choices="Technical choices",
+            competencies_demonstrated="Competencies demonstrated",
         )
 
-    def test_project_detail_includes_tech_stack(self):
-        project = create_project("Detail Project", tech_stack="Python, Django")
+        project_data = ProjectSerializer(project).data
 
-        response = self.client.get(f"/api/portfolio/{project.slug}/")
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["tech_stack"], ["Python", "Django"])
-from .models import PortfolioContext
+        self.assertEqual(project_data["problem"], "Problem statement")
+        self.assertEqual(project_data["solution"], "What was built")
+        self.assertEqual(project_data["tech_choices"], "Technical choices")
+        self.assertEqual(
+            project_data["competencies_demonstrated"],
+            "Competencies demonstrated",
+        )
 
 
 class PortfolioContextModelTest(TestCase):
@@ -245,9 +275,18 @@ class PortfolioContextModelTest(TestCase):
 
     def test_deleting_featured_context_promotes_remaining_context(self):
         PortfolioContext.objects.all().delete()
-        featured_context = PortfolioContext.objects.create(featured=True, intro="Featured intro.")
-        older_context = PortfolioContext.objects.create(featured=False, intro="Older intro.")
-        latest_context = PortfolioContext.objects.create(featured=False, intro="Latest intro.")
+        featured_context = PortfolioContext.objects.create(
+            featured=True,
+            intro="Featured intro.",
+        )
+        older_context = PortfolioContext.objects.create(
+            featured=False,
+            intro="Older intro.",
+        )
+        latest_context = PortfolioContext.objects.create(
+            featured=False,
+            intro="Latest intro.",
+        )
 
         featured_context.delete()
 
