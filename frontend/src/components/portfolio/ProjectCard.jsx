@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import SocialMediaLinks from "../layout/SocialMediaLinks";
 import { buildRoute } from "../../routes/paths";
 import { renderLinebreaks } from "../../utils/renderLinebreaks";
-import { slugifyTag } from "../../utils/slugifyTag";
 import "./ProjectCard.css";
 
 function getProjectCardClassName(ctaCard, tight) {
@@ -13,13 +12,7 @@ function getProjectCardClassName(ctaCard, tight) {
 }
 
 function getRepoLinks(project) {
-  const slug = getProjectSlug(project);
-
-  return [{ id: `${project.id ?? slug}-repo`, socialMedia: "gh", url: project.repoUrl }];
-}
-
-function getProjectSlug(project) {
-  return project.slug || slugifyTag(project.title);
+  return [{ id: `${project.id ?? project.slug}-repo`, socialMedia: "gh", url: project.repoUrl }];
 }
 
 /**
@@ -38,8 +31,8 @@ function getProjectSlug(project) {
 function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) {
   const hasLiveUrl = Boolean(project.liveUrl);
   const repoLinks = getRepoLinks(project);
-  const detailPath = buildRoute.projectDetail(getProjectSlug(project));
-  const titleId = `project-card-title-${project.id ?? getProjectSlug(project)}`;
+  const detailPath = buildRoute.projectDetail(project.slug);
+  const titleId = `project-card-title-${project.id ?? project.slug}`;
   const techStack = project.techStack?.length > 0 ? project.techStack : ["Project tech stack TBD"];
 
   return (

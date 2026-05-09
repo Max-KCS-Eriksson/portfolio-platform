@@ -36,8 +36,8 @@ export function mapBlogPost(blogPost) {
 
   return {
     id: blogPost.id ?? null,
-    title: asString(blogPost.title, "Blog post title TBD"),
-    intro: asString(blogPost.intro, "Blog post intro TBD"),
+    title: asString(blogPost.title),
+    intro: asString(blogPost.intro),
     paragraphs: asArray(blogPost.paragraphs).map(mapBlogPostParagraph).filter(Boolean),
     tags: asArray(blogPost.tags).filter((tag) => typeof tag === "string"),
     dateAdded: asString(blogPost.date_added ?? blogPost.dateAdded),

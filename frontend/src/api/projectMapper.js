@@ -25,10 +25,10 @@ export function mapProject(project) {
 
   return {
     id: project.id ?? null,
-    title: asString(project.title, "Project title TBD"),
+    title: asString(project.title),
     repoUrl: asString(project.repo_url ?? project.repoUrl),
     liveUrl: asString(project.live_url ?? project.liveUrl),
-    description: asString(project.summary ?? project.description, "Project description TBD"),
+    description: asString(project.summary ?? project.description),
     problem: asString(project.problem, "Project problem TBD"),
     solution: asString(project.solution, "Project solution TBD"),
     techChoices: asString(project.tech_choices ?? project.techChoices, "Project tech choices TBD"),
