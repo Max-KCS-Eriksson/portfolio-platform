@@ -1,14 +1,14 @@
 import { apiGet } from "./client";
-import { mapFrontendContext, mapHero, mapAboutPage } from "./coreMapper";
+import { mapContextData, mapHero, mapAbout } from "./coreMapper";
 
-export function getFrontendContext() {
-  return apiGet("/context/").then(mapFrontendContext);
+export function getContextData() {
+  return apiGet("/context/").then(mapContextData);
 }
 
 export function getHero() {
   return apiGet("/hero/").then(mapHero);
 }
 
-export function getAboutPage() {
-  return apiGet("/about/").then(mapAboutPage);
+export function getAbout() {
+  return apiGet("/about/").then(mapAbout);
 }

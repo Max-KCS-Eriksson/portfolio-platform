@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useFrontendContext } from "../context/useFrontendContext";
+import { useContextData } from "../context/useContextData";
 
 export function usePageTitle(pageTitle) {
-  const { contextData } = useFrontendContext();
+  const { contextData } = useContextData();
 
   useEffect(() => {
     const domainName = contextData?.domainName;

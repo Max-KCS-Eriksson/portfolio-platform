@@ -10,7 +10,7 @@ import HeroSection from "../components/core/HeroSection";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
 import { getBlogOverviewLimit, getProjectOverviewLimit, limitOverviewItems } from "../config/overviewLimits";
-import { useFrontendContext } from "../context/useFrontendContext";
+import { useContextData } from "../context/useContextData";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { buildRoute, ROUTES } from "../routes/paths";
 import "./HomePage.css";
@@ -36,7 +36,7 @@ function formatDate(value) {
 }
 
 function HomePage() {
-  const { contextData } = useFrontendContext();
+  const { contextData } = useContextData();
   const [heroContent, setHeroContent] = useState({});
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [blogPosts, setBlogPosts] = useState([]);

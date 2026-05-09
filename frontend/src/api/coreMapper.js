@@ -15,7 +15,7 @@ export function mapHero(heroSection) {
   };
 }
 
-export function mapAboutPage(aboutPage) {
+export function mapAbout(aboutPage) {
   if (!isObject(aboutPage)) {
     return {};
   }
@@ -48,7 +48,7 @@ function mapSocialMediaLinks(socialMediaLinks) {
   return asArray(socialMediaLinks).map(mapSocialMediaLink).filter(Boolean);
 }
 
-export function mapFrontendContext(contextData) {
+export function mapContextData(contextData) {
   if (!isObject(contextData)) {
     return {};
   }

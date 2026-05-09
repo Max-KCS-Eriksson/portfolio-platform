@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSeedling, faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { getAboutPage } from "../api/coreApi";
+import { getAbout } from "../api/coreApi";
 import HeroSection from "../components/core/HeroSection";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import { usePageTitle } from "../hooks/usePageTitle";
@@ -16,7 +16,7 @@ function AboutPage() {
   usePageTitle("About");
 
   useEffect(() => {
-    getAboutPage()
+    getAbout()
       .then(setAbout)
       .catch((error) => {
         console.error(error);

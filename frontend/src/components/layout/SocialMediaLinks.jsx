@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGithub, faInstagram, faLinkedin, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { useFrontendContext } from "../../context/useFrontendContext";
+import { useContextData } from "../../context/useContextData";
 import "./SocialMediaLinks.css";
 
 const socialMediaIcons = {
@@ -21,16 +21,16 @@ const socialMediaLabels = {
 };
 
 /**
- * Render social media links from explicit props or frontend context.
+ * Render social media links from explicit props or context data.
  *
  * @param {object} props
  * @param {Array<{id: number|string, socialMedia: string, url: string}>} [props.links]
- * Optional social-media link data to render instead of the site-wide links from frontend context.
+ * Optional social-media link data to render instead of the site-wide links from context data.
  * @param {string} [props.linkClassName]
  * Optional class name for each anchor so callers can reuse provider icons with caller-owned link styling.
  */
 function SocialMediaLinks({ links, linkClassName = "social-media-link" }) {
-  const { contextData } = useFrontendContext();
+  const { contextData } = useContextData();
 
   const socialMediaLinks = links ?? contextData?.socialMediaLinks ?? [];
 

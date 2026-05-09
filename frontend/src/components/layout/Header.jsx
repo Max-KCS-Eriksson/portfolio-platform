@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useFrontendContext } from "../../context/useFrontendContext";
+import { useContextData } from "../../context/useContextData";
 import { ROUTES } from "../../routes/paths";
 import NavLinks from "./NavLinks";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { contextData } = useFrontendContext();
+  const { contextData } = useContextData();
 
   const domainName = contextData?.domainName ?? "";
 

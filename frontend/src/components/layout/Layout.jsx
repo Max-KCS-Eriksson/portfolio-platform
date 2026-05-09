@@ -1,12 +1,12 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { useFrontendContext } from "../../context/useFrontendContext";
+import { useContextData } from "../../context/useContextData";
 import { ROUTES } from "../../routes/paths";
 import Header from "./Header";
 import Footer from "./Footer";
 
 function Layout() {
   const location = useLocation();
-  const { contextData } = useFrontendContext();
+  const { contextData } = useContextData();
 
   const domainName = contextData?.domainName ?? "";
   const userHost = domainName ? `guest@${domainName.toLowerCase()}` : "guest@";

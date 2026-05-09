@@ -2,12 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { FrontendContextProvider } from "./context/FrontendContextProvider";
+import { ContextDataProvider } from "./context/ContextDataProvider";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <FrontendContextProvider>
+    <ContextDataProvider>
       <App />
-    </FrontendContextProvider>
+    </ContextDataProvider>
   </StrictMode>,
 );
