@@ -5,9 +5,7 @@ class About(models.Model):
     """An about section for the website."""
 
     featured = models.BooleanField(default=True)
-    text = models.TextField(
-        help_text="NOTE: Add a blank space to empty lines to maintain the line break."
-    )
+    text = models.TextField()
 
     class Meta:
         verbose_name_plural = "About"
@@ -53,7 +51,11 @@ class HeroSection(models.Model):
         if self.featured:
             HeroSection.objects.exclude(pk=self.pk).update(featured=False)
         else:
-            if not HeroSection.objects.exclude(pk=self.pk).filter(featured=True).exists():
+            if (
+                not HeroSection.objects.exclude(pk=self.pk)
+                .filter(featured=True)
+                .exists()
+            ):
                 self.featured = True
 
         return super().save(*args, **kwargs)
