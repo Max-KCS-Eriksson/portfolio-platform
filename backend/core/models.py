@@ -5,7 +5,16 @@ class About(models.Model):
     """An about section for the website."""
 
     featured = models.BooleanField(default=True)
-    text = models.TextField()
+    intro = models.TextField()
+    background = models.TextField(blank=False)
+    mindset_intro = models.TextField(blank=False)
+    mindset_list = models.TextField(
+        blank=False, help_text='List each entry with "- " on a new line.'
+    )
+    focus_intro = models.TextField(blank=False)
+    focus_list = models.TextField(
+        blank=False, help_text='List each entry with "- " on a new line.'
+    )
 
     class Meta:
         verbose_name_plural = "About"

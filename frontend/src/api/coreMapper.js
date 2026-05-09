@@ -24,11 +24,14 @@ export function mapAbout(aboutPage) {
     id: aboutPage.id ?? null,
     intro: asString(aboutPage.intro ?? aboutPage.text),
     background: asString(aboutPage.background),
-    workMindset: asString(aboutPage.work_mindset ?? aboutPage.workMindset),
-    workHabits: asArray(aboutPage.work_habits ?? aboutPage.workHabits)
-      .map((workHabit) => asString(workHabit))
+    mindsetIntro: asString(aboutPage.mindset_intro ?? aboutPage.mindsetIntro),
+    mindsetList: asArray(aboutPage.mindset_list ?? aboutPage.mindsetList)
+      .map((mindsetListItem) => asString(mindsetListItem))
       .filter(Boolean),
-    focus: asString(aboutPage.focus),
+    focusIntro: asString(aboutPage.focus_intro ?? aboutPage.focusIntro),
+    focusList: asArray(aboutPage.focus_list ?? aboutPage.focusList)
+      .map((focusListItem) => asString(focusListItem))
+      .filter(Boolean),
   };
 }
 
