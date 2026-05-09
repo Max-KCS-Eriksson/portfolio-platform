@@ -3,22 +3,6 @@ import { faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { renderLinebreaks } from "../../utils/renderLinebreaks";
 import "./HeroSection.css";
 
-function getSkillLabel(skill) {
-  if (typeof skill === "string") {
-    return skill;
-  }
-
-  return skill.name ?? skill.title ?? "";
-}
-
-function getSkillKey(skill) {
-  if (typeof skill === "string") {
-    return skill;
-  }
-
-  return skill.id ?? skill.slug ?? getSkillLabel(skill);
-}
-
 /**
  * Render the shared page hero.
  *
@@ -27,8 +11,8 @@ function getSkillKey(skill) {
  * Primary hero heading.
  * @param {string} props.intro
  * Introductory body copy rendered below the heading.
- * @param {Array<string|object>} [props.skills]
- * Optional skills rendered as technology tags.
+ * @param {Array<string>} [props.skills]
+ * Optional skill labels rendered as technology tags.
  * @param {import("react").ReactNode} [props.actions]
  * Optional action links rendered at the bottom of the hero copy.
  * @param {import("react").ReactNode} [props.visual]
@@ -53,19 +37,11 @@ function HeroSection({ headline, intro, skills = [], actions = null, visual = nu
           <div className="hero-section__footer">
             {hasSkills && (
               <ul className="hero-section__skills" aria-label="Core technologies">
-                {skills.map((skill) => {
-                  const label = getSkillLabel(skill);
-
-                  if (!label) {
-                    return null;
-                  }
-
-                  return (
-                    <li className="tag hero-section__skill" key={getSkillKey(skill)}>
-                      <span>{label}</span>
-                    </li>
-                  );
-                })}
+                {skills.map((skill) => (
+                  <li className="tag hero-section__skill" key={skill}>
+                    {skill}
+                  </li>
+                ))}
               </ul>
             )}
 
@@ -75,9 +51,7 @@ function HeroSection({ headline, intro, skills = [], actions = null, visual = nu
       </div>
 
       <div className="hero-section__visual" aria-hidden={hasCustomVisual ? undefined : "true"}>
-        <div className="hero-section__terminal">
-          {visualContent}
-        </div>
+        <div className="hero-section__terminal">{visualContent}</div>
       </div>
     </section>
   );
