@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from .models import Project
+from .models import PortfolioContext, Project
+
+
+class PortfolioContextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PortfolioContext
+        fields = ("id", "intro")
 
 
 class ProjectSerializer(serializers.ModelSerializer):

@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from .models import Project
+from .models import PortfolioContext, Project
+
+
+admin.site.register(PortfolioContext)
 
 
 @admin.register(Project)
