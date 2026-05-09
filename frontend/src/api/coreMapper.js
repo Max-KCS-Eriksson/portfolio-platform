@@ -7,7 +7,13 @@ export function mapAboutPage(aboutPage) {
 
   return {
     id: aboutPage.id ?? null,
-    text: asString(aboutPage.text),
+    intro: asString(aboutPage.intro ?? aboutPage.text),
+    background: asString(aboutPage.background),
+    workMindset: asString(aboutPage.work_mindset ?? aboutPage.workMindset),
+    workHabits: asArray(aboutPage.work_habits ?? aboutPage.workHabits)
+      .map((workHabit) => asString(workHabit))
+      .filter(Boolean),
+    focus: asString(aboutPage.focus),
   };
 }
 
