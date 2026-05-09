@@ -2,18 +2,28 @@ from django.test import TestCase, override_settings
 from rest_framework.test import APIClient
 
 from .models import About, HeroSection
-from .serializers import HeroSectionSerializer
+from .serializers import AboutSerializer, HeroSectionSerializer
 
 
 class AboutModelTest(TestCase):
     def setUp(self):
         self.field_values_true = dict(
             featured=True,
-            text="This is the About page",
+            intro="This is the About page",
+            background="About background.",
+            mindset_intro="Work mindset.",
+            mindset_list="- First habit\n- Second habit",
+            focus_intro="Current focus.",
+            focus_list="- First focus\n- Second focus",
         )
         self.field_values_false = dict(
             featured=False,
-            text="This is the About page",
+            intro="This is the About page",
+            background="About background.",
+            mindset_intro="Work mindset.",
+            mindset_list="- First habit\n- Second habit",
+            focus_intro="Current focus.",
+            focus_list="- First focus\n- Second focus",
         )
         return super().setUp()
 
@@ -82,6 +92,47 @@ class AboutModelTest(TestCase):
         self.assertFalse(first.featured)
         second = About.objects.get(pk=2)
         self.assertTrue(second.featured)
+
+
+class AboutSerializerTest(TestCase):
+    def test_serializes_about_page_fields(self):
+        about = About.objects.create(
+            intro="About intro.",
+            background="About background.",
+            mindset_intro="Work mindset.",
+            mindset_list=(
+                "- Pair API contracts, admin editing, and frontend mapping\n"
+                "- Use docker-container names when useful\n"
+                "- Keep changes small, observable, and reversible"
+            ),
+            focus_intro="Current focus.",
+            focus_list=(
+                "- Backend support for content sections\n"
+                "- Recruiter-readable project narratives"
+            ),
+        )
+
+        about_data = AboutSerializer(about).data
+
+        self.assertEqual(about_data["intro"], "About intro.")
+        self.assertEqual(about_data["background"], "About background.")
+        self.assertEqual(about_data["mindset_intro"], "Work mindset.")
+        self.assertEqual(
+            about_data["mindset_list"],
+            [
+                "Pair API contracts, admin editing, and frontend mapping",
+                "Use docker-container names when useful",
+                "Keep changes small, observable, and reversible",
+            ],
+        )
+        self.assertEqual(about_data["focus_intro"], "Current focus.")
+        self.assertEqual(
+            about_data["focus_list"],
+            [
+                "Backend support for content sections",
+                "Recruiter-readable project narratives",
+            ],
+        )
 
 
 class HeroSectionModelTest(TestCase):
@@ -172,6 +223,58 @@ class HeroSectionSerializerTest(TestCase):
 
 # Endpoint tests exercise URL routing - omit message middleware so they do not depend
 # on a locally configured SECRET_KEY.
+@override_settings(
+    MIDDLEWARE=[
+        "corsheaders.middleware.CorsMiddleware",
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    ]
+)
+class AboutViewTest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_returns_empty_object_when_about_does_not_exist(self):
+        response = self.client.get("/api/about/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {})
+
+    def test_returns_featured_about(self):
+        older_about = About.objects.create(
+            intro="Older intro.",
+            background="Older background.",
+            mindset_intro="Older mindset.",
+            mindset_list="- Older habit",
+            focus_intro="Older focus.",
+            focus_list="- Older focus area",
+        )
+        featured_about = About.objects.create(
+            intro="About intro.",
+            background="About background.",
+            mindset_intro="Work mindset.",
+            mindset_list="- First habit\n- Second habit",
+            focus_intro="Current focus.",
+            focus_list="- First focus\n- Second focus",
+        )
+
+        response = self.client.get("/api/about/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["id"], featured_about.id)
+        self.assertNotEqual(response.data["id"], older_about.id)
+        self.assertEqual(response.data["intro"], "About intro.")
+        self.assertEqual(response.data["background"], "About background.")
+        self.assertEqual(response.data["mindset_intro"], "Work mindset.")
+        self.assertEqual(response.data["mindset_list"], ["First habit", "Second habit"])
+        self.assertEqual(response.data["focus_intro"], "Current focus.")
+        self.assertEqual(response.data["focus_list"], ["First focus", "Second focus"])
+
+
 @override_settings(
     MIDDLEWARE=[
         "corsheaders.middleware.CorsMiddleware",

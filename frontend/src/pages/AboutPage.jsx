@@ -26,9 +26,11 @@ function AboutPage() {
 
   const intro = about?.intro || "About intro TBD";
   const hasBackground = Boolean(about?.background);
-  const hasWorkMindset = Boolean(about?.workMindset);
-  const hasWorkHabits = about?.workHabits?.length > 0;
-  const hasFocus = Boolean(about?.focus);
+  const hasMindsetIntro = Boolean(about?.mindsetIntro);
+  const hasMindsetList = about?.mindsetList?.length > 0;
+  const hasFocusIntro = Boolean(about?.focusIntro);
+  const hasFocusList = about?.focusList?.length > 0;
+  const hasFocus = hasFocusIntro || hasFocusList;
   const heroActions = <SocialMediaLinks linkClassName="about-page__social-link" />;
 
   return (
@@ -50,7 +52,7 @@ function AboutPage() {
           </section>
         )}
 
-        {(hasWorkMindset || hasWorkHabits) && (
+        {(hasMindsetIntro || hasMindsetList) && (
           <section
             className={`about-page__card ${hasFocus ? "" : "about-page__card--wide"} card`}
             aria-labelledby="about-work-heading"
@@ -60,11 +62,11 @@ function AboutPage() {
             </div>
             <div className="about-page__card-content">
               <h2 id="about-work-heading">2. How I Work</h2>
-              {hasWorkMindset && <div className="about-page__card-body">{renderLinebreaks(about.workMindset)}</div>}
-              {hasWorkHabits && (
+              {hasMindsetIntro && <div className="about-page__card-body">{renderLinebreaks(about.mindsetIntro)}</div>}
+              {hasMindsetList && (
                 <ul className="about-page__habit-list">
-                  {about.workHabits.map((workHabit) => (
-                    <li key={workHabit}>{workHabit}</li>
+                  {about.mindsetList.map((mindsetListItem) => (
+                    <li key={mindsetListItem}>{mindsetListItem}</li>
                   ))}
                 </ul>
               )}
@@ -79,7 +81,14 @@ function AboutPage() {
             </div>
             <div className="about-page__card-content">
               <h2 id="about-focus-heading">3. Current Focus</h2>
-              <div className="about-page__card-body">{renderLinebreaks(about.focus)}</div>
+              {hasFocusIntro && <div className="about-page__card-body">{renderLinebreaks(about.focusIntro)}</div>}
+              {hasFocusList && (
+                <ul className="about-page__habit-list">
+                  {about.focusList.map((focusListItem) => (
+                    <li key={focusListItem}>{focusListItem}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           </section>
         )}
