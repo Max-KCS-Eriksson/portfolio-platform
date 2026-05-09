@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .context_processors import domain_name, site_owner, social_media_links
-from .models import About
-from .serializers import AboutSerializer, SocialMediaLinkSerializer
+from .models import About, HeroSection
+from .serializers import AboutSerializer, HeroSectionSerializer, SocialMediaLinkSerializer
 
 
 class AboutView(APIView):
@@ -13,6 +13,15 @@ class AboutView(APIView):
         except About.DoesNotExist:
             return Response({})
         return Response(AboutSerializer(about).data)
+
+
+class HeroView(APIView):
+    def get(self, request):
+        try:
+            hero_section = HeroSection.objects.get(featured=True)
+        except HeroSection.DoesNotExist:
+            return Response({})
+        return Response(HeroSectionSerializer(hero_section).data)
 
 
 class FrontendContextView(APIView):

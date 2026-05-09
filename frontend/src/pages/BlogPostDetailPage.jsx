@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import { getBlogPost } from "../api/blogApi";
 import { usePageTitle } from "../hooks/usePageTitle";
@@ -85,11 +87,11 @@ function BlogPostDetailPage() {
 
           {paragraph.snippets?.map((snippet) => (
             <section className="snippet-section" key={snippet.id}>
-              {snippet.intended_location && <h1 className="snippet-intendet-location">{snippet.intended_location}</h1>}
+              {snippet.intendedLocation && <h1 className="snippet-intendet-location">{snippet.intendedLocation}</h1>}
 
               <section>
                 <pre className="snippet-box">
-                  <code className={`snippet${snippet.side_scroll ? " scroll" : ""}`}>{snippet.snippet}</code>
+                  <code className={`snippet${snippet.sideScroll ? " scroll" : ""}`}>{snippet.snippet}</code>
                 </pre>
                 <button
                   className="copy-snippet"
@@ -97,7 +99,7 @@ function BlogPostDetailPage() {
                   aria-label="Copy snippet"
                   onClick={() => copySnippet(snippet.snippet)}
                 >
-                  <i className="fa-regular fa-copy"></i>
+                  <FontAwesomeIcon icon={faCopy} aria-hidden="true" />
                 </button>
               </section>
 
