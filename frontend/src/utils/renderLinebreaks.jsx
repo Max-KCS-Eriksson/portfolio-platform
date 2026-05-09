@@ -1,3 +1,16 @@
+import { Fragment } from "react";
+
 export function renderLinebreaks(text) {
-  return text?.split(/\r?\n/).map((line, index) => <p key={index}>{line}</p>);
+  if (!text) {
+    return null;
+  }
+
+  const lines = text.split(/\r?\n/);
+
+  return lines.map((line, index) => (
+    <Fragment key={index}>
+      {line}
+      {index < lines.length - 1 ? <br /> : null}
+    </Fragment>
+  ));
 }
