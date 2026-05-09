@@ -12,6 +12,9 @@ class ProjectSerializer(serializers.ModelSerializer):
             "repo_url",
             "live_url",
             "summary",
-            "description",
+            "problem",
+            "solution",
+            "tech_choices",
+            "competencies_demonstrated",
             "slug",
         )

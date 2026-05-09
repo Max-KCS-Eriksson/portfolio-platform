@@ -18,10 +18,11 @@ class Project(models.Model):
     summary = models.TextField(
         help_text="Summarize the project.",
     )
-    description = models.TextField(
-        blank=True,
-        help_text="A detailed description of the project.",
-    )
+    problem = models.TextField(blank=False)
+    # `default=""` for preserving existing production rows.
+    solution = models.TextField(blank=False, default="")
+    tech_choices = models.TextField(blank=False, default="")
+    competencies_demonstrated = models.TextField(blank=False, default="")
 
     slug = models.SlugField(unique=True, default="")
 
