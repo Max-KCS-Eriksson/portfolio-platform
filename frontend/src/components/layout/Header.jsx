@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useContextData } from "../../context/useContextData";
+import { useCoreContext } from "../../context/useCoreContext";
 import { ROUTES } from "../../routes/paths";
 import NavLinks from "./NavLinks";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { contextData } = useContextData();
+  const { coreContext } = useCoreContext();
 
-  const domainName = contextData?.domainName ?? "";
+  const domainName = coreContext?.domainName ?? "";
 
   function toggleMenu() {
     setIsMenuOpen((current) => !current);

@@ -15,16 +15,16 @@ export function limitOverviewItems(items, limit) {
   return items.slice(0, limit);
 }
 
-export function getProjectOverviewLimit(contextData) {
+export function getProjectOverviewLimit(coreContext) {
   return getOverviewLimit(
-    contextData?.projectOverviewLimit,
+    coreContext?.projectOverviewLimit,
     DEFAULT_OVERVIEW_LIMITS.projectOverviewLimit,
   );
 }
 
-export function getBlogOverviewLimit(contextData) {
+export function getBlogOverviewLimit(coreContext) {
   return getOverviewLimit(
-    contextData?.blogOverviewLimit,
+    coreContext?.blogOverviewLimit,
     DEFAULT_OVERVIEW_LIMITS.blogOverviewLimit,
   );
 }

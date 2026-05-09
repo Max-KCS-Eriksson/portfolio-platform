@@ -1,8 +1,8 @@
 import { apiGet } from "./client";
-import { mapContextData, mapHero, mapAbout } from "./coreMapper";
+import { mapCoreContext, mapHero, mapAbout } from "./coreMapper";
 
-export function getContextData() {
-  return apiGet("/context/").then(mapContextData);
+export function getCoreContext() {
+  return apiGet("/core/context/").then(mapCoreContext);
 }
 
 export function getHero() {

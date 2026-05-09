@@ -51,16 +51,16 @@ function mapSocialMediaLinks(socialMediaLinks) {
   return asArray(socialMediaLinks).map(mapSocialMediaLink).filter(Boolean);
 }
 
-export function mapContextData(contextData) {
-  if (!isObject(contextData)) {
+export function mapCoreContext(coreContext) {
+  if (!isObject(coreContext)) {
     return {};
   }
 
   return {
-    domainName: asString(contextData.domain_name ?? contextData.domainName),
-    siteOwner: asString(contextData.site_owner ?? contextData.siteOwner),
-    socialMediaLinks: mapSocialMediaLinks(contextData.social_media_links ?? contextData.socialMediaLinks),
-    projectOverviewLimit: asOptionalNumber(contextData.project_overview_limit ?? contextData.projectOverviewLimit),
-    blogOverviewLimit: asOptionalNumber(contextData.blog_overview_limit ?? contextData.blogOverviewLimit),
+    domainName: asString(coreContext.domain_name ?? coreContext.domainName),
+    siteOwner: asString(coreContext.site_owner ?? coreContext.siteOwner),
+    socialMediaLinks: mapSocialMediaLinks(coreContext.social_media_links ?? coreContext.socialMediaLinks),
+    projectOverviewLimit: asOptionalNumber(coreContext.project_overview_limit ?? coreContext.projectOverviewLimit),
+    blogOverviewLimit: asOptionalNumber(coreContext.blog_overview_limit ?? coreContext.blogOverviewLimit),
   };
 }

@@ -24,7 +24,7 @@ class HeroView(APIView):
         return Response(HeroSectionSerializer(hero_section).data)
 
 
-class FrontendContextView(APIView):
+class CoreContextView(APIView):
     """API for providing previously used template context processor injections."""
 
     def get(self, request):

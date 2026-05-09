@@ -18,10 +18,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from core.views import CoreContextView
+
 urlpatterns = [
     # Default Django URLs
     path("admin/", admin.site.urls),
     # Project API
+    path("api/core/context/", CoreContextView.as_view(), name="core-context"),
     path("api/", include("core.urls")),
     path("api/portfolio/", include("portfolio.urls")),
     path("api/blog/", include("blog.urls")),
