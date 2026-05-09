@@ -1,18 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDocker, faJava, faLinux, faPostgresql, faPython } from "@fortawesome/free-brands-svg-icons";
-import { faD, faLeaf, faTerminal } from "@fortawesome/free-solid-svg-icons";
+import { faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { renderLinebreaks } from "../../utils/renderLinebreaks";
 import "./HeroSection.css";
-
-const skillIcons = {
-  Python: faPython,
-  Django: faD,
-  Java: faJava,
-  "Spring Boot": faLeaf,
-  PostgreSQL: faPostgresql,
-  Docker: faDocker,
-  Linux: faLinux,
-};
 
 function getSkillLabel(skill) {
   if (typeof skill === "string") {
@@ -73,7 +62,6 @@ function HeroSection({ headline, intro, skills = [], actions = null, visual = nu
 
                   return (
                     <li className="tag hero-section__skill" key={getSkillKey(skill)}>
-                      {skillIcons[label] && <FontAwesomeIcon icon={skillIcons[label]} aria-hidden="true" />}
                       <span>{label}</span>
                     </li>
                   );
