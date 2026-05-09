@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 
+from utils.text import normalize_comma_separated_values
+
 
 class PortfolioContext(models.Model):
     """Context content for the portfolio overview page."""
@@ -78,6 +80,7 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         """Generate a slug field and save the instance."""
         self.slug = slugify(self.title)
+        self.tech_stack = normalize_comma_separated_values(self.tech_stack)
         return super().save(*args, **kwargs)
 
     def __str__(self):

@@ -1,5 +1,7 @@
 from django.db import models
 
+from utils.text import normalize_comma_separated_values
+
 
 class About(models.Model):
     """An about section for the website."""
@@ -57,6 +59,8 @@ class HeroSection(models.Model):
 
     def save(self, *args, **kwargs):
         """Ensure only one instance is featured and that one always is featured."""
+        self.skills = normalize_comma_separated_values(self.skills)
+
         if self.featured:
             HeroSection.objects.exclude(pk=self.pk).update(featured=False)
         else:

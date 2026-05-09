@@ -204,6 +204,15 @@ class HeroSectionModelTest(TestCase):
         second = HeroSection.objects.get(pk=2)
         self.assertTrue(second.featured)
 
+    def test_normalizes_comma_separated_skills_on_save(self):
+        hero_section = HeroSection.objects.create(
+            headline="Backend Developer",
+            intro="Building reliable systems.",
+            skills="Django,Python, Docker, , PostgreSQL",
+        )
+
+        self.assertEqual(hero_section.skills, "Django, Python, Docker, PostgreSQL")
+
 
 class HeroSectionSerializerTest(TestCase):
     def test_serializes_comma_separated_skills_as_list(self):
