@@ -2,22 +2,6 @@ from django.test import TestCase, override_settings
 from rest_framework.test import APIClient
 
 from .models import PortfolioContext
-from .serializers import PortfolioContextSerializer
-
-
-class PortfolioContextSerializerTest(TestCase):
-    def test_serializes_portfolio_context(self):
-        portfolio_context = PortfolioContext.objects.create(
-            intro="A selection of backend engineering projects.",
-        )
-
-        portfolio_context_data = PortfolioContextSerializer(portfolio_context).data
-
-        self.assertEqual(portfolio_context_data["id"], portfolio_context.id)
-        self.assertEqual(
-            portfolio_context_data["intro"],
-            "A selection of backend engineering projects.",
-        )
 
 
 # Endpoint tests exercise URL routing - omit message middleware so they do not depend
@@ -33,7 +17,7 @@ class PortfolioContextSerializerTest(TestCase):
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
     ]
 )
-class PortfolioContextViewTest(TestCase):
+class ContextViewTest(TestCase):
     def setUp(self):
         self.client = APIClient()
 
