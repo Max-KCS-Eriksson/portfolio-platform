@@ -2,6 +2,40 @@ from django.db import models
 from django.utils.text import slugify
 
 
+class PortfolioContext(models.Model):
+    """Context content for the portfolio overview page."""
+
+    featured = models.BooleanField(default=True)
+    intro = models.TextField()
+
+    def save(self, *args, **kwargs):
+        """Ensure only one instance is featured and that one always is featured."""
+        if self.featured:
+            PortfolioContext.objects.exclude(pk=self.pk).update(featured=False)
+        else:
+            if not PortfolioContext.objects.exclude(pk=self.pk).filter(featured=True).exists():
+                self.featured = True
+
+        return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """Promote another portfolio context if the featured one is deleted."""
+        was_featured = self.featured
+        result = super().delete(*args, **kwargs)
+
+        if was_featured and not PortfolioContext.objects.filter(featured=True).exists():
+            next_context = PortfolioContext.objects.order_by("-pk").first()
+
+            if next_context:
+                next_context.featured = True
+                next_context.save()
+
+        return result
+
+    def __str__(self):
+        return f"Portfolio context (v.{self.pk})"
+
+
 class Project(models.Model):
     title = models.CharField(
         max_length=50,
@@ -15,6 +49,11 @@ class Project(models.Model):
         blank=True,
         help_text="URL to live project.",
     )
+    tech_stack = models.TextField(
+        default="",  # preserving existing production rows
+        blank=False,  # required in Django admin
+        help_text="Comma-separated list of technologies.",
+    )
     summary = models.TextField(
         help_text="Summarize the project.",
     )
@@ -26,7 +65,8 @@ class Project(models.Model):
 
     slug = models.SlugField(unique=True, default="")
 
-    publish = models.BooleanField(default=True)
+    public = models.BooleanField(default=True)
+    featured = models.BooleanField(default=False)
     display_order = models.PositiveIntegerField(
         default=0,
         help_text="Lower numbers appear first.",

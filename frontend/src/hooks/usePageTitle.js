@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { useFrontendContext } from "../context/useFrontendContext";
+import { useContextData } from "../context/useContextData";
 
 export function usePageTitle(pageTitle) {
-  const { contextData } = useFrontendContext();
+  const { contextData } = useContextData();
 
   useEffect(() => {
-    const domainName = contextData?.domain_name;
+    const domainName = contextData?.domainName;
 
     if (!domainName) {
       return;
     }
 
     document.title = pageTitle ? `${pageTitle} | ${domainName}` : domainName;
-  }, [pageTitle, contextData?.domain_name]);
+  }, [pageTitle, contextData?.domainName]);
 }

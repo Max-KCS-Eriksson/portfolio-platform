@@ -22,34 +22,26 @@ function NavLinks({ isMenuOpen, onNavigate }) {
       {!isHomePage && (
         <li className="nav-item">
           <Link className={getNavLinkClassName(ROUTES.home)} to={ROUTES.home} onClick={onNavigate}>
-            Home<span className="path">/</span>
+            Home
           </Link>
         </li>
       )}
 
       <li className="nav-item">
-        <Link
-          className={getNavLinkClassName(ROUTES.portfolio)}
-          to={ROUTES.portfolio}
-          onClick={onNavigate}
-        >
-          Portfolio<span className="path">/</span>
+        <Link className={getNavLinkClassName(ROUTES.portfolio)} to={ROUTES.portfolio} onClick={onNavigate}>
+          Portfolio
         </Link>
       </li>
 
       <li className="nav-item">
         <Link className={getNavLinkClassName(ROUTES.blog)} to={ROUTES.blog} onClick={onNavigate}>
-          Blog<span className="path">/</span>
+          Blog
         </Link>
       </li>
 
       <li className="nav-item">
-        <Link
-          className={getNavLinkClassName(ROUTES.about)}
-          to={ROUTES.about}
-          onClick={onNavigate}
-        >
-          About<span className="path">/</span>
+        <Link className={getNavLinkClassName(ROUTES.about)} to={ROUTES.about} onClick={onNavigate}>
+          About
         </Link>
       </li>
     </ul>

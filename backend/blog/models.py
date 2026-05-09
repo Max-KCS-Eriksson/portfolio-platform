@@ -17,6 +17,9 @@ class BlogPost(models.Model):
     slug = models.SlugField(unique=True, default="")
     publish = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ["-date_added", "-id"]
+
     def save(self, *args, **kwargs):
         """Generate a slug field and save the instance."""
         self.slug = slugify(self.title)

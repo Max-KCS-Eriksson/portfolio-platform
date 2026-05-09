@@ -1,0 +1,207 @@
+.project-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto;
+  gap: var(--space-3);
+  min-height: 13rem;
+  padding: var(--space-5);
+}
+
+.project-card>*:not(.project-card__overlay-link):not(.project-card__badge) {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.project-card__overlay-link {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.project-card__overlay-link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.project-card:has(.project-card__overlay-link:hover) {
+  background: var(--color-surface-strong);
+  border-color: var(--color-border-accent-alpha);
+}
+
+.project-card.secondary {
+  grid-template-rows: auto 1fr auto auto;
+  min-height: 9rem;
+  padding: var(--space-4);
+}
+
+.project-card__icon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  aspect-ratio: 1;
+  color: var(--color-accent-cyan);
+  background: var(--color-cyan-300-alpha-08);
+  border: 1px solid var(--color-border-cyan);
+  border-radius: var(--radius-card);
+}
+
+.project-card__icon svg {
+  font-size: 1.2rem;
+}
+
+.project-card__badge {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 1.7rem;
+  margin: 0;
+  padding: 0.15rem 0.55rem;
+  color: var(--color-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-visible);
+  border-radius: var(--radius-sm);
+}
+
+.project-card__badge svg {
+  color: var(--color-accent);
+  font-size: 0.75rem;
+}
+
+.project-card__title {
+  margin: 0;
+  padding-inline-end: 6rem;
+  color: var(--color-text);
+  font-size: 1.15rem;
+}
+
+.project-card.secondary .project-card__title {
+  padding-inline-end: 0;
+  font-size: 1rem;
+}
+
+.project-card:has(.project-card__overlay-link:hover) .project-card__title {
+  color: var(--color-accent-strong);
+}
+
+.project-card__summary {
+  max-width: 60ch;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.project-card.secondary .project-card__summary {
+  line-height: 1.45;
+}
+
+.project-card__summary>*:last-child {
+  margin-block-end: 0;
+}
+
+.project-card__tags {
+  align-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 0;
+}
+
+.project-card.secondary .project-card__tags {
+  margin-block-start: var(--space-2);
+}
+
+.project-card__tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.9rem;
+  padding: 0.15rem 0.65rem;
+  color: var(--color-text-soft);
+  font-size: 0.85rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.project-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-block-start: 0;
+}
+
+.project-card__links a {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.project-card__links .social-media-links {
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.project-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+}
+
+.project-card__link svg:last-child {
+  font-size: 0.75rem;
+}
+
+.project-card__link.detail {
+  color: var(--color-accent);
+}
+
+.project-card:has(.project-card__overlay-link:hover) .project-card__link.detail,
+.project-card:has(.project-card__overlay-link:hover) .project-card__link.detail svg {
+  color: var(--color-accent-strong);
+}
+
+.project-card__link.primary {
+  color: var(--color-text-soft);
+}
+
+.project-card__link.primary svg:first-child {
+  color: var(--color-accent-cyan);
+}
+
+.project-card__link.secondary {
+  color: var(--color-text-muted);
+}
+
+.project-card__link.secondary svg:first-child {
+  color: var(--color-text-muted);
+}
+
+.project-card__link:hover,
+.project-card__link:hover svg {
+  color: var(--color-accent-strong);
+}
+
+/* X-Small devices */
+@media (max-width: 480px) {
+  .project-card {
+    padding: var(--space-4);
+  }
+
+  .project-card__badge {
+    position: static;
+    justify-self: start;
+    order: -1;
+  }
+
+  .project-card__title {
+    padding-inline-end: 0;
+  }
+}
