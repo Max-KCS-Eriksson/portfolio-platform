@@ -15,6 +15,11 @@ class Project(models.Model):
         blank=True,
         help_text="URL to live project.",
     )
+    tech_stack = models.TextField(
+        default="",  # preserving existing production rows
+        blank=False,  # required in Django admin
+        help_text="Comma-separated list of technologies.",
+    )
     summary = models.TextField(
         help_text="Summarize the project.",
     )
