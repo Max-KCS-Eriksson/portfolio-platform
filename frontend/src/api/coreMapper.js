@@ -1,5 +1,20 @@
 import { asArray, asOptionalNumber, asString, isObject } from "./mapperUtils";
 
+export function mapHero(heroSection) {
+  if (!isObject(heroSection)) {
+    return {};
+  }
+
+  return {
+    id: heroSection.id ?? null,
+    headline: asString(heroSection.headline),
+    intro: asString(heroSection.intro),
+    skills: asArray(heroSection.skills)
+      .map((skill) => asString(skill))
+      .filter(Boolean),
+  };
+}
+
 export function mapAboutPage(aboutPage) {
   if (!isObject(aboutPage)) {
     return {};
@@ -41,15 +56,8 @@ export function mapFrontendContext(contextData) {
   return {
     domainName: asString(contextData.domain_name ?? contextData.domainName),
     siteOwner: asString(contextData.site_owner ?? contextData.siteOwner),
-    socialMediaLinks: mapSocialMediaLinks(
-      contextData.social_media_links ?? contextData.socialMediaLinks,
-    ),
-    home: contextData.home,
-    projectOverviewLimit: asOptionalNumber(
-      contextData.project_overview_limit ?? contextData.projectOverviewLimit,
-    ),
-    blogOverviewLimit: asOptionalNumber(
-      contextData.blog_overview_limit ?? contextData.blogOverviewLimit,
-    ),
+    socialMediaLinks: mapSocialMediaLinks(contextData.social_media_links ?? contextData.socialMediaLinks),
+    projectOverviewLimit: asOptionalNumber(contextData.project_overview_limit ?? contextData.projectOverviewLimit),
+    blogOverviewLimit: asOptionalNumber(contextData.blog_overview_limit ?? contextData.blogOverviewLimit),
   };
 }

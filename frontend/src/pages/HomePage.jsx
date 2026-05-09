@@ -4,6 +4,7 @@ import { faFileLines } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { getBlogPosts } from "../api/blogApi";
+import { getHero } from "../api/coreApi";
 import { getProjectsByFeatured } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
@@ -36,6 +37,7 @@ function formatDate(value) {
 
 function HomePage() {
   const { contextData } = useFrontendContext();
+  const [heroContent, setHeroContent] = useState({});
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [blogPosts, setBlogPosts] = useState([]);
   const [projectsError, setProjectsError] = useState(null);
@@ -44,6 +46,13 @@ function HomePage() {
   usePageTitle("");
 
   useEffect(() => {
+    getHero()
+      .then(setHeroContent)
+      .catch((error) => {
+        console.error(error);
+        setHeroContent({});
+      });
+
     getProjectsByFeatured(true)
       .then(setFeaturedProjects)
       .catch((error) => {
@@ -59,10 +68,9 @@ function HomePage() {
       });
   }, []);
 
-  const homeContent = contextData?.home ?? {};
-  const headline = homeContent.headline || "Hero headline TBD";
-  const intro = homeContent.intro || "Hero intro TBD";
-  const skills = homeContent.skills?.length > 0 ? homeContent.skills : ["Skills TBD"];
+  const headline = heroContent.headline || "Hero headline TBD";
+  const intro = heroContent.intro || "Hero intro TBD";
+  const skills = heroContent.skills?.length > 0 ? heroContent.skills : ["Skills TBD"];
   const overviewFeaturedProjects = limitOverviewItems(featuredProjects, getProjectOverviewLimit(contextData));
   const overviewBlogPosts = limitOverviewItems(blogPosts, getBlogOverviewLimit(contextData));
   const heroActions = (
