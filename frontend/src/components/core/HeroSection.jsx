@@ -42,10 +42,14 @@ function getSkillKey(skill) {
  * Optional skills rendered as technology tags.
  * @param {import("react").ReactNode} [props.actions]
  * Optional action links rendered at the bottom of the hero copy.
+ * @param {import("react").ReactNode} [props.visual]
+ * Optional visual content rendered in the hero visual area.
  */
-function HeroSection({ headline, intro, skills = [], actions = null }) {
+function HeroSection({ headline, intro, skills = [], actions = null, visual = null }) {
   const hasSkills = skills.length > 0;
   const hasActions = actions !== null;
+  const hasCustomVisual = visual !== null;
+  const visualContent = visual ?? <FontAwesomeIcon icon={faTerminal} />;
 
   return (
     <section className="hero-section panel">
@@ -82,9 +86,9 @@ function HeroSection({ headline, intro, skills = [], actions = null }) {
         )}
       </div>
 
-      <div className="hero-section__visual" aria-hidden="true">
+      <div className="hero-section__visual" aria-hidden={hasCustomVisual ? undefined : "true"}>
         <div className="hero-section__terminal">
-          <FontAwesomeIcon icon={faTerminal} />
+          {visualContent}
         </div>
       </div>
     </section>
