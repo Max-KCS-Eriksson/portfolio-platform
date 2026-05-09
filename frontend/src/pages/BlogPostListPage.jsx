@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTag, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import { getBlogPosts, getBlogPostsByTag } from "../api/blogApi";
 import { usePageTitle } from "../hooks/usePageTitle";
@@ -59,18 +61,11 @@ function BlogPostListPage() {
   }
 
   function getTagsMenuButtonClassName() {
-    return `fa-solid fa-tag tags-menu-button ${isTagsMenuOpen ? "active" : ""}`;
+    return `tags-menu-button ${isTagsMenuOpen ? "active" : ""}`;
   }
 
   function getTagsMenuClassName() {
     return isTagsMenuOpen ? "active" : "";
-  }
-
-  function handleTagsMenuKeyDown(event) {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      toggleTagsMenu();
-    }
   }
 
   if (error) {
@@ -86,16 +81,16 @@ function BlogPostListPage() {
     <>
       {tags.length > 0 && (
         <nav id="tags-nav">
-          <i
+          <button
             id="tags-menu-button"
             className={getTagsMenuButtonClassName()}
-            role="button"
-            tabIndex="0"
+            type="button"
             aria-label="Toggle tags menu"
             aria-expanded={isTagsMenuOpen}
             onClick={toggleTagsMenu}
-            onKeyDown={handleTagsMenuKeyDown}
-          ></i>
+          >
+            <FontAwesomeIcon icon={faTag} aria-hidden="true" />
+          </button>
 
           {selectedTag && (
             <>
@@ -106,7 +101,7 @@ function BlogPostListPage() {
                 aria-label="Remove tag filter"
                 onClick={closeTagsMenu}
               >
-                <i className="fa-solid fa-xmark"></i>
+                <FontAwesomeIcon icon={faXmark} aria-hidden="true" />
               </Link>
             </>
           )}

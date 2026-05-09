@@ -23,6 +23,8 @@ class ProjectSerializer(serializers.ModelSerializer):
             "tech_stack",
             "description",
             "slug",
+            "featured",
+            "display_order",
         )
 
     def get_tech_stack(self, project):

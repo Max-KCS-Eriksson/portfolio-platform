@@ -1,11 +1,11 @@
-import { useFrontendContext } from "../../context/useFrontendContext";
+import { useContextData } from "../../context/useContextData";
 import SocialMediaLinks from "./SocialMediaLinks";
 
 function Footer() {
-  const { contextData } = useFrontendContext();
+  const { contextData } = useContextData();
 
   const currentYear = new Date().getFullYear();
-  const siteOwner = contextData?.site_owner ?? "";
+  const siteOwner = contextData?.siteOwner ?? "";
 
   return (
     <footer className="footer">

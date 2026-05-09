@@ -15,14 +15,26 @@ class About(models.Model):
     def save(self, *args, **kwargs):
         """Ensure only one instance is featured and that one always is featured."""
         if self.featured:
-            About.objects.update(featured=False)
+            About.objects.exclude(pk=self.pk).update(featured=False)
         else:
-            try:
-                About.objects.get(featured=True)
-            except self.DoesNotExist:
+            if not About.objects.exclude(pk=self.pk).filter(featured=True).exists():
                 self.featured = True
 
         return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """Promote another about section if the featured one is deleted."""
+        was_featured = self.featured
+        result = super().delete(*args, **kwargs)
+
+        if was_featured and not About.objects.filter(featured=True).exists():
+            next_about = About.objects.order_by("-pk").first()
+
+            if next_about:
+                next_about.featured = True
+                next_about.save()
+
+        return result
 
     def __str__(self):
         return f"About-section (v.{self.pk})"

@@ -1,11 +1,15 @@
-import { useFrontendContext } from "../../context/useFrontendContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faGithub, faInstagram, faLinkedin, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { useContextData } from "../../context/useContextData";
+import "./SocialMediaLinks.css";
 
 const socialMediaIcons = {
-  gh: "fa-brands fa-github",
-  in: "fa-brands fa-linkedin-in",
-  fb: "fa-brands fa-facebook",
-  ig: "fa-brands fa-instagram",
-  yt: "fa-brands fa-youtube",
+  gh: faGithub,
+  in: faLinkedin,
+  fb: faFacebook,
+  ig: faInstagram,
+  yt: faYoutube,
 };
 
 const socialMediaLabels = {
@@ -16,10 +20,19 @@ const socialMediaLabels = {
   yt: "YouTube",
 };
 
-function SocialMediaLinks() {
-  const { contextData } = useFrontendContext();
+/**
+ * Render social media links from explicit props or context data.
+ *
+ * @param {object} props
+ * @param {Array<{id: number|string, socialMedia: string, url: string}>} [props.links]
+ * Optional social-media link data to render instead of the site-wide links from context data.
+ * @param {string} [props.linkClassName]
+ * Optional class name for each anchor so callers can reuse provider icons with caller-owned link styling.
+ */
+function SocialMediaLinks({ links, linkClassName = "social-media-link" }) {
+  const { contextData } = useContextData();
 
-  const socialMediaLinks = contextData?.social_media_links ?? [];
+  const socialMediaLinks = links ?? contextData?.socialMediaLinks ?? [];
 
   if (socialMediaLinks.length === 0) {
     return null;
@@ -28,23 +41,19 @@ function SocialMediaLinks() {
   return (
     <ul className="social-media-links">
       {socialMediaLinks.map((socialMediaLink) => {
-        const iconClassName = socialMediaIcons[socialMediaLink.social_media];
-        const label = socialMediaLabels[socialMediaLink.social_media];
+        const icon = socialMediaIcons[socialMediaLink.socialMedia];
+        const label = socialMediaLabels[socialMediaLink.socialMedia];
 
-        if (!iconClassName || !label) {
+        if (!icon || !label) {
           return null;
         }
 
         return (
           <li className="social-media-item" key={socialMediaLink.id}>
-            <a
-              className="social-media-link"
-              href={socialMediaLink.url}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={label}
-            >
-              <i className={iconClassName}></i>
+            <a className={linkClassName} href={socialMediaLink.url} target="_blank" rel="noreferrer" aria-label={label}>
+              <FontAwesomeIcon icon={icon} aria-hidden="true" />
+              <span>{label}</span>
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />
             </a>
           </li>
         );
