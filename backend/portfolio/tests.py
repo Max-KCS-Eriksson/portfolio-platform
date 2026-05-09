@@ -134,6 +134,14 @@ class ProjectModelTests(TestCase):
 
         self.assertEqual(projects, [first_project, newest_project, older_project])
 
+    def test_normalizes_comma_separated_tech_stack_on_save(self):
+        project = create_project(
+            "Normalized Project",
+            tech_stack="Django,Python, Docker, , PostgreSQL",
+        )
+
+        self.assertEqual(project.tech_stack, "Django, Python, Docker, PostgreSQL")
+
 
 class ProjectApiResponseTests(TestCase):
     def setUp(self):
