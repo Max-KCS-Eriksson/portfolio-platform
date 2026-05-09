@@ -1,8 +1,9 @@
-from django.test import TestCase
-from rest_framework.test import APIRequestFactory
+from django.test import TestCase, override_settings
+from rest_framework.test import APIClient, APIRequestFactory
 
 from .models import Project
 from .views import ProjectDetailView, ProjectsListView
+from .serializers import ProjectSerializer
 
 
 def create_project(title, **field_values):
@@ -169,3 +170,89 @@ class ProjectApiResponseTests(TestCase):
         self.assertEqual(response.data["slug"], "detail-api-project")
         self.assertTrue(response.data["featured"])
         self.assertEqual(response.data["display_order"], 4)
+
+
+class ProjectSerializerTest(TestCase):
+    def test_serializes_comma_separated_tech_stack_as_list(self):
+        project = create_project(
+            "Serialized Project",
+            tech_stack="Python, Django, , PostgreSQL , Docker, ",
+        )
+
+        project_data = ProjectSerializer(project).data
+
+        self.assertEqual(
+            project_data["tech_stack"],
+            ["Python", "Django", "PostgreSQL", "Docker"],
+        )
+
+
+# Endpoint tests exercise URL routing - omit message middleware so they do not depend
+# on a locally configured SECRET_KEY.
+@override_settings(
+    MIDDLEWARE=[
+        "corsheaders.middleware.CorsMiddleware",
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    ]
+)
+class ProjectViewTest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_project_list_includes_tech_stack(self):
+        create_project("List Project", tech_stack="Python, Django, PostgreSQL")
+
+        response = self.client.get("/api/portfolio/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.data[0]["tech_stack"],
+            ["Python", "Django", "PostgreSQL"],
+        )
+
+    def test_project_detail_includes_tech_stack(self):
+        project = create_project("Detail Project", tech_stack="Python, Django")
+
+        response = self.client.get(f"/api/portfolio/{project.slug}/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["tech_stack"], ["Python", "Django"])
+from .models import PortfolioContext
+
+
+class PortfolioContextModelTest(TestCase):
+    def test_first_always_featured(self):
+        PortfolioContext.objects.all().delete()
+        PortfolioContext.objects.create(featured=False, intro="Portfolio intro.")
+
+        self.assertTrue(PortfolioContext.objects.first().featured)
+
+    def test_two_cannot_be_featured(self):
+        PortfolioContext.objects.all().delete()
+        PortfolioContext.objects.create(featured=True, intro="First intro.")
+        PortfolioContext.objects.create(featured=True, intro="Second intro.")
+
+        first = PortfolioContext.objects.get(pk=1)
+        second = PortfolioContext.objects.get(pk=2)
+
+        self.assertFalse(first.featured)
+        self.assertTrue(second.featured)
+
+    def test_deleting_featured_context_promotes_remaining_context(self):
+        PortfolioContext.objects.all().delete()
+        featured_context = PortfolioContext.objects.create(featured=True, intro="Featured intro.")
+        older_context = PortfolioContext.objects.create(featured=False, intro="Older intro.")
+        latest_context = PortfolioContext.objects.create(featured=False, intro="Latest intro.")
+
+        featured_context.delete()
+
+        older_context.refresh_from_db()
+        latest_context.refresh_from_db()
+        self.assertFalse(older_context.featured)
+        self.assertTrue(latest_context.featured)
+        self.assertEqual(PortfolioContext.objects.filter(featured=True).count(), 1)
