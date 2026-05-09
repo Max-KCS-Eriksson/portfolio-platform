@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.test import TestCase
 
 
-class UserManagerTest(TestCase):
+class ManagerTest(TestCase):
     """Tests for the custom UserManager."""
 
     def setUp(self):
