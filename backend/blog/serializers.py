@@ -1,0 +1,45 @@
+from rest_framework import serializers
+
+from .models import BlogPost, BlogPostParagraph, BlogPostSnippet
+
+
+class TagListFieldSerializer(serializers.ModelSerializer):
+    """Serializes `Tag` models from the thrid-party `django-taggit` library."""
+
+    def to_representation(self, instance):
+        return [tag.name for tag in instance.all()]
+
+    def to_internal_value(self, data):
+        if not isinstance(data, list):
+            raise serializers.ValidationError("Tags must be a list of strings")
+        return data
+
+
+class BlogPostSnippetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogPostSnippet
+        fields = (
+            "id",
+            "paragraph",
+            "snippet",
+            "side_scroll",
+            "description",
+            "intended_location",
+        )
+
+
+class BlogPostParagraphSerializer(serializers.ModelSerializer):
+    snippets = BlogPostSnippetSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = BlogPostParagraph
+        fields = ("id", "blog_post", "heading", "text", "snippets")
+
+
+class BlogPostSerializer(serializers.ModelSerializer):
+    paragraphs = BlogPostParagraphSerializer(many=True, read_only=True)
+    tags = TagListFieldSerializer()
+
+    class Meta:
+        model = BlogPost
+        fields = ("id", "title", "intro", "paragraphs", "tags", "date_added", "slug")
