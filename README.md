@@ -1,26 +1,26 @@
-# Portfolio & Blog Platform
+# Portfolio Platform
 
-A Dockerized Django-based web application that serves as both a personal portfolio and a technical blogging platform.
+A Dockerized portfolio application with a React + Vite frontend and a Django REST Framework backend.
 
-The project was built with two goals in mind:
+The current MVP is focused on a professional developer portfolio:
 
-- Provide a maintainable way to manage and publish portfolio & blog content
-- Gain hands-on experience deploying a full web stack in a Linux server environment
+- React renders the public portfolio, project detail, about, home, and status pages.
+- Django Admin manages editable content and uploaded project media.
+- Django REST Framework exposes the API consumed by the frontend.
+- Nginx fronts the backend in production and serves Django static files plus uploaded media.
 
-To simplify content administration, Django was chosen for both backend logic and server-rendered frontend templates, allowing all site content to be managed through Django's built-in admin interface.
+The backend still contains the blog domain and API, but the public React blog surface is intentionally excluded from the MVP.
 
 ---
 
 ## Why This Exists
 
-This project was built as a practical full-stack deployment exercise rather than a static portfolio page.
+This project is a practical full-stack deployment exercise and a maintainable personal portfolio.
 
-It solves two real problems simultaneously:
+It solves two main problems:
 
-- Managing portfolio & blog content without editing source files manually
-- Understanding how a production web application is containerized, reverse proxied, secured with HTTPS, and deployed on a VPS
-
-The result is a self-hosted application where both application logic and infrastructure setup are owned and maintained within the same project.
+- Portfolio content can be managed through Django Admin instead of source edits.
+- The stack can be deployed as a self-hosted Docker Compose application with database persistence, reverse proxying, static file serving, uploaded media serving, and HTTPS support.
 
 ---
 
@@ -28,7 +28,11 @@ The result is a self-hosted application where both application logic and infrast
 
 - Python
 - Django
-- Django Templates
+- Django REST Framework
+- React
+- Vite
+- Vitest
+- ESLint
 - PostgreSQL
 - Docker Compose
 - Gunicorn
@@ -40,75 +44,97 @@ The result is a self-hosted application where both application logic and infrast
 
 ## Core Features
 
-- Dynamic portfolio project publishing through Django Admin
-- Dynamic blog publishing through Django Admin
-- Reusable server-rendered template structure
-- Custom 404 and 500 status pages
+- API-driven React portfolio frontend
+- Dynamic home hero content from Django models
+- Dynamic about page content from Django models
+- Portfolio overview with featured and other project sections
+- Full featured-project and project listing routes
+- Project detail pages backed by API data
+- Project thumbnails and uploaded media support
+- Django Admin content management
+- Custom React 404 and 500 pages
 - PostgreSQL-backed production persistence
-- Reverse proxy via Nginx
-- HTTPS termination using Let's Encrypt SSL certificates
-- Containerized deployment using Docker Compose
+- Nginx reverse proxy, static file serving, and uploaded media serving
+- HTTPS termination using Let's Encrypt certificates
+- Frontend and backend test coverage
 
 ---
 
 ## Application Structure
 
-The application is split into dedicated Django apps:
+```text
+backend/   Django project, DRF APIs, admin, models, migrations, backend tests
+frontend/  React + Vite app, frontend API clients, components, pages, tests
+nginx/     Nginx container and reverse proxy configuration
+```
 
-- `core/` — shared layout, homepage, about page, static assets, global templates
-- `portfolio/` — portfolio project models, views, templates, publishing logic
-- `blog/` — blog post models, views, templates, tagging, publishing logic
-- `users/` — custom user management
+The Django apps are split by content domain:
 
-This keeps content domains isolated while allowing shared presentation and navigation logic to remain centralized.
+- `core` manages shared site content such as hero, about, and social media context.
+- `portfolio` manages portfolio context, projects, thumbnails, and project API responses.
+- `blog` remains in the backend for blog content and API support, but is not part of the MVP frontend.
+- `users` contains custom user management.
+
+---
+
+## Development
+
+The Docker Composition includes a `frontend` service for local Vite development and a `backend` service for Django/Gunicorn.
+
+Vite proxies frontend API and media requests to the backend service:
+
+- `/api/*` -> `backend:8000`
+- `/media/*` -> `backend:8000`
+
+Useful local checks:
+
+```bash
+cd frontend
+npm test
+npm run lint
+npm run build
+```
+
+```bash
+cd backend
+pipenv run python manage.py test
+```
 
 ---
 
 ## Production Architecture
 
-The deployed production stack consists of four services:
+The production-facing stack is composed of:
 
-### `web`
+### `backend`
 
-Runs the Django application through Gunicorn.
+Runs the Django application through Gunicorn and exposes port `8000` internally to the Docker network.
 
 ### `db`
 
-Runs PostgreSQL as the persistent production database.
+Runs PostgreSQL as the persistent database.
 
 ### `nginx`
 
 Acts as:
 
-- Reverse proxy
-- Static file server
-- HTTP → HTTPS redirect layer
+- Reverse proxy to the backend service
+- Static file server for Django collected static files
+- Media file server for uploaded project files
+- HTTP to HTTPS redirect layer
 - SSL termination point
 
 ### `certbot`
 
-Used for manual Let's Encrypt certificate generation and renewal.
+Used for Let's Encrypt certificate generation and renewal.
 
 Docker volumes are used for:
 
 - PostgreSQL data persistence
 - Django static file persistence
-- SSL certificate persistence
-
----
-
-## Requirements
-
-To deploy this project you need:
-
-- Docker
-- Docker Compose
-- A Linux VPS
-- A registered domain name pointing to the server
-- Let's Encrypt certificate generation access
-- A production `.env` file
-
-Django production settings such as `SECRET_KEY`, `ALLOWED_HOSTS`, and database credentials are provided through environment variables rather than hardcoded settings.
+- Uploaded media persistence
+- Frontend `node_modules` isolation for local development
+- SSL certificate persistence through host-mounted Let's Encrypt paths
 
 ---
 
@@ -117,7 +143,7 @@ Django production settings such as `SECRET_KEY`, `ALLOWED_HOSTS`, and database c
 Create a `.env` file in the project root and provide values for:
 
 ```env
-# Used by templates for info
+# Template/context compatibility
 DOMAIN_NAME=
 SITE_OWNER=
 
@@ -127,17 +153,16 @@ DOMAIN=
 
 # Django settings
 SECRET_KEY=
+DEBUG=
 DJANGO_ALLOWED_HOSTS=
 DJANGO_CSRF_TRUSTED_ORIGINS=
+DJANGO_CORS_ALLOWED_ORIGINS=
 SQL_ENGINE=
 SQL_DATABASE=
 SQL_USER=
 SQL_PASSWORD=
 SQL_HOST=
 SQL_PORT=5432
-
-# Docker settings
-PORT=80
 
 # DB settings
 POSTGRES_USER=
@@ -147,9 +172,9 @@ POSTGRES_DB=
 
 ---
 
-## First-Time Production Deployment
+## Deployment Notes
 
-### 1. Generate initial SSL certificate
+### 1. Generate the initial SSL certificate
 
 Port `80` must be available for Certbot's standalone HTTP challenge.
 
@@ -167,11 +192,18 @@ certbot/certbot certonly --standalone \
 docker compose up -d
 ```
 
+### 3. Run backend migrations and collect static files
+
+```bash
+docker compose exec backend python manage.py migrate
+docker compose exec backend python manage.py collectstatic --noinput
+```
+
 ---
 
 ## SSL Certificate Renewal
 
-Because Nginx occupies port `80`, the Docker stack must be stopped before renewing the certificate.
+Because Nginx occupies port `80`, the Docker stack must be stopped before standalone renewal.
 
 ### 1. Stop running containers
 
@@ -190,7 +222,7 @@ certbot/certbot certonly --standalone \
 --force-renewal
 ```
 
-### 2. Start the application stack again
+### 3. Start the application stack again
 
 ```bash
 docker compose up -d
@@ -198,39 +230,39 @@ docker compose up -d
 
 ---
 
-## HTTPS Flow
+## HTTPS, Static, and Media Flow
 
 Incoming traffic is handled as follows:
 
-- HTTP traffic arrives at Nginx on port 80
-- Nginx redirects all traffic to HTTPS
-- HTTPS traffic terminates at Nginx using mounted Let's Encrypt certificates
-- Nginx proxies application requests to Gunicorn
-- Static assets are served directly by Nginx
+- HTTP traffic arrives at Nginx on port `80`.
+- Nginx redirects configured domain traffic to HTTPS.
+- HTTPS traffic terminates at Nginx using mounted Let's Encrypt certificates.
+- Application requests are proxied to Gunicorn.
+- Django static assets are served by Nginx from `/static/`.
+- Uploaded media files are served by Nginx from `/media/`.
 
-This keeps SSL handling and public traffic separate from the Django container itself.
+This keeps SSL handling and public file serving outside the Django container.
 
 ---
 
 ## Content Management
 
-All editable site content is managed through Django Admin, including:
+Editable site content is managed through Django Admin, including:
 
+- Home hero content
 - About page content
 - Social media links
+- Portfolio context text
 - Portfolio projects
-- Blog posts
-
-This removes the need for manual template editing when publishing new content.
+- Project thumbnails and thumbnail captions
+- Blog posts in the backend, outside the MVP frontend
 
 ---
 
 ## Future Improvements
 
-- Introduce environment-driven domain and SSL configuration
-- Automate SSL certificate renewal with cron
-- Replace remaining manual deployment steps with a fully repeatable deployment workflow
-- Replace Django Templates with a separated React + Vite frontend
-- Add development and production Docker Compose profiles
-
----
+- Replace hardcoded Nginx domain and certificate paths with environment-driven configuration.
+- Automate SSL certificate renewal.
+- Split Docker Compose development and production concerns into explicit profiles or separate compositions.
+- Add production frontend build and serving steps if the React app is to be served by the Docker/Nginx stack.
+- Replace remaining manual deployment steps with a fully repeatable deployment workflow.
