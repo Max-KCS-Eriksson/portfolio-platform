@@ -1,6 +1,8 @@
 services:
   frontend:
     image: node:20-alpine
+    profiles:
+      - dev
     working_dir: /app
     volumes:
       - ./frontend:/app
@@ -29,7 +31,9 @@ services:
     env_file:
       - ./.env
   nginx:
-    build: ./nginx
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/media
@@ -45,6 +49,8 @@ services:
       - backend
   certbot:
     image: certbot/certbot
+    profiles:
+      - certbot
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt"
       - "/var/lib/letsencrypt:/var/lib/letsencrypt"

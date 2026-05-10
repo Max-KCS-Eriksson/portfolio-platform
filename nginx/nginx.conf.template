@@ -1,4 +1,4 @@
-upstream django {
+upstream backend {
     server backend:8000;
 }
 
@@ -34,12 +34,25 @@ server {
     client_max_body_size 4G;
     keepalive_timeout 5;
 
-    location / {
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header Host $http_host;
-        proxy_redirect off;
-        proxy_pass http://django;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+
+    location = /api {
+        proxy_pass http://backend;
+    }
+
+    location ^~ /api/ {
+        proxy_pass http://backend;
+    }
+
+    location = /admin {
+        proxy_pass http://backend;
+    }
+
+    location ^~ /admin/ {
+        proxy_pass http://backend;
     }
 
     location ^~ /.well-known/acme-challenge/ {
@@ -52,5 +65,10 @@ server {
 
     location /media/ {
         alias /home/app/web/media/;
+    }
+
+    location / {
+        root /usr/share/nginx/html;
+        try_files $uri $uri/ /index.html;
     }
 }

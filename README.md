@@ -7,7 +7,7 @@ The current MVP is focused on a professional developer portfolio:
 - React renders the public portfolio, project detail, about, home, and status pages.
 - Django Admin manages editable content and uploaded project media.
 - Django REST Framework exposes the API consumed by the frontend.
-- Nginx fronts the backend in production and serves Django static files plus uploaded media.
+- Nginx serves the production React build, proxies backend requests, and serves Django static files plus uploaded media.
 
 The backend still contains the blog domain and API, but the public React blog surface is intentionally excluded from the MVP.
 
@@ -54,7 +54,7 @@ It solves two main problems:
 - Django Admin content management
 - Custom React 404 and 500 pages
 - PostgreSQL-backed production persistence
-- Nginx reverse proxy, static file serving, and uploaded media serving
+- Nginx React build serving, reverse proxying, static file serving, and uploaded media serving
 - HTTPS termination using Let's Encrypt certificates
 - Frontend and backend test coverage
 
@@ -79,7 +79,8 @@ The Django apps are split by content domain:
 
 ## Development
 
-The Docker Composition includes a `frontend` service for local Vite development and a `backend` service for Django/Gunicorn.
+The Docker Compose configuration includes a `frontend` service for local Vite development and a `backend` service for Django/Gunicorn.
+The Vite service is attached to the `dev` profile so it does not run in the default production stack.
 
 Vite proxies frontend API and media requests to the backend service:
 
@@ -87,6 +88,10 @@ Vite proxies frontend API and media requests to the backend service:
 - `/media/*` -> `backend:8000`
 
 Useful local checks:
+
+```bash
+docker compose --profile dev up --build
+```
 
 ```bash
 cd frontend
@@ -118,7 +123,8 @@ Runs PostgreSQL as the persistent database.
 
 Acts as:
 
-- Reverse proxy to the backend service
+- Production file server for the React build
+- Reverse proxy to the backend service for API and admin routes
 - Static file server for Django collected static files
 - Media file server for uploaded project files
 - HTTP to HTTPS redirect layer
@@ -126,7 +132,7 @@ Acts as:
 
 ### `certbot`
 
-Used for Let's Encrypt certificate generation and renewal.
+Used for Let's Encrypt certificate generation and renewal through the `certbot` Compose profile.
 
 Docker volumes are used for:
 
@@ -152,6 +158,21 @@ cp .env.example .env
 ---
 
 ## Deployment Notes
+
+After pulling a new `main` version in production, rebuild the Docker images, restart the stack, run migrations, and collect Django static files:
+
+```bash
+git checkout main
+git fetch origin
+git pull --ff-only origin main
+
+docker compose down
+docker compose up --build -d
+docker compose exec backend python manage.py migrate
+docker compose exec backend python manage.py collectstatic --noinput
+```
+
+The default Compose stack builds the React app into the Nginx image and starts `db`, `backend`, and `nginx`. It does not start the local Vite development service or the one-off `certbot` service.
 
 ### 1. Generate the initial SSL certificate
 
@@ -232,7 +253,8 @@ Incoming traffic is handled as follows:
 - Nginx redirects configured domain traffic to HTTPS.
 - HTTPS traffic terminates at Nginx using mounted Let's Encrypt certificates.
 - Nginx renders `DOMAIN` from `.env` into its runtime configuration before startup.
-- Application requests are proxied to Gunicorn.
+- `/api/` and `/admin/` requests are proxied to Gunicorn.
+- React application routes are served from the built frontend files in the Nginx image.
 - Django static assets are served by Nginx from `/static/`.
 - Uploaded media files are served by Nginx from `/media/`.
 
@@ -257,6 +279,4 @@ Editable site content is managed through Django Admin, including:
 ## Future Improvements
 
 - Automate SSL certificate renewal.
-- Split Docker Compose development and production concerns into explicit profiles or separate compositions.
-- Add production frontend build and serving steps if the React app is to be served by the Docker/Nginx stack.
 - Replace remaining manual deployment steps with a fully repeatable deployment workflow.
