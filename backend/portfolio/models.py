@@ -51,6 +51,11 @@ class Project(models.Model):
         blank=True,
         help_text="URL to live project.",
     )
+    thumbnail = models.ImageField(
+        blank=True,
+        upload_to="portfolio/resources/upload/thumbnails/",
+    )
+    thumbnail_caption = models.TextField(blank=True)
     tech_stack = models.TextField(
         default="",  # preserving existing production rows
         blank=False,  # required in Django admin
