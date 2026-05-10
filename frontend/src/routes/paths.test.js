@@ -9,9 +9,6 @@ describe("ROUTES", () => {
       portfolioFeatured: "/portfolio/featured",
       portfolioProjects: "/portfolio/projects",
       projectDetail: "/portfolio/:slug",
-      blog: "/blog/",
-      blogTag: "/blog/tag/:tag",
-      blogPostDetail: "/blog/:slug",
       about: "/about/",
       status500: "/500/",
       notFound: "*",
@@ -22,12 +19,6 @@ describe("ROUTES", () => {
 describe("buildRoute", () => {
   test("builds encoded detail routes", () => {
     expect(buildRoute.projectDetail("project one")).toBe("/portfolio/project%20one/");
-    expect(buildRoute.blogTag("React Testing")).toBe("/blog/tag/React%20Testing/");
-    expect(buildRoute.blogPostDetail("post one")).toBe("/blog/post%20one/");
-  });
-
-  test("builds static blog route", () => {
-    expect(buildRoute.blog()).toBe("/blog/");
   });
 
   test("builds static portfolio listing routes", () => {
