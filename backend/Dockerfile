@@ -19,7 +19,7 @@ RUN addgroup --system app && adduser --system --group app
 
 ENV HOME=/home/app
 ENV APP_HOME=${HOME}/web
-RUN mkdir -p ${APP_HOME}/staticfiles
+RUN mkdir -p ${APP_HOME}/staticfiles ${APP_HOME}/media
 WORKDIR ${APP_HOME}
 
 COPY --from=builder /usr/src/app/wheels /wheels
