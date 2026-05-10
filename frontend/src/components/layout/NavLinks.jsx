@@ -34,12 +34,6 @@ function NavLinks({ isMenuOpen, onNavigate }) {
       </li>
 
       <li className="nav-item">
-        <Link className={getNavLinkClassName(ROUTES.blog)} to={ROUTES.blog} onClick={onNavigate}>
-          Blog
-        </Link>
-      </li>
-
-      <li className="nav-item">
         <Link className={getNavLinkClassName(ROUTES.about)} to={ROUTES.about} onClick={onNavigate}>
           About
         </Link>

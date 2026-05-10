@@ -31,7 +31,7 @@ describe("NavLinks", () => {
   test("calls onNavigate when a link is clicked", () => {
     const { onNavigate } = renderNavLinks("/portfolio/");
 
-    fireEvent.click(screen.getByRole("link", { name: "Blog" }));
+    fireEvent.click(screen.getByRole("link", { name: "About" }));
 
     expect(onNavigate).toHaveBeenCalledTimes(1);
   });

@@ -1,7 +1,6 @@
 const DEFAULT_OVERVIEW_LIMITS = {
   featuredProjectOverviewLimit: 3,
   otherProjectOverviewLimit: 6,
-  blogOverviewLimit: 2,
 };
 
 export function limitOverviewItems(items, limit) {
@@ -14,8 +13,4 @@ export function getFeaturedProjectOverviewLimit() {
 
 export function getOtherProjectOverviewLimit() {
   return DEFAULT_OVERVIEW_LIMITS.otherProjectOverviewLimit;
-}
-
-export function getBlogOverviewLimit() {
-  return DEFAULT_OVERVIEW_LIMITS.blogOverviewLimit;
 }

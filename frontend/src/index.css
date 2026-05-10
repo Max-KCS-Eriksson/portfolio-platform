@@ -707,23 +707,6 @@ h1.tag {
     gap: var(--space-3);
   }
 
-  .home-writing-list {
-    grid-template-columns: 1fr;
-  }
-
-  .home-writing-card {
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-
-  .home-writing-card time {
-    grid-column: 2;
-  }
-
-  .home-writing-card .section-link {
-    grid-column: 2;
-    justify-self: start;
-  }
-
   .footer {
     align-items: flex-start;
     flex-direction: column;
