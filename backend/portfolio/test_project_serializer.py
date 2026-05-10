@@ -36,3 +36,18 @@ class ProjectSerializerTest(TestCase):
             project_data["competencies_demonstrated"],
             "Competencies demonstrated",
         )
+
+    def test_serializes_project_thumbnail_fields(self):
+        project = create_project(
+            "Thumbnail Project",
+            thumbnail="portfolio/resources/upload/thumbnails/project.png",
+            thumbnail_caption="Project thumbnail caption.",
+        )
+
+        project_data = ProjectSerializer(project).data
+
+        self.assertEqual(
+            project_data["thumbnail"],
+            "/media/portfolio/resources/upload/thumbnails/project.png",
+        )
+        self.assertEqual(project_data["thumbnail_caption"], "Project thumbnail caption.")

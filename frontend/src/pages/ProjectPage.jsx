@@ -47,7 +47,7 @@ function ProjectPage() {
   }
 
   const hasLiveUrl = Boolean(project.liveUrl);
-  const hasProjectVisual = Boolean(project.projectVisual);
+  const hasThumbnail = Boolean(project.thumbnail);
   const techStack = project.techStack?.length > 0 ? project.techStack : ["Project tech stack TBD"];
   const sections = [
     { marker: "01", title: "Problem", body: project.problem },
@@ -81,11 +81,11 @@ function ProjectPage() {
         skills={techStack}
         actions={heroActions}
         visual={
-          hasProjectVisual ? (
+          hasThumbnail ? (
             <img
               className="project-detail__visual-media"
-              src={project.projectVisual}
-              alt={project.projectVisualCaption || `${project.title} visual`}
+              src={project.thumbnail}
+              alt={project.thumbnailCaption || `${project.title} thumbnail`}
             />
           ) : null
         }

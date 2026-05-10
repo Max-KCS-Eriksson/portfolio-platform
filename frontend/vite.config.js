@@ -13,6 +13,14 @@ export default defineConfig({
         target: "http://backend:8000", // Backend Docker service name
         changeOrigin: true,
       },
+      "/media": {
+        target: "http://backend:8000", // Backend Docker service name
+        changeOrigin: true,
+      },
     },
+  },
+  test: {
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.js",
   },
 });

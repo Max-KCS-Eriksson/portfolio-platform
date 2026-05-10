@@ -19,6 +19,8 @@ class ProjectSerializer(serializers.ModelSerializer):
             "title",
             "repo_url",
             "live_url",
+            "thumbnail",
+            "thumbnail_caption",
             "summary",
             "tech_stack",
             "problem",
