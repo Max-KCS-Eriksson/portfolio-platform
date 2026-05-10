@@ -140,35 +140,14 @@ Docker volumes are used for:
 
 ## Environment Configuration
 
-Create a `.env` file in the project root and provide values for:
+The repository includes `.env.example` as the tracked documentation template for production and Docker Compose settings.
+Copy it to `.env`, then replace every `<...>` placeholder with the deployment value:
 
-```env
-# Template/context compatibility
-DOMAIN_NAME=
-SITE_OWNER=
-
-# Certbot
-EMAIL=
-DOMAIN=
-
-# Django settings
-SECRET_KEY=
-DEBUG=
-DJANGO_ALLOWED_HOSTS=
-DJANGO_CSRF_TRUSTED_ORIGINS=
-DJANGO_CORS_ALLOWED_ORIGINS=
-SQL_ENGINE=
-SQL_DATABASE=
-SQL_USER=
-SQL_PASSWORD=
-SQL_HOST=
-SQL_PORT=5432
-
-# DB settings
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_DB=
+```bash
+cp .env.example .env
 ```
+
+`DOMAIN` is used by both Certbot and the Nginx container; Nginx renders it into `server_name` and the Let's Encrypt certificate paths at container startup.
 
 ---
 
@@ -177,13 +156,21 @@ POSTGRES_DB=
 ### 1. Generate the initial SSL certificate
 
 Port `80` must be available for Certbot's standalone HTTP challenge.
+Load the `.env` values into the shell before running the one-off certificate command:
 
 ```bash
+set -a
+. ./.env
+set +a
+
 docker run -it --rm -p 80:80 --name certbot \
 -v "/etc/letsencrypt:/etc/letsencrypt" \
 -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
 certbot/certbot certonly --standalone \
--d <your-domain>
+-d "${DOMAIN}" \
+--email "${EMAIL}" \
+--agree-tos \
+--no-eff-email
 ```
 
 ### 2. Start the application stack
@@ -214,11 +201,18 @@ docker compose stop
 ### 2. Renew certificate
 
 ```bash
+set -a
+. ./.env
+set +a
+
 docker run -it --rm -p 80:80 --name certbot \
 -v "/etc/letsencrypt:/etc/letsencrypt" \
 -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
 certbot/certbot certonly --standalone \
--d <your-domain> \
+-d "${DOMAIN}" \
+--email "${EMAIL}" \
+--agree-tos \
+--no-eff-email \
 --force-renewal
 ```
 
@@ -237,6 +231,7 @@ Incoming traffic is handled as follows:
 - HTTP traffic arrives at Nginx on port `80`.
 - Nginx redirects configured domain traffic to HTTPS.
 - HTTPS traffic terminates at Nginx using mounted Let's Encrypt certificates.
+- Nginx renders `DOMAIN` from `.env` into its runtime configuration before startup.
 - Application requests are proxied to Gunicorn.
 - Django static assets are served by Nginx from `/static/`.
 - Uploaded media files are served by Nginx from `/media/`.
@@ -261,7 +256,6 @@ Editable site content is managed through Django Admin, including:
 
 ## Future Improvements
 
-- Replace hardcoded Nginx domain and certificate paths with environment-driven configuration.
 - Automate SSL certificate renewal.
 - Split Docker Compose development and production concerns into explicit profiles or separate compositions.
 - Add production frontend build and serving steps if the React app is to be served by the Docker/Nginx stack.
