@@ -70,6 +70,8 @@ class ProjectListViewTest(TestCase):
                 "title": "API Project",
                 "repo_url": project.repo_url,
                 "live_url": "https://example.com/live",
+                "thumbnail": None,
+                "thumbnail_caption": "",
                 "summary": "API Project summary",
                 "tech_stack": ["Python", "Django", "PostgreSQL"],
                 "problem": "API project problem",
@@ -97,6 +99,8 @@ class ProjectDetailViewTest(TestCase):
             "Detail API Project",
             featured=True,
             display_order=4,
+            thumbnail="portfolio/resources/upload/thumbnails/detail-project.png",
+            thumbnail_caption="Detail project thumbnail.",
             tech_stack="Python, Django",
             problem="Detail API Project problem",
             solution="Detail API Project solution",
@@ -111,6 +115,11 @@ class ProjectDetailViewTest(TestCase):
         self.assertEqual(response.data["title"], "Detail API Project")
         self.assertEqual(response.data["repo_url"], project.repo_url)
         self.assertEqual(response.data["live_url"], "")
+        self.assertEqual(
+            response.data["thumbnail"],
+            "/media/portfolio/resources/upload/thumbnails/detail-project.png",
+        )
+        self.assertEqual(response.data["thumbnail_caption"], "Detail project thumbnail.")
         self.assertEqual(response.data["summary"], "Detail API Project summary")
         self.assertEqual(response.data["tech_stack"], ["Python", "Django"])
         self.assertEqual(response.data["problem"], "Detail API Project problem")
