@@ -3,12 +3,10 @@ import { getPortfolioContext, getProjectsByFeatured } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
 import { getProjectOverviewLimit, limitOverviewItems } from "../config/overviewLimits";
-import { useCoreContext } from "../context/useCoreContext";
 import { usePageTitle } from "../hooks/usePageTitle";
 import "./PortfolioPage.css";
 
 function PortfolioPage() {
-  const { coreContext } = useCoreContext();
   const [portfolioContext, setPortfolioContext] = useState(null);
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [otherProjects, setOtherProjects] = useState([]);
@@ -29,7 +27,7 @@ function PortfolioPage() {
       });
   }, []);
 
-  const projectOverviewLimit = getProjectOverviewLimit(coreContext);
+  const projectOverviewLimit = getProjectOverviewLimit();
   const overviewFeaturedProjects = limitOverviewItems(featuredProjects, projectOverviewLimit);
   const overviewOtherProjects = limitOverviewItems(otherProjects, projectOverviewLimit);
   const intro = portfolioContext?.intro || "Portfolio intro TBD";

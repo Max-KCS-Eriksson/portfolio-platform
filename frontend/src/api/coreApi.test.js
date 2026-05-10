@@ -22,8 +22,6 @@ describe("coreApi", () => {
       domainName: "example.dev",
       siteOwner: "Example Owner",
       socialMediaLinks: [],
-      projectOverviewLimit: undefined,
-      blogOverviewLimit: undefined,
     });
 
     expect(apiGet).toHaveBeenCalledWith("/core/context/");

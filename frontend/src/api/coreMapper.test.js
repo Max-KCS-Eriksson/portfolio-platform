@@ -56,7 +56,7 @@ describe("mapAbout", () => {
 });
 
 describe("mapCoreContext", () => {
-  test("maps site context, social links, and overview limits from API field names", () => {
+  test("maps site context and social links from API field names", () => {
     const coreContext = mapCoreContext({
       domain_name: "example.dev",
       site_owner: "Example Owner",
@@ -73,8 +73,6 @@ describe("mapCoreContext", () => {
           url: "https://linkedin.com/in/example",
         },
       ],
-      project_overview_limit: 3,
-      blog_overview_limit: 2,
     });
 
     expect(coreContext).toEqual({
@@ -92,8 +90,6 @@ describe("mapCoreContext", () => {
           url: "https://linkedin.com/in/example",
         },
       ],
-      projectOverviewLimit: 3,
-      blogOverviewLimit: 2,
     });
   });
 

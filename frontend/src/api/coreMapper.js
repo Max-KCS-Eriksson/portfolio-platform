@@ -1,4 +1,4 @@
-import { asArray, asOptionalNumber, asString, isObject } from "./mapperUtils";
+import { asArray, asString, isObject } from "./mapperUtils";
 
 export function mapHero(heroSection) {
   if (!isObject(heroSection)) {
@@ -60,7 +60,5 @@ export function mapCoreContext(coreContext) {
     domainName: asString(coreContext.domain_name ?? coreContext.domainName),
     siteOwner: asString(coreContext.site_owner ?? coreContext.siteOwner),
     socialMediaLinks: mapSocialMediaLinks(coreContext.social_media_links ?? coreContext.socialMediaLinks),
-    projectOverviewLimit: asOptionalNumber(coreContext.project_overview_limit ?? coreContext.projectOverviewLimit),
-    blogOverviewLimit: asOptionalNumber(coreContext.blog_overview_limit ?? coreContext.blogOverviewLimit),
   };
 }

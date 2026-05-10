@@ -10,7 +10,6 @@ import HeroSection from "../components/core/HeroSection";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
 import { getBlogOverviewLimit, getProjectOverviewLimit, limitOverviewItems } from "../config/overviewLimits";
-import { useCoreContext } from "../context/useCoreContext";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { buildRoute, ROUTES } from "../routes/paths";
 import "./HomePage.css";
@@ -36,7 +35,6 @@ function formatDate(value) {
 }
 
 function HomePage() {
-  const { coreContext } = useCoreContext();
   const [heroContent, setHeroContent] = useState({});
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [blogPosts, setBlogPosts] = useState([]);
@@ -71,8 +69,8 @@ function HomePage() {
   const headline = heroContent.headline || "Hero headline TBD";
   const intro = heroContent.intro || "Hero intro TBD";
   const skills = heroContent.skills?.length > 0 ? heroContent.skills : ["Skills TBD"];
-  const overviewFeaturedProjects = limitOverviewItems(featuredProjects, getProjectOverviewLimit(coreContext));
-  const overviewBlogPosts = limitOverviewItems(blogPosts, getBlogOverviewLimit(coreContext));
+  const overviewFeaturedProjects = limitOverviewItems(featuredProjects, getProjectOverviewLimit());
+  const overviewBlogPosts = limitOverviewItems(blogPosts, getBlogOverviewLimit());
   const heroActions = (
     <>
       <Link className="cta cta-button" to={ROUTES.portfolio}>
