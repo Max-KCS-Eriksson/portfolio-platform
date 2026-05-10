@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
+import { buildRoute } from "../../routes/paths";
 import "./ProjectsSection.css";
 
 function getProjectsSectionConfig(projects) {
@@ -10,7 +12,7 @@ function getProjectsSectionConfig(projects) {
     return {
       id: "featured-projects",
       heading: "Featured Projects",
-      linkHref: "#featured-projects",
+      linkHref: buildRoute.portfolioFeatured(),
       linkText: "View all featured",
     };
   }
@@ -18,7 +20,7 @@ function getProjectsSectionConfig(projects) {
   return {
     id: "other-projects",
     heading: "Other Projects",
-    linkHref: "#other-projects",
+    linkHref: buildRoute.portfolioProjects(),
     linkText: "View all projects",
   };
 }
@@ -39,8 +41,10 @@ function getProjectsSectionClassName(tight) {
  * Renders the default project card icon on every rendered project card.
  * @param {boolean} [props.tight]
  * Applies compact grid density for secondary project lists.
+ * @param {boolean} [props.showAllLink]
+ * Renders the route link to the full listing for the current section type.
  */
-function ProjectsSection({ projects, cardIcon = false, ctaCards = false, tight = false }) {
+function ProjectsSection({ projects, cardIcon = false, ctaCards = false, tight = false, showAllLink = false }) {
   const { id, heading, linkHref, linkText } = getProjectsSectionConfig(projects);
   const headingId = `${id}-heading`;
 
@@ -48,10 +52,12 @@ function ProjectsSection({ projects, cardIcon = false, ctaCards = false, tight =
     <section className="projects-section-block" aria-labelledby={headingId} id={id}>
       <div className="projects-section-block__header">
         <h2 id={headingId}>{heading}</h2>
-        <a className="projects-section-block__link" href={linkHref}>
-          <span>{linkText}</span>
-          <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
-        </a>
+        {showAllLink && (
+          <Link className="projects-section-block__link" to={linkHref}>
+            <span>{linkText}</span>
+            <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
+          </Link>
+        )}
       </div>
 
       <ul className={getProjectsSectionClassName(tight)}>

@@ -17,6 +17,8 @@ function App() {
         <Route element={<Layout />}>
           <Route path={ROUTES.home} element={<HomePage />} />
           <Route path={ROUTES.portfolio} element={<PortfolioPage />} />
+          <Route path={ROUTES.portfolioFeatured} element={<PortfolioPage featured={true} />} />
+          <Route path={ROUTES.portfolioProjects} element={<PortfolioPage featured={false} />} />
           <Route path={ROUTES.projectDetail} element={<ProjectPage />} />
           <Route path={ROUTES.blog} element={<BlogPostListPage />} />
           <Route path={ROUTES.blogTag} element={<BlogPostListPage />} />

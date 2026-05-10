@@ -23,7 +23,7 @@ vi.mock("../hooks/usePageTitle", () => ({
   usePageTitle: vi.fn(),
 }));
 
-function renderHomePage(coreContext = { projectOverviewLimit: 1, blogOverviewLimit: 1, socialMediaLinks: [] }) {
+function renderHomePage(coreContext = { socialMediaLinks: [] }) {
   return render(
     <CoreContext.Provider value={{ coreContext, error: null, isLoading: false }}>
       <MemoryRouter>

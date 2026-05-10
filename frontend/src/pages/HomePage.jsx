@@ -9,7 +9,7 @@ import { getProjectsByFeatured } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import ProjectsSection from "../components/portfolio/ProjectsSection";
-import { getBlogOverviewLimit, getProjectOverviewLimit, limitOverviewItems } from "../config/overviewLimits";
+import { getFeaturedProjectOverviewLimit, getBlogOverviewLimit, limitOverviewItems } from "../config/overviewLimits";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { buildRoute, ROUTES } from "../routes/paths";
 import "./HomePage.css";
@@ -69,7 +69,8 @@ function HomePage() {
   const headline = heroContent.headline || "Hero headline TBD";
   const intro = heroContent.intro || "Hero intro TBD";
   const skills = heroContent.skills?.length > 0 ? heroContent.skills : ["Skills TBD"];
-  const overviewFeaturedProjects = limitOverviewItems(featuredProjects, getProjectOverviewLimit());
+  const overviewFeaturedProjects = limitOverviewItems(featuredProjects, getFeaturedProjectOverviewLimit());
+  const showFeaturedProjectsLink = featuredProjects.length > getFeaturedProjectOverviewLimit();
   const overviewBlogPosts = limitOverviewItems(blogPosts, getBlogOverviewLimit());
   const heroActions = (
     <>
@@ -92,7 +93,7 @@ function HomePage() {
       {projectsError ? <p className="home-empty-state">Could not load projects.</p> : null}
 
       {!projectsError && overviewFeaturedProjects.length > 0 ? (
-        <ProjectsSection projects={overviewFeaturedProjects} />
+        <ProjectsSection projects={overviewFeaturedProjects} showAllLink={showFeaturedProjectsLink} />
       ) : null}
 
       <section className="home-section" aria-labelledby="home-writing-heading">

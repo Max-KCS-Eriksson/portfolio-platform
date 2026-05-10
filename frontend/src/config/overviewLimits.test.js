@@ -1,5 +1,10 @@
 import { describe, expect, test } from "vitest";
-import { getBlogOverviewLimit, getProjectOverviewLimit, limitOverviewItems } from "./overviewLimits";
+import {
+  getBlogOverviewLimit,
+  getFeaturedProjectOverviewLimit,
+  getOtherProjectOverviewLimit,
+  limitOverviewItems,
+} from "./overviewLimits";
 
 describe("overviewLimits", () => {
   test("limits overview items", () => {
@@ -7,7 +12,11 @@ describe("overviewLimits", () => {
   });
 
   test("uses the hard-coded project overview limit", () => {
-    expect(getProjectOverviewLimit()).toBe(3);
+    expect(getFeaturedProjectOverviewLimit()).toBe(3);
+  });
+
+  test("uses the hard-coded other project overview limit", () => {
+    expect(getOtherProjectOverviewLimit()).toBe(6);
   });
 
   test("uses the hard-coded blog overview limit", () => {

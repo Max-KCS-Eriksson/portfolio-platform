@@ -30,18 +30,24 @@ function renderProjectsSection(projects, props = {}) {
 
 describe("ProjectsSection", () => {
   test("renders featured project section when the first project is featured", () => {
-    renderProjectsSection([createProject({ featured: true })], { ctaCards: true });
+    renderProjectsSection([createProject({ featured: true })], { ctaCards: true, showAllLink: true });
 
     expect(screen.getByRole("heading", { name: "Featured Projects" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /View all featured/ })).toHaveAttribute("href", "#featured-projects");
+    expect(screen.getByRole("link", { name: /View all featured/ })).toHaveAttribute("href", "/portfolio/featured");
     expect(screen.getByRole("heading", { name: "Project One" })).toBeInTheDocument();
   });
 
   test("renders other project section for non-featured projects", () => {
-    renderProjectsSection([createProject({ featured: false })], { tight: true });
+    renderProjectsSection([createProject({ featured: false })], { tight: true, showAllLink: true });
 
     expect(screen.getByRole("heading", { name: "Other Projects" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /View all projects/ })).toHaveAttribute("href", "#other-projects");
+    expect(screen.getByRole("link", { name: /View all projects/ })).toHaveAttribute("href", "/portfolio/projects");
+  });
+
+  test("hides section route links by default", () => {
+    renderProjectsSection([createProject({ featured: false })]);
+
+    expect(screen.queryByRole("link", { name: /View all projects/ })).not.toBeInTheDocument();
   });
 
   test("treats highlighted projects as featured for legacy mapped data", () => {

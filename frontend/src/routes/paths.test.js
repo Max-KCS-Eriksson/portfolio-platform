@@ -6,6 +6,8 @@ describe("ROUTES", () => {
     expect(ROUTES).toEqual({
       home: "/",
       portfolio: "/portfolio/",
+      portfolioFeatured: "/portfolio/featured",
+      portfolioProjects: "/portfolio/projects",
       projectDetail: "/portfolio/:slug",
       blog: "/blog/",
       blogTag: "/blog/tag/:tag",
@@ -26,5 +28,10 @@ describe("buildRoute", () => {
 
   test("builds static blog route", () => {
     expect(buildRoute.blog()).toBe("/blog/");
+  });
+
+  test("builds static portfolio listing routes", () => {
+    expect(buildRoute.portfolioFeatured()).toBe("/portfolio/featured");
+    expect(buildRoute.portfolioProjects()).toBe("/portfolio/projects");
   });
 });

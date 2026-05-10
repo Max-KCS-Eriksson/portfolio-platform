@@ -1,6 +1,8 @@
 export const ROUTES = {
   home: "/",
   portfolio: "/portfolio/",
+  portfolioFeatured: "/portfolio/featured",
+  portfolioProjects: "/portfolio/projects",
   projectDetail: "/portfolio/:slug",
   blog: "/blog/",
   blogTag: "/blog/tag/:tag",
@@ -11,6 +13,8 @@ export const ROUTES = {
 };
 
 export const buildRoute = {
+  portfolioFeatured: () => "/portfolio/featured",
+  portfolioProjects: () => "/portfolio/projects",
   projectDetail: (slug) => `/portfolio/${encodeURIComponent(slug)}/`,
   blog: () => "/blog/",
   blogTag: (tag) => `/blog/tag/${encodeURIComponent(tag)}/`,
