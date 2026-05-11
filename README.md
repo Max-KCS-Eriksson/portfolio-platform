@@ -87,22 +87,43 @@ Vite proxies frontend API and media requests to the backend service:
 - `/api/*` -> `backend:8000`
 - `/media/*` -> `backend:8000`
 
-Useful local checks:
+The root `Makefile` wraps the common development commands.
+Start the Docker development stack with:
 
 ```bash
-docker compose --profile dev up --build
+make dev-up
 ```
 
-```bash
-cd frontend
-npm test
-npm run lint
-npm run build
-```
+Stop the Docker development stack and remove orphaned containers with:
 
 ```bash
-cd backend
-pipenv run python manage.py test
+make dev-down
+```
+
+Run frontend checks locally with:
+
+```bash
+make frontend-test
+make frontend-lint
+make frontend-build
+```
+
+Run backend tests in the backend container with:
+
+```bash
+make backend-test
+```
+
+Run backend and frontend tests together with:
+
+```bash
+make test
+```
+
+If the local Vite `frontend` container needs to be removed before redeploying or switching profiles, run:
+
+```bash
+make redeploy-clean
 ```
 
 ---
@@ -159,20 +180,18 @@ cp .env.example .env
 
 ## Deployment Notes
 
-After pulling a new `main` version in production, rebuild the Docker images, restart the stack, run migrations, and collect Django static files:
+After pulling a new `main` version in production, use the root `Makefile` to rebuild the Docker images, restart the stack, run migrations, and collect Django static files:
 
 ```bash
 git checkout main
 git fetch origin
 git pull --ff-only origin main
 
-docker compose down
-docker compose up --build -d
-docker compose exec backend python manage.py migrate
-docker compose exec backend python manage.py collectstatic --noinput
+make deploy
 ```
 
 The default Compose stack builds the React app into the Nginx image and starts `db`, `backend`, and `nginx`. It does not start the local Vite development service or the one-off `certbot` service.
+`make deploy` runs `make prod-up`, `make migrate`, and `make collectstatic` in that order.
 
 ### 1. Generate the initial SSL certificate
 
@@ -197,14 +216,14 @@ certbot/certbot certonly --standalone \
 ### 2. Start the application stack
 
 ```bash
-docker compose up -d
+make prod-up
 ```
 
 ### 3. Run backend migrations and collect static files
 
 ```bash
-docker compose exec backend python manage.py migrate
-docker compose exec backend python manage.py collectstatic --noinput
+make migrate
+make collectstatic
 ```
 
 ---
@@ -216,7 +235,7 @@ Because Nginx occupies port `80`, the Docker stack must be stopped before standa
 ### 1. Stop running containers
 
 ```bash
-docker compose stop
+make prod-down
 ```
 
 ### 2. Renew certificate
@@ -240,7 +259,7 @@ certbot/certbot certonly --standalone \
 ### 3. Start the application stack again
 
 ```bash
-docker compose up -d
+make prod-up
 ```
 
 ---
