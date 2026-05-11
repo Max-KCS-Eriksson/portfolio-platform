@@ -24,7 +24,7 @@ function getRepoLinks(project) {
  * @param {boolean} [props.ctaCard]
  * Applies accent card styling when the caller needs visual focus.
  * @param {boolean} [props.icon]
- * Renders the default project card icon.
+ * Renders the project card image, or a default icon when the project has no icon URL.
  * @param {boolean} [props.tight]
  * Applies compact card density for secondary project lists.
  */
@@ -41,7 +41,7 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
 
       {icon && (
         <div className="project-card__icon" aria-hidden="true">
-          <FontAwesomeIcon icon={faFileCode} />
+          {project.icon ? <img src={project.icon} alt="" /> : <FontAwesomeIcon icon={faFileCode} />}
         </div>
       )}
 

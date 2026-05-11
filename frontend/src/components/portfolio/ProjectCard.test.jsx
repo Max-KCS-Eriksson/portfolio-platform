@@ -55,6 +55,33 @@ describe("ProjectCard", () => {
     expect(screen.getByText("Project tech stack TBD")).toBeInTheDocument();
   });
 
+  test("renders the project icon image when icon display is enabled and an icon exists", () => {
+    renderProjectCard(createProject({ icon: "/media/portfolio/resources/upload/icons/projects/project-icon.png" }), {
+      icon: true,
+    });
+
+    expect(document.querySelector(".project-card__icon img")).toHaveAttribute(
+      "src",
+      "/media/portfolio/resources/upload/icons/projects/project-icon.png",
+    );
+  });
+
+  test("renders the default icon when icon display is enabled and no project icon exists", () => {
+    renderProjectCard(createProject({ icon: "" }), { icon: true });
+
+    expect(document.querySelector(".project-card__icon svg")).toBeInTheDocument();
+    expect(document.querySelector(".project-card__icon img")).not.toBeInTheDocument();
+  });
+
+  test("does not render an icon image when icon display is disabled", () => {
+    renderProjectCard(createProject({ icon: "/media/portfolio/resources/upload/icons/projects/project-icon.png" }), {
+      icon: false,
+    });
+
+    expect(document.querySelector(".project-card__icon img")).not.toBeInTheDocument();
+    expect(document.querySelector(".project-card__icon")).not.toBeInTheDocument();
+  });
+
   test("renders featured badge only for featured CTA cards", () => {
     renderProjectCard(createProject({ featured: true }), { ctaCard: true });
 

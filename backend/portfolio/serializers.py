@@ -21,6 +21,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "live_url",
             "thumbnail",
             "thumbnail_caption",
+            "card_icon",
             "summary",
             "tech_stack",
             "problem",

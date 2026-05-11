@@ -51,3 +51,16 @@ class ProjectSerializerTest(TestCase):
             "/media/portfolio/resources/upload/thumbnails/project.png",
         )
         self.assertEqual(project_data["thumbnail_caption"], "Project thumbnail caption.")
+
+    def test_serializes_project_card_icon_field(self):
+        project = create_project(
+            "Card Icon Project",
+            card_icon="portfolio/resources/upload/icons/projects/project-icon.png",
+        )
+
+        project_data = ProjectSerializer(project).data
+
+        self.assertEqual(
+            project_data["card_icon"],
+            "/media/portfolio/resources/upload/icons/projects/project-icon.png",
+        )
