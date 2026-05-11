@@ -17,6 +17,7 @@ class ProjectModelTest(TestCase):
             project.competencies_demonstrated,
             "Defaulted Project competencies",
         )
+        self.assertEqual(project.card_icon, "")
         self.assertTrue(project.public)
         self.assertFalse(project.featured)
         self.assertEqual(project.display_order, 0)

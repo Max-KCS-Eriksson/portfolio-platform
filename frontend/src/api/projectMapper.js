@@ -40,6 +40,7 @@ export function mapProject(project) {
     projectVisualCaption: asString(project.project_visual_caption ?? project.projectVisualCaption),
     thumbnail: asString(project.thumbnail),
     thumbnailCaption: asString(project.thumbnail_caption ?? project.thumbnailCaption),
+    icon: asString(project.card_icon ?? project.icon),
     slug: asString(project.slug),
     featured: asBoolean(project.featured, false),
     highlighted: asBoolean(project.highlighted, false),

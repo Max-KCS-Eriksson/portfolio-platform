@@ -16,6 +16,18 @@ describe("mapProject", () => {
     expect(project.thumbnailCaption).toBe("Project thumbnail caption.");
   });
 
+  test("maps project card icon field from the API response", () => {
+    const project = mapProject({
+      id: 3,
+      title: "Icon Project",
+      repo_url: "https://github.com/example/icon-project",
+      card_icon: "/media/portfolio/resources/upload/icons/projects/project-icon.png",
+      slug: "icon-project",
+    });
+
+    expect(project.icon).toBe("/media/portfolio/resources/upload/icons/projects/project-icon.png");
+  });
+
   test("keeps thumbnail fields empty when the API response does not include them", () => {
     const project = mapProject({
       id: 2,
@@ -26,5 +38,6 @@ describe("mapProject", () => {
 
     expect(project.thumbnail).toBe("");
     expect(project.thumbnailCaption).toBe("");
+    expect(project.icon).toBe("");
   });
 });
