@@ -56,6 +56,10 @@ class Project(models.Model):
         upload_to="portfolio/resources/upload/thumbnails/",
     )
     thumbnail_caption = models.TextField(blank=True)
+    card_icon = models.ImageField(
+        blank=True,
+        upload_to="portfolio/resources/upload/icons/projects/",
+    )
     tech_stack = models.TextField(
         default="",  # preserving existing production rows
         blank=False,  # required in Django admin

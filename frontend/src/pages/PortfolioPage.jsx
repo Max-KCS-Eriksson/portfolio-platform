@@ -104,7 +104,7 @@ function PortfolioPage({ featured = undefined }) {
       {overviewOtherProjects.length > 0 && (
         <ProjectsSection
           projects={overviewOtherProjects}
-          cardIcon={true}
+          cardIcon={false}
           tight={true}
           showAllLink={showOtherProjectsLink}
         />

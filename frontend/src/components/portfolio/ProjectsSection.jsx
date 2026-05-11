@@ -38,7 +38,7 @@ function getProjectsSectionClassName(tight) {
  * @param {boolean} [props.ctaCards]
  * Applies CTA card styling to every rendered project card.
  * @param {boolean} [props.cardIcon]
- * Renders the default project card icon on every rendered project card.
+ * Enables project card icon rendering when project icon URLs are available.
  * @param {boolean} [props.tight]
  * Applies compact grid density for secondary project lists.
  * @param {boolean} [props.showAllLink]
