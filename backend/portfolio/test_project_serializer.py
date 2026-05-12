@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+from .models import Project
 from .serializers import ProjectSerializer
 from .testing import create_project
 
@@ -64,3 +65,10 @@ class ProjectSerializerTest(TestCase):
             project_data["card_icon"],
             "/media/portfolio/resources/upload/icons/projects/project-icon.png",
         )
+
+    def test_serializes_project_status_field(self):
+        project = create_project("Beta Project", status=Project.Status.BETA)
+
+        project_data = ProjectSerializer(project).data
+
+        self.assertEqual(project_data["status"], Project.Status.BETA)

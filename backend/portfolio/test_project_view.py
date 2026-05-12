@@ -1,6 +1,7 @@
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 
+from .models import Project
 from .testing import create_project
 from .views import ProjectDetailView, ProjectsListView
 
@@ -51,6 +52,7 @@ class ProjectListViewTest(TestCase):
         project = create_project(
             "API Project",
             featured=True,
+            status=Project.Status.BETA,
             display_order=3,
             live_url="https://example.com/live",
             tech_stack="Python, Django, PostgreSQL",
@@ -81,6 +83,7 @@ class ProjectListViewTest(TestCase):
                 "competencies_demonstrated": "API project competencies",
                 "slug": "api-project",
                 "featured": True,
+                "status": Project.Status.BETA,
                 "display_order": 3,
             },
         )
@@ -99,6 +102,7 @@ class ProjectDetailViewTest(TestCase):
         project = create_project(
             "Detail API Project",
             featured=True,
+            status=Project.Status.BETA,
             display_order=4,
             thumbnail="portfolio/resources/upload/thumbnails/detail-project.png",
             thumbnail_caption="Detail project thumbnail.",
@@ -140,5 +144,6 @@ class ProjectDetailViewTest(TestCase):
         )
         self.assertEqual(response.data["slug"], "detail-api-project")
         self.assertTrue(response.data["featured"])
+        self.assertEqual(response.data["status"], Project.Status.BETA)
         self.assertEqual(response.data["display_order"], 4)
         self.assertNotIn("description", response.data)
