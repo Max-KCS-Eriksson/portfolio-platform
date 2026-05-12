@@ -39,6 +39,11 @@ class PortfolioContext(models.Model):
 
 
 class Project(models.Model):
+    class Status(models.TextChoices):
+        PROTOTYPE = "prototype", "Prototype"
+        BETA = "beta", "Beta"
+        STABLE = "stable", "Stable"
+
     title = models.CharField(
         max_length=50,
         unique=True,
@@ -78,6 +83,9 @@ class Project(models.Model):
 
     public = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
+    status = models.CharField(
+        default=Status.STABLE, choices=Status.choices, max_length=20
+    )
     display_order = models.PositiveIntegerField(
         default=0,
         help_text="Lower numbers appear first.",

@@ -20,6 +20,7 @@ class ProjectModelTest(TestCase):
         self.assertEqual(project.card_icon, "")
         self.assertTrue(project.public)
         self.assertFalse(project.featured)
+        self.assertEqual(project.status, Project.Status.STABLE)
         self.assertEqual(project.display_order, 0)
 
     def test_generates_slug_when_created(self):
