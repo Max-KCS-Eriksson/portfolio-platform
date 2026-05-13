@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { getProject } from "../api/projectsApi";
@@ -82,5 +82,35 @@ describe("ProjectPage", () => {
     await screen.findByRole("heading", { name: "Thumbnail Project" });
 
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  });
+
+  test("renders the beta badge in the what I built heading for beta projects", async () => {
+    getProject.mockResolvedValue(createProject({ status: "beta" }));
+
+    renderProjectPage();
+
+    const sectionHeading = await screen.findByRole("heading", { name: /What I Built/ });
+
+    expect(within(sectionHeading).getByText("BETA")).toBeInTheDocument();
+  });
+
+  test("renders the prototype badge in the what I built heading for prototype projects", async () => {
+    getProject.mockResolvedValue(createProject({ status: "prototype" }));
+
+    renderProjectPage();
+
+    const sectionHeading = await screen.findByRole("heading", { name: /What I Built/ });
+
+    expect(within(sectionHeading).getByText("PROTOTYPE")).toBeInTheDocument();
+  });
+
+  test("does not render the beta badge for non-beta projects", async () => {
+    getProject.mockResolvedValue(createProject({ status: "stable" }));
+
+    renderProjectPage();
+
+    await screen.findByRole("heading", { name: /What I Built/ });
+
+    expect(screen.queryByText("BETA")).not.toBeInTheDocument();
   });
 });

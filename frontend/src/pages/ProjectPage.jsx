@@ -5,6 +5,7 @@ import { faArrowUpRightFromSquare, faDisplay } from "@fortawesome/free-solid-svg
 import { useParams } from "react-router-dom";
 import { getProject } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
+import ProjectStatusBadge from "../components/portfolio/ProjectStatusBadge";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { renderLinebreaks } from "../utils/renderLinebreaks";
 import "./ProjectPage.css";
@@ -48,6 +49,7 @@ function ProjectPage() {
 
   const hasLiveUrl = Boolean(project.liveUrl);
   const hasThumbnail = Boolean(project.thumbnail);
+  const hasStatusBadge = project.status === "beta" || project.status === "prototype";
   const techStack = project.techStack?.length > 0 ? project.techStack : ["Project tech stack TBD"];
   const sections = [
     { marker: "01", title: "Problem", body: project.problem },
@@ -99,8 +101,11 @@ function ProjectPage() {
             aria-labelledby={`project-section-${section.marker}`}
           >
             <h2 id={`project-section-${section.marker}`}>
-              <span>{section.marker}</span>
-              {section.title}
+              <span className="project-detail__section-marker">{section.marker}</span>
+              <span className="project-detail__section-title">{section.title}</span>
+              {hasStatusBadge && section.marker === "02" && (
+                <ProjectStatusBadge status={project.status} className="project-detail__status-badge" />
+              )}
             </h2>
             <div className="project-detail__section-body">{renderLinebreaks(section.body)}</div>
           </section>
