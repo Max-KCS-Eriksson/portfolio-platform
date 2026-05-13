@@ -49,9 +49,10 @@
 
 .project-card__icon img {
   display: block;
-  width: 1.7rem;
-  height: 1.7rem;
+  width: auto;
+  height: auto;
   object-fit: contain;
+  border-radius: inherit;
 }
 
 .project-card__icon svg {
