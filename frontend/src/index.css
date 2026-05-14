@@ -69,8 +69,8 @@
   --color-surface-hover: var(--color-black-700);
   --color-border: var(--color-gray-700);
   --color-border-soft: var(--color-gray-750);
-  --color-border-strong: var(--color-gray-650);
   --color-border-visible: var(--color-gray-600);
+  --color-border-strong: var(--color-gray-550);
   --color-border-accent: var(--color-yellow-700);
   --color-border-accent-alpha: var(--color-yellow-300-alpha-35);
   --color-border-cyan: var(--color-cyan-300-alpha-22);
