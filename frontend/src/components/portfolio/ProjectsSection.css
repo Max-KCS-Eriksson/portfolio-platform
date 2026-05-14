@@ -63,7 +63,9 @@
 
 /* Small devices */
 @media (max-width: 760px) {
-  .projects-section {
+
+  .projects-section,
+  .projects-section.secondary {
     grid-template-columns: 1fr;
   }
 }
