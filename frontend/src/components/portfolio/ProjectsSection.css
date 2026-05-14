@@ -57,7 +57,7 @@
   min-width: 0;
 }
 
-.projects-section__item .project-card {
+.projects-section__item .project-card.card {
   width: 100%;
 }
 

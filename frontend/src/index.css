@@ -110,10 +110,10 @@
   --space-7: 3rem;
 
   --radius-sm: 6px;
+  --radius-chip: 6px;
   --radius-md: 8px;
   --radius-panel: 8px;
   --radius-card: 8px;
-  --radius-chip: 6px;
   --page-gutter: 4rem;
   --container-width: 96rem;
 
@@ -493,6 +493,11 @@ main {
 
 .card.cta-card:hover {
   border-color: var(--color-accent-strong);
+}
+
+.card-icon {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border-accent-alpha);
 }
 
 .main-menu {

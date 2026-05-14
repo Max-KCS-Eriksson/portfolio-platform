@@ -40,7 +40,7 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
       <Link className="project-card__overlay-link" to={detailPath} aria-labelledby={titleId} />
 
       {icon && (
-        <div className="project-card__icon" aria-hidden="true">
+        <div className="project-card card-icon" aria-hidden="true">
           {project.icon ? <img src={project.icon} alt="" /> : <FontAwesomeIcon icon={faFileCode} />}
         </div>
       )}

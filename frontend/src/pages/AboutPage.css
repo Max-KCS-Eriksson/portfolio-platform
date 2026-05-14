@@ -55,8 +55,6 @@
   width: 3rem;
   height: 3rem;
   color: var(--color-accent);
-  background: var(--color-bg-code);
-  border: 1px solid var(--color-border-accent-alpha);
   border-radius: var(--radius-sm);
 }
 
@@ -105,6 +103,7 @@
 
 /* Small devices */
 @media only screen and (max-width: 767.98px) {
+
   .about-page__cards,
   .about-page__card {
     grid-template-columns: 1fr;
