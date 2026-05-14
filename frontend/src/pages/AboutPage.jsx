@@ -42,7 +42,7 @@ function AboutPage() {
       <div className="about-page__cards">
         {hasBackground && (
           <section className="about-page__card about-page__card--wide card" aria-labelledby="about-background-heading">
-            <div className="about-page__card-icon" aria-hidden="true">
+            <div className="about-page__card-icon card-icon" aria-hidden="true">
               <FontAwesomeIcon icon={faUser} />
             </div>
             <div className="about-page__card-content">
@@ -57,7 +57,7 @@ function AboutPage() {
             className={`about-page__card ${hasFocus ? "" : "about-page__card--wide"} card`}
             aria-labelledby="about-work-heading"
           >
-            <div className="about-page__card-icon" aria-hidden="true">
+            <div className="about-page__card-icon card-icon" aria-hidden="true">
               <FontAwesomeIcon icon={faTerminal} />
             </div>
             <div className="about-page__card-content">
@@ -76,7 +76,7 @@ function AboutPage() {
 
         {hasFocus && (
           <section className="about-page__card card" aria-labelledby="about-focus-heading">
-            <div className="about-page__card-icon" aria-hidden="true">
+            <div className="about-page__card-icon card-icon" aria-hidden="true">
               <FontAwesomeIcon icon={faSeedling} />
             </div>
             <div className="about-page__card-content">
