@@ -3,8 +3,8 @@
 :root {
   color-scheme: dark;
   --font-mono:
-    "JetBrains Mono", ui-monospace, SFMono-Regular, "Cascadia Code", "Roboto Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+    "JetBrains Mono", ui-monospace, SFMono-Regular, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
   --font-display: "Cairo Play", var(--font-mono);
 
   font-family: var(--font-mono);
