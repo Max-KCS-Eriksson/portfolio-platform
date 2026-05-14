@@ -191,7 +191,7 @@
 
 .project-card__link:hover,
 .project-card__link:hover svg {
-  color: var(--color-accent-strong);
+  color: var(--color-accent-strong) !important;
 }
 
 /* X-Small devices */
