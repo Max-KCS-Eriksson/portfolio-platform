@@ -184,10 +184,7 @@
   color: var(--color-accent-cyan);
 }
 
-.project-card__link.secondary {
-  color: var(--color-text-muted);
-}
-
+.project-card__link.secondary,
 .project-card__link.secondary svg:first-child {
   color: var(--color-text-muted);
 }
