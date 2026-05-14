@@ -193,7 +193,6 @@ a:hover {
   color: var(--color-accent-strong);
 }
 
-.button-link,
 .cta-button {
   display: inline-flex;
   align-items: center;
@@ -207,21 +206,18 @@ a:hover {
   border-radius: var(--radius-sm);
 }
 
-.button-link:hover,
 .cta-button:hover {
   color: var(--color-text-inverse);
   background: var(--color-accent-strong);
   border-color: var(--color-accent-strong);
 }
 
-.button-link.secondary,
 .cta-button.secondary {
   color: var(--color-text);
   background: var(--color-transparent);
   border-color: var(--color-border-visible);
 }
 
-.button-link.secondary:hover,
 .cta-button.secondary:hover {
   color: var(--color-accent-strong);
   background: var(--color-surface-hover);
