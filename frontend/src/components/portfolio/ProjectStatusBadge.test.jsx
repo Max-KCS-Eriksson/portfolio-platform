@@ -17,10 +17,10 @@ describe("ProjectStatusBadge", () => {
     expect(document.querySelector('[data-icon="person-digging"]')).toBeInTheDocument();
   });
 
-  test("renders prototype status with a person digging icon", () => {
+  test("renders prototype status with a flask icon", () => {
     render(<ProjectStatusBadge status="prototype" />);
 
     expect(screen.getByText("PROTOTYPE")).toBeInTheDocument();
-    expect(document.querySelector('[data-icon="person-digging"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-icon="flask"]')).toBeInTheDocument();
   });
 });

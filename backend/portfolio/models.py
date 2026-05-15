@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 
@@ -10,13 +11,19 @@ class PortfolioContext(models.Model):
     featured = models.BooleanField(default=True)
     intro = models.TextField()
 
+    def another_featured_context_exists(self):
+        return (
+            PortfolioContext.objects.exclude(pk=self.pk)
+            .filter(featured=True)
+            .exists()
+        )
+
     def save(self, *args, **kwargs):
         """Ensure only one instance is featured and that one always is featured."""
         if self.featured:
             PortfolioContext.objects.exclude(pk=self.pk).update(featured=False)
-        else:
-            if not PortfolioContext.objects.exclude(pk=self.pk).filter(featured=True).exists():
-                self.featured = True
+        elif not self.another_featured_context_exists():
+            self.featured = True
 
         return super().save(*args, **kwargs)
 
@@ -25,12 +32,17 @@ class PortfolioContext(models.Model):
         was_featured = self.featured
         result = super().delete(*args, **kwargs)
 
-        if was_featured and not PortfolioContext.objects.filter(featured=True).exists():
-            next_context = PortfolioContext.objects.order_by("-pk").first()
+        if not was_featured:
+            return result
 
-            if next_context:
-                next_context.featured = True
-                next_context.save()
+        if PortfolioContext.objects.filter(featured=True).exists():
+            return result
+
+        next_context = PortfolioContext.objects.order_by("-pk").first()
+
+        if next_context:
+            next_context.featured = True
+            next_context.save()
 
         return result
 
@@ -95,10 +107,18 @@ class Project(models.Model):
         ordering = ["display_order", "-id"]
 
     def save(self, *args, **kwargs):
-        """Generate a slug field and save the instance."""
+        self.clean()
         self.slug = slugify(self.title)
         self.tech_stack = normalize_comma_separated_values(self.tech_stack)
         return super().save(*args, **kwargs)
+
+    def clean(self):
+        super().clean()
+
+        if self.featured and self.status == self.Status.PROTOTYPE:
+            raise ValidationError(
+                {"featured": "Prototype projects cannot be featured."}
+            )
 
     def __str__(self):
         return self.title

@@ -1,5 +1,5 @@
 import { faStar } from "@fortawesome/free-regular-svg-icons";
-import { faPersonDigging } from "@fortawesome/free-solid-svg-icons";
+import { faFlask, faPersonDigging } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./ProjectStatusBadge.css";
 
@@ -21,7 +21,7 @@ function ProjectStatusBadge({ featured = false, status = "stable", className = "
 
   const badgeStatus = featured ? "featured" : status;
   const label = featured ? "Featured" : status.toUpperCase();
-  const icon = featured ? faStar : faPersonDigging;
+  const icon = featured ? faStar : status === "prototype" ? faFlask : faPersonDigging;
   const classNames = ["project-status-badge", `project-status-badge--${badgeStatus}`, className].filter(Boolean).join(" ");
 
   return (
