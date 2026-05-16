@@ -54,6 +54,7 @@
   --color-green-300: #506834;
   --color-green-500: #486034;
   --color-green-700: #404c2c;
+  --color-red-500: #ab333f;
   --color-transparent: #00000000;
 
   /* Style tokens */
@@ -96,6 +97,7 @@
   --color-chip-primary-bg: var(--color-yellow-300-alpha-08);
   --color-chip-primary-border: var(--color-yellow-300-alpha-26);
   --color-inset-highlight: var(--color-yellow-300-alpha-08);
+  --color-nav-close: var(--color-red-500);
   --color-empty: var(--color-transparent);
   --shadow-panel: 0 18px 45px var(--color-black-alpha-22);
   --shadow-card: 0 12px 30px var(--color-black-alpha-18);
@@ -366,31 +368,59 @@ main,
 
 .hamburger {
   display: none;
-  width: 2.6rem;
-  height: 2.6rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hamburger-bar-gap);
+  width: 2.7rem;
+  height: 2.7rem;
   padding: 0.55rem;
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
   cursor: pointer;
+  --hamburger-bar-gap: 0.32rem;
+  --hamburger-bar-height: 2px;
+  --hamburger-bar-offset: calc(var(--hamburger-bar-gap) + var(--hamburger-bar-height));
 }
 
-.bar {
+.hamburger .bar {
   display: block;
   width: 100%;
-  height: 2px;
-  margin: 0.28rem 0;
+  height: var(--hamburger-bar-height);
+  margin: 0;
   background: var(--color-text-soft);
   border-radius: 999px;
   transition:
     transform 160ms ease,
     opacity 160ms ease,
     background-color 160ms ease;
+  transform-origin: center;
 }
 
-.hamburger:hover .bar,
 .hamburger.active .bar {
-  background: var(--color-accent);
+  background: var(--color-nav-close);
+}
+
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(var(--hamburger-bar-offset)) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(calc(0px - var(--hamburger-bar-offset))) rotate(-45deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hamburger:hover .bar {
+    background: var(--color-accent);
+  }
+
+  .hamburger.active:hover .bar {
+    background: var(--color-nav-close);
+  }
 }
 
 main {
@@ -689,7 +719,7 @@ h1.tag {
   }
 
   .hamburger {
-    display: block;
+    display: flex;
   }
 
   main {
