@@ -305,17 +305,14 @@ main,
   line-height: 1;
 }
 
-.home-link {
+.home-link,
+.home-link:hover {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
   color: var(--color-text);
   font-family: var(--font-display);
   font-weight: 800;
-}
-
-.home-link:hover {
-  color: var(--color-accent-strong);
 }
 
 .navbar nav {
