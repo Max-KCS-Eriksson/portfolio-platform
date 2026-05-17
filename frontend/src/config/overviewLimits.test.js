@@ -1,5 +1,10 @@
 import { describe, expect, test } from "vitest";
-import { getFeaturedProjectOverviewLimit, getOtherProjectOverviewLimit, limitOverviewItems } from "./overviewLimits";
+import {
+  getFeaturedProjectOverviewLimit,
+  getOtherProjectOverviewLimit,
+  getProjectOverviewLayoutGroupSize,
+  limitOverviewItems,
+} from "./overviewLimits";
 
 describe("overviewLimits", () => {
   test("limits overview items", () => {
@@ -12,5 +17,13 @@ describe("overviewLimits", () => {
 
   test("uses the hard-coded other project overview limit", () => {
     expect(getOtherProjectOverviewLimit()).toBe(6);
+  });
+
+  test("keeps project overview limits aligned to layout groups", () => {
+    const layoutGroupSize = getProjectOverviewLayoutGroupSize();
+
+    expect(layoutGroupSize).toBe(3);
+    expect(getFeaturedProjectOverviewLimit() % layoutGroupSize).toBe(0);
+    expect(getOtherProjectOverviewLimit() % layoutGroupSize).toBe(0);
   });
 });

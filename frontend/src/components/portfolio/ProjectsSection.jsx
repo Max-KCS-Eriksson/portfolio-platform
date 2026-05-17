@@ -3,6 +3,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { buildRoute } from "../../routes/paths";
+import { getProjectOverviewLayoutGroupSize } from "../../config/overviewLimits";
 import "./ProjectsSection.css";
 
 function getProjectsSectionConfig(projects) {
@@ -10,6 +11,7 @@ function getProjectsSectionConfig(projects) {
 
   if (featured) {
     return {
+      featured,
       id: "featured-projects",
       heading: "Featured Projects",
       linkHref: buildRoute.portfolioFeatured(),
@@ -18,6 +20,7 @@ function getProjectsSectionConfig(projects) {
   }
 
   return {
+    featured,
     id: "other-projects",
     heading: "Other Projects",
     linkHref: buildRoute.portfolioProjects(),
@@ -25,8 +28,26 @@ function getProjectsSectionConfig(projects) {
   };
 }
 
-function getProjectsSectionClassName(tight) {
-  return ["projects-section", tight ? "secondary" : ""].filter(Boolean).join(" ");
+function getProjectsSectionClassName(tight, projectCount, featured) {
+  const layoutGroupSize = getProjectOverviewLayoutGroupSize();
+  const usesFeaturedSingleLayout = featured && projectCount === 1;
+  const usesFeaturedPairedLayout = featured && projectCount === 2;
+  const usesFeaturedLeadLayout = featured && projectCount === layoutGroupSize;
+  const usesOtherPairedLayout = !featured && projectCount % 2 === 0 && projectCount % layoutGroupSize !== 0;
+  const usesOtherFifthsLayout = !featured && projectCount % 5 === 0 && projectCount % 2 !== 0;
+  const usesStackLayout = projectCount < layoutGroupSize;
+
+  return [
+    "projects-section",
+    tight ? "secondary" : "",
+    usesFeaturedSingleLayout ? "projects-section--layout-single" : "",
+    usesFeaturedPairedLayout || usesOtherPairedLayout ? "projects-section--layout-paired" : "",
+    usesFeaturedLeadLayout ? "projects-section--layout-lead" : "",
+    usesOtherFifthsLayout ? "projects-section--layout-fifths" : "",
+    usesStackLayout ? "projects-section--layout-stack" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 }
 
 /**
@@ -45,7 +66,7 @@ function getProjectsSectionClassName(tight) {
  * Renders the route link to the full listing for the current section type.
  */
 function ProjectsSection({ projects, cardIcon = false, ctaCards = false, tight = false, showAllLink = false }) {
-  const { id, heading, linkHref, linkText } = getProjectsSectionConfig(projects);
+  const { featured, id, heading, linkHref, linkText } = getProjectsSectionConfig(projects);
   const headingId = `${id}-heading`;
 
   return (
@@ -60,7 +81,7 @@ function ProjectsSection({ projects, cardIcon = false, ctaCards = false, tight =
         )}
       </div>
 
-      <ul className={getProjectsSectionClassName(tight)}>
+      <ul className={getProjectsSectionClassName(tight, projects.length, featured)}>
         {projects.map((project) => (
           <li className="projects-section__item" key={project.id ?? project.slug}>
             <ProjectCard project={project} icon={cardIcon} ctaCard={ctaCards} tight={tight} />
