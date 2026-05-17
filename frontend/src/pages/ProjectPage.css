@@ -56,9 +56,17 @@
   font-size: 1.2rem;
 }
 
-.project-detail__section h2 span {
+.project-detail__section-marker {
   color: var(--color-accent);
   font-size: 1.45rem;
+}
+
+.project-detail__section-title {
+  min-width: 0;
+}
+
+.project-detail__status-badge {
+  margin-inline-start: auto;
 }
 
 .project-detail__section-body {

@@ -7,7 +7,7 @@
   padding: var(--space-5);
 }
 
-.project-card>*:not(.project-card__overlay-link):not(.project-card__badge) {
+.project-card>*:not(.project-card__overlay-link):not(.project-card__badges) {
   position: relative;
   z-index: 1;
   pointer-events: none;
@@ -57,7 +57,7 @@
   font-size: 1.2rem;
 }
 
-.project-card__badge {
+.project-card__badges {
   position: absolute;
   top: var(--space-4);
   right: var(--space-4);
@@ -65,20 +65,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 1.7rem;
-  margin: 0;
-  padding: 0.15rem 0.55rem;
-  color: var(--color-text);
-  font-size: 0.8rem;
-  font-weight: 700;
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border-visible);
-  border-radius: var(--radius-sm);
-}
-
-.project-card__badge svg {
-  color: var(--color-accent);
-  font-size: 0.75rem;
+  pointer-events: none;
 }
 
 .project-card__title {
@@ -91,6 +78,17 @@
 .project-card.secondary .project-card__title {
   padding-inline-end: 0;
   font-size: 1rem;
+}
+
+.project-card.secondary .project-card__badges {
+  position: static;
+  justify-self: start;
+  flex-wrap: wrap;
+  order: -1;
+}
+
+.project-card:has(.project-card__badges > :nth-child(2)) .project-card__title {
+  padding-inline-end: 12rem;
 }
 
 .project-card:has(.project-card__overlay-link:hover) .project-card__title {
@@ -198,9 +196,10 @@
     padding: var(--space-4);
   }
 
-  .project-card__badge {
+  .project-card__badges {
     position: static;
     justify-self: start;
+    flex-wrap: wrap;
     order: -1;
   }
 

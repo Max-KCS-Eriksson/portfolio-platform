@@ -8,7 +8,7 @@ admin.site.register(PortfolioContext)
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("title", "public", "featured", "display_order")
-    list_editable = ("public", "featured", "display_order")
+    list_display = ("title", "public", "featured", "status", "display_order")
+    list_editable = ("public", "featured", "status", "display_order")
     ordering = ("display_order", "-id")
     exclude = ["slug"]

@@ -43,6 +43,7 @@ export function mapProject(project) {
     icon: asString(project.card_icon ?? project.icon),
     slug: asString(project.slug),
     featured: asBoolean(project.featured, false),
+    status: asString(project.status, "stable"),
     highlighted: asBoolean(project.highlighted, false),
     displayOrder: asNumber(project.display_order ?? project.displayOrder),
     techStack: mapTechStack(project),

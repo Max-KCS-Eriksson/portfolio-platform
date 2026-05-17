@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from .models import Project
@@ -20,6 +21,7 @@ class ProjectModelTest(TestCase):
         self.assertEqual(project.card_icon, "")
         self.assertTrue(project.public)
         self.assertFalse(project.featured)
+        self.assertEqual(project.status, Project.Status.STABLE)
         self.assertEqual(project.display_order, 0)
 
     def test_generates_slug_when_created(self):
@@ -81,3 +83,46 @@ class ProjectModelTest(TestCase):
         )
 
         self.assertEqual(project.tech_stack, "Django, Python, Docker, PostgreSQL")
+
+    def test_allows_stable_featured_project(self):
+        project = create_project(
+            "Stable Featured Project",
+            featured=True,
+            status=Project.Status.STABLE,
+        )
+
+        self.assertTrue(project.featured)
+        self.assertEqual(project.status, Project.Status.STABLE)
+
+    def test_allows_beta_featured_project(self):
+        project = create_project(
+            "Beta Featured Project",
+            featured=True,
+            status=Project.Status.BETA,
+        )
+
+        self.assertTrue(project.featured)
+        self.assertEqual(project.status, Project.Status.BETA)
+
+    def test_allows_prototype_non_featured_project(self):
+        project = create_project(
+            "Prototype Project",
+            featured=False,
+            status=Project.Status.PROTOTYPE,
+        )
+
+        self.assertFalse(project.featured)
+        self.assertEqual(project.status, Project.Status.PROTOTYPE)
+
+    def test_rejects_prototype_featured_project(self):
+        with self.assertRaises(ValidationError) as error:
+            create_project(
+                "Prototype Featured Project",
+                featured=True,
+                status=Project.Status.PROTOTYPE,
+            )
+
+        self.assertEqual(
+            error.exception.message_dict,
+            {"featured": ["Prototype projects cannot be featured."]},
+        )

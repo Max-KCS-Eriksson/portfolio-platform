@@ -30,6 +30,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "competencies_demonstrated",
             "slug",
             "featured",
+            "status",
             "display_order",
         )
 

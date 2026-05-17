@@ -87,4 +87,16 @@ describe("ProjectCard", () => {
 
     expect(screen.getByText("Featured")).toBeInTheDocument();
   });
+
+  test("renders beta badge for beta projects", () => {
+    renderProjectCard(createProject({ status: "beta" }));
+
+    expect(screen.getByText("BETA")).toBeInTheDocument();
+  });
+
+  test("renders prototype badge for prototype projects", () => {
+    renderProjectCard(createProject({ status: "prototype" }));
+
+    expect(screen.getByText("PROTOTYPE")).toBeInTheDocument();
+  });
 });

@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCode, faStar } from "@fortawesome/free-regular-svg-icons";
+import { faFileCode } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight, faArrowUpRightFromSquare, faDisplay } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import SocialMediaLinks from "../layout/SocialMediaLinks";
 import { buildRoute } from "../../routes/paths";
 import { renderLinebreaks } from "../../utils/renderLinebreaks";
+import ProjectStatusBadge from "./ProjectStatusBadge";
 import "./ProjectCard.css";
 
 function getProjectCardClassName(ctaCard, tight) {
@@ -34,6 +35,8 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
   const detailPath = buildRoute.projectDetail(project.slug);
   const titleId = `project-card-title-${project.id ?? project.slug}`;
   const techStack = project.techStack?.length > 0 ? project.techStack : ["Project tech stack TBD"];
+  const hasStatusBadge = project.status === "beta" || project.status === "prototype";
+  const hasFeaturedBadge = project.featured && ctaCard;
 
   return (
     <article className={getProjectCardClassName(ctaCard, tight)}>
@@ -45,11 +48,11 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
         </div>
       )}
 
-      {project.featured && ctaCard && (
-        <p className="project-card__badge">
-          <FontAwesomeIcon icon={faStar} aria-hidden="true" />
-          <span>Featured</span>
-        </p>
+      {(hasStatusBadge || hasFeaturedBadge) && (
+        <div className="project-card__badges" aria-label={`${project.title} status`}>
+          {hasStatusBadge && <ProjectStatusBadge status={project.status} />}
+          {hasFeaturedBadge && <ProjectStatusBadge featured={true} />}
+        </div>
       )}
 
       <h3 className="project-card__title" id={titleId}>
