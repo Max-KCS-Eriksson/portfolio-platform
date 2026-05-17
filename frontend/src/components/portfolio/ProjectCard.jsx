@@ -42,22 +42,26 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
     <article className={getProjectCardClassName(ctaCard, tight)}>
       <Link className="project-card__overlay-link" to={detailPath} aria-labelledby={titleId} />
 
-      {icon && (
-        <div className="project-card card-icon" aria-hidden="true">
-          {project.icon ? <img src={project.icon} alt="" /> : <FontAwesomeIcon icon={faFileCode} />}
-        </div>
-      )}
+      <div className="project-card__header">
+        <div className="project-card__identity">
+          {icon && (
+            <div className="project-card__icon card-icon" aria-hidden="true">
+              {project.icon ? <img src={project.icon} alt="" /> : <FontAwesomeIcon icon={faFileCode} />}
+            </div>
+          )}
 
-      {(hasStatusBadge || hasFeaturedBadge) && (
-        <div className="project-card__badges" aria-label={`${project.title} status`}>
-          {hasStatusBadge && <ProjectStatusBadge status={project.status} />}
-          {hasFeaturedBadge && <ProjectStatusBadge featured={true} />}
+          <h3 className="project-card__title" id={titleId}>
+            {project.title}
+          </h3>
         </div>
-      )}
 
-      <h3 className="project-card__title" id={titleId}>
-        {project.title}
-      </h3>
+        {(hasStatusBadge || hasFeaturedBadge) && (
+          <div className="project-card__badges" aria-label={`${project.title} status`}>
+            {hasStatusBadge && <ProjectStatusBadge status={project.status} />}
+            {hasFeaturedBadge && <ProjectStatusBadge featured={true} />}
+          </div>
+        )}
+      </div>
 
       <div className="project-card__summary">{renderLinebreaks(project.description)}</div>
 
