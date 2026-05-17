@@ -96,7 +96,7 @@ class Project(models.Model):
     public = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
     status = models.CharField(
-        default=Status.STABLE, choices=Status.choices, max_length=20
+        default=Status.PROTOTYPE, choices=Status.choices, max_length=20
     )
     display_order = models.PositiveIntegerField(
         default=0,
