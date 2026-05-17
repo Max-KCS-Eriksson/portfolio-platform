@@ -196,13 +196,6 @@
     padding: var(--space-4);
   }
 
-  .project-card__badges {
-    position: static;
-    justify-self: start;
-    flex-wrap: wrap;
-    order: -1;
-  }
-
   .project-card__title {
     padding-inline-end: 0;
   }
