@@ -1,6 +1,7 @@
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from utils.api import parse_optional_bool_query_pram
 
 from .models import PortfolioContext, Project
 from .serializers import PortfolioContextSerializer, ProjectSerializer
@@ -15,22 +16,12 @@ class PortfolioContextView(APIView):
         return Response(PortfolioContextSerializer(portfolio_context).data)
 
 
-def get_featured_filter(value):
-    if value == "true":
-        return True
-
-    if value == "false":
-        return False
-
-    return None
-
-
 class ProjectsListView(APIView):
     """Overview of all showcased projects."""
 
     def get(self, request):
         project_filters = {"public": True}
-        featured = get_featured_filter(request.query_params.get("featured"))
+        featured = parse_optional_bool_query_pram(request.query_params.get("featured"))
 
         if featured is not None:
             project_filters["featured"] = featured

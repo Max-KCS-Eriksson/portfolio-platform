@@ -23,11 +23,12 @@ class About(models.Model):
 
     def save(self, *args, **kwargs):
         """Ensure only one instance is featured and that one always is featured."""
+        other_about_sections = About.objects.exclude(pk=self.pk)
+
         if self.featured:
-            About.objects.exclude(pk=self.pk).update(featured=False)
-        else:
-            if not About.objects.exclude(pk=self.pk).filter(featured=True).exists():
-                self.featured = True
+            other_about_sections.update(featured=False)
+        elif not other_about_sections.filter(featured=True).exists():
+            self.featured = True
 
         return super().save(*args, **kwargs)
 
@@ -36,12 +37,19 @@ class About(models.Model):
         was_featured = self.featured
         result = super().delete(*args, **kwargs)
 
-        if was_featured and not About.objects.filter(featured=True).exists():
-            next_about = About.objects.order_by("-pk").first()
+        has_featured_about = About.objects.filter(featured=True).exists()
+        should_promote_about = was_featured and not has_featured_about
 
-            if next_about:
-                next_about.featured = True
-                next_about.save()
+        if not should_promote_about:
+            return result
+
+        next_about = About.objects.order_by("-pk").first()
+
+        if next_about is None:
+            return result
+
+        next_about.featured = True
+        next_about.save()
 
         return result
 
@@ -60,16 +68,12 @@ class HeroSection(models.Model):
     def save(self, *args, **kwargs):
         """Ensure only one instance is featured and that one always is featured."""
         self.skills = normalize_comma_separated_values(self.skills)
+        other_hero_sections = HeroSection.objects.exclude(pk=self.pk)
 
         if self.featured:
-            HeroSection.objects.exclude(pk=self.pk).update(featured=False)
-        else:
-            if (
-                not HeroSection.objects.exclude(pk=self.pk)
-                .filter(featured=True)
-                .exists()
-            ):
-                self.featured = True
+            other_hero_sections.update(featured=False)
+        elif not other_hero_sections.filter(featured=True).exists():
+            self.featured = True
 
         return super().save(*args, **kwargs)
 
@@ -78,12 +82,19 @@ class HeroSection(models.Model):
         was_featured = self.featured
         result = super().delete(*args, **kwargs)
 
-        if was_featured and not HeroSection.objects.filter(featured=True).exists():
-            next_hero_section = HeroSection.objects.order_by("-pk").first()
+        has_featured_hero_section = HeroSection.objects.filter(featured=True).exists()
+        should_promote_hero_section = was_featured and not has_featured_hero_section
 
-            if next_hero_section:
-                next_hero_section.featured = True
-                next_hero_section.save()
+        if not should_promote_hero_section:
+            return result
+
+        next_hero_section = HeroSection.objects.order_by("-pk").first()
+
+        if next_hero_section is None:
+            return result
+
+        next_hero_section.featured = True
+        next_hero_section.save()
 
         return result
 
