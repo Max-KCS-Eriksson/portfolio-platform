@@ -1,16 +1,14 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
 
+from .utils import BlogMarkdownParseError, BlogUtility
+
 
 class BlogPost(models.Model):
-    title = models.CharField(
-        max_length=50,
-        unique=True,
-        help_text="The title of the blog post.",
-    )
-    intro = models.TextField(
-        help_text="Introduction of the blog post.",
+    as_markdown = models.TextField(
+        help_text="Write the blog post as Markdown, starting with a # title."
     )
     tags = TaggableManager()
     date_added = models.DateTimeField(auto_now_add=True)
@@ -21,9 +19,34 @@ class BlogPost(models.Model):
         ordering = ["-date_added", "-id"]
 
     def save(self, *args, **kwargs):
-        """Generate a slug field and save the instance."""
-        self.slug = slugify(self.title)
+        """Generate a slug from the Markdown title and save the instance."""
+        parsed_post = self.parsed_markdown
+        self.slug = slugify(parsed_post["title"])
+
+        if not self.slug:
+            raise ValidationError(
+                {"as_markdown": "Blog Markdown title must create a non-empty slug."}
+            )
+
+        if kwargs.get("update_fields") is not None:
+            kwargs["update_fields"] = {*kwargs["update_fields"], "slug"}
+
         return super().save(*args, **kwargs)
+
+    @property
+    def parsed_markdown(self):
+        try:
+            return BlogUtility.markdown_to_blog_post(self.as_markdown)
+        except BlogMarkdownParseError as error:
+            raise ValidationError({"as_markdown": str(error)}) from error
+
+    @property
+    def title(self):
+        return self.parsed_markdown["title"]
+
+    @property
+    def intro(self):
+        return self.parsed_markdown["intro"]
 
     def __str__(self):
         return self.title
