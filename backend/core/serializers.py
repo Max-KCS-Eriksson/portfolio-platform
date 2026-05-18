@@ -1,18 +1,7 @@
 from rest_framework import serializers
+from utils.text import parse_unsorted_list
 
 from .models import About, HeroSection, SocialMediaLink
-
-
-def parse_marked_list(value):
-    list_entries = []
-
-    for list_entry in value.split("- "):
-        list_entry = list_entry.strip()
-
-        if list_entry:
-            list_entries.append(list_entry)
-
-    return list_entries
 
 
 class AboutSerializer(serializers.ModelSerializer):
@@ -32,10 +21,10 @@ class AboutSerializer(serializers.ModelSerializer):
         )
 
     def get_mindset_list(self, about):
-        return parse_marked_list(about.mindset_list)
+        return parse_unsorted_list(about.mindset_list)
 
     def get_focus_list(self, about):
-        return parse_marked_list(about.focus_list)
+        return parse_unsorted_list(about.focus_list)
 
 
 class HeroSectionSerializer(serializers.ModelSerializer):

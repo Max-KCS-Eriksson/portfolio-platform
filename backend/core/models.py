@@ -1,6 +1,5 @@
 from django.db import models
-
-from utils.text import normalize_comma_separated_values
+from utils.text import normalize_comma_separated_values, normalize_unsorted_list_text
 
 
 class About(models.Model):
@@ -23,8 +22,11 @@ class About(models.Model):
 
     def save(self, *args, **kwargs):
         """Ensure only one instance is featured and that one always is featured."""
-        other_about_sections = About.objects.exclude(pk=self.pk)
 
+        self.mindset_list = normalize_unsorted_list_text(self.mindset_list)
+        self.focus_list = normalize_unsorted_list_text(self.focus_list)
+
+        other_about_sections = About.objects.exclude(pk=self.pk)
         if self.featured:
             other_about_sections.update(featured=False)
         elif not other_about_sections.filter(featured=True).exists():
@@ -34,6 +36,7 @@ class About(models.Model):
 
     def delete(self, *args, **kwargs):
         """Promote another about section if the featured one is deleted."""
+
         was_featured = self.featured
         result = super().delete(*args, **kwargs)
 
@@ -79,6 +82,7 @@ class HeroSection(models.Model):
 
     def delete(self, *args, **kwargs):
         """Promote another hero section if the featured one is deleted."""
+
         was_featured = self.featured
         result = super().delete(*args, **kwargs)
 
