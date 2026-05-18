@@ -5,8 +5,13 @@ def create_blog_post(title, **field_values):
     date_added = field_values.pop("date_added", None)
     tags = field_values.pop("tags", [])
     field_values = {
-        "title": title,
-        "intro": f"{title} intro",
+        "as_markdown": f"""# {title}
+
+{title} intro
+
+## Overview
+
+{title} text.""",
         **field_values,
     }
 
