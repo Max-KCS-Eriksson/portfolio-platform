@@ -26,7 +26,7 @@
 }
 
 .project-card:has(.project-card__overlay-link:hover) {
-  background: var(--color-surface-strong);
+  background: var(--color-surface-elevated);
   border-color: var(--color-border-accent-alpha);
 }
 
