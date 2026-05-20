@@ -55,7 +55,10 @@ collectstatic:
 
 .PHONY: backend-test
 backend-test:
-	$(COMPOSE) exec backend python manage.py test
+	$(COMPOSE) exec \
+			-e SQL_ENGINE=django.db.backends.sqlite3 \
+			-e SQL_DATABASE=:memory: \
+			backend python manage.py test
 
 .PHONY: frontend-test
 frontend-test:
