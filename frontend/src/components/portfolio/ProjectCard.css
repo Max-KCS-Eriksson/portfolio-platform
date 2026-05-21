@@ -26,8 +26,8 @@
 }
 
 .project-card:has(.project-card__overlay-link:hover) {
-  background: var(--color-surface-elevated);
-  border-color: var(--color-border-accent-alpha);
+  background: var(--color-card-surface-hover);
+  border-color: var(--color-card-border-hover);
 }
 
 .project-card.secondary {
@@ -130,7 +130,7 @@
   color: var(--color-text-soft);
   font-size: 0.85rem;
   background: var(--color-surface);
-  border: 1px solid var(--color-border-soft);
+  border: 1px solid var(--color-card-border);
   border-radius: var(--radius-sm);
 }
 
