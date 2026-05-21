@@ -70,19 +70,19 @@ describe("ProjectsSection", () => {
   test("uses single layout for one featured project", () => {
     const { container } = renderProjectsSection(createProjects(1, { featured: true }));
 
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-single");
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-stack");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-paired");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-lead");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-single");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-stack");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-paired");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-lead");
   });
 
   test("uses paired layout for two featured projects", () => {
     const { container } = renderProjectsSection(createProjects(2, { featured: true }));
 
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-paired");
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-stack");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-single");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-lead");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-paired");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-stack");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-single");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-lead");
   });
 
   test("uses lead layout for three featured projects", () => {
@@ -90,18 +90,18 @@ describe("ProjectsSection", () => {
       createProjects(getProjectOverviewLayoutGroupSize(), { featured: true }),
     );
 
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-lead");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-stack");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-paired");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-lead");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-stack");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-paired");
   });
 
   test("uses default thirds layout for the minimum secondary project count divisible by 3", () => {
     const { container } = renderProjectsSection(createProjects(getProjectOverviewLayoutGroupSize()), { tight: true });
 
     expect(container.querySelector(".projects-section")).toHaveClass("secondary");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-paired");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-fifths");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-stack");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-paired");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-fifths");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-stack");
   });
 
   test("uses default thirds layout for the next secondary project count divisible by 3", () => {
@@ -110,35 +110,35 @@ describe("ProjectsSection", () => {
     });
 
     expect(container.querySelector(".projects-section")).toHaveClass("secondary");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-paired");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-fifths");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-stack");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-paired");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-fifths");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-stack");
   });
 
   test("uses paired layout for the minimum secondary project count divisible by 2 and not 3", () => {
     const { container } = renderProjectsSection(createProjects(2), { tight: true });
 
     expect(container.querySelector(".projects-section")).toHaveClass("secondary");
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-paired");
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-stack");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-fifths");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-paired");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-stack");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-fifths");
   });
 
   test("uses paired layout for the next secondary project count divisible by 2 and not 3", () => {
     const { container } = renderProjectsSection(createProjects(4), { tight: true });
 
     expect(container.querySelector(".projects-section")).toHaveClass("secondary");
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-paired");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-stack");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-fifths");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-paired");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-stack");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-fifths");
   });
 
   test("uses fifths layout for secondary project counts divisible by five and not two", () => {
     const { container } = renderProjectsSection(createProjects(5), { tight: true });
 
     expect(container.querySelector(".projects-section")).toHaveClass("secondary");
-    expect(container.querySelector(".projects-section")).toHaveClass("projects-section--layout-fifths");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-paired");
-    expect(container.querySelector(".projects-section")).not.toHaveClass("projects-section--layout-stack");
+    expect(container.querySelector(".projects-section")).toHaveClass("layout-fifths");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-paired");
+    expect(container.querySelector(".projects-section")).not.toHaveClass("layout-stack");
   });
 });

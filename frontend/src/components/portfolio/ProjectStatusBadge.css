@@ -16,14 +16,14 @@
   font-size: 0.75rem;
 }
 
-.project-status-badge--featured svg {
+.project-status-badge.featured svg {
   color: var(--color-accent);
 }
 
-.project-status-badge--beta svg {
+.project-status-badge.beta svg {
   color: var(--color-accent-cyan);
 }
 
-.project-status-badge--prototype svg {
+.project-status-badge.prototype svg {
   color: var(--color-accent-cyan);
 }

@@ -159,25 +159,25 @@
   font-size: 0.75rem;
 }
 
-.project-summary__link--detail {
+.project-summary__link.detail {
   color: var(--color-accent);
 }
 
-.project-summary:has(.project-summary__overlay-link:hover) .project-summary__link--detail,
-.project-summary:has(.project-summary__overlay-link:hover) .project-summary__link--detail svg {
+.project-summary:has(.project-summary__overlay-link:hover) .project-summary__link.detail,
+.project-summary:has(.project-summary__overlay-link:hover) .project-summary__link.detail svg {
   color: var(--color-accent-strong);
 }
 
-.project-summary__link--primary {
+.project-summary__link.primary {
   color: var(--color-text-soft);
 }
 
-.project-summary__link--primary svg:first-child {
+.project-summary__link.primary svg:first-child {
   color: var(--color-accent-cyan);
 }
 
-.project-summary__link--secondary,
-.project-summary__link--secondary svg:first-child {
+.project-summary__link.secondary,
+.project-summary__link.secondary svg:first-child {
   color: var(--color-text-muted);
 }
 

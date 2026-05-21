@@ -74,16 +74,16 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
       </ul>
 
       <div className="project-summary__links">
-        <span className="project-summary__link project-summary__link--detail">
+        <span className="project-summary__link detail">
           <span>View project</span>
           <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
         </span>
 
-        <SocialMediaLinks links={repoLinks} linkClassName="project-summary__link project-summary__link--secondary" />
+        <SocialMediaLinks links={repoLinks} linkClassName="project-summary__link secondary" />
 
         {hasLiveUrl && (
           <a
-            className="project-summary__link project-summary__link--primary"
+            className="project-summary__link primary"
             href={project.liveUrl}
             target="_blank"
             rel="noreferrer"

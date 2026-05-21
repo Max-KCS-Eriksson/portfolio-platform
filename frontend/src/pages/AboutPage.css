@@ -45,7 +45,7 @@
   padding: var(--space-5);
 }
 
-.about-section--wide {
+.about-section.wide {
   grid-column: 1 / -1;
 }
 

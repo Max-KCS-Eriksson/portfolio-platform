@@ -41,7 +41,7 @@ function AboutPage() {
 
       <div className="about-page__sections">
         {hasBackground && (
-          <section className="card about-section about-section--wide" aria-labelledby="about-background-heading">
+          <section className="card about-section wide" aria-labelledby="about-background-heading">
             <div className="about-section__icon card-icon" aria-hidden="true">
               <FontAwesomeIcon icon={faUser} />
             </div>
@@ -54,7 +54,7 @@ function AboutPage() {
 
         {(hasMindsetIntro || hasMindsetList) && (
           <section
-            className={`card about-section ${hasFocus ? "" : "about-section--wide"}`}
+            className={`card about-section ${hasFocus ? "" : "wide"}`}
             aria-labelledby="about-work-heading"
           >
             <div className="about-section__icon card-icon" aria-hidden="true">
