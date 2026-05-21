@@ -1,4 +1,4 @@
-// Project grid group size used to avoid empty project-card slots.
+// Project grid group size used to avoid empty project summary slots.
 const PROJECT_OVERVIEW_LAYOUT_MAX_GRID_COLUMNS = 3;
 
 // Keep project overview limits divisible by PROJECT_OVERVIEW_LAYOUT_MAX_GRID_COLUMNS.

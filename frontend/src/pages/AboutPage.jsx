@@ -39,30 +39,30 @@ function AboutPage() {
 
       {error && <p className="description">Could not load about content.</p>}
 
-      <div className="about-page__cards">
+      <div className="about-page__sections">
         {hasBackground && (
-          <section className="about-page__card about-page__card--wide card" aria-labelledby="about-background-heading">
-            <div className="about-page__card-icon card-icon" aria-hidden="true">
+          <section className="card about-section about-section--wide" aria-labelledby="about-background-heading">
+            <div className="about-section__icon card-icon" aria-hidden="true">
               <FontAwesomeIcon icon={faUser} />
             </div>
-            <div className="about-page__card-content">
+            <div className="about-section__content">
               <h2 id="about-background-heading">1. Background</h2>
-              <div className="about-page__card-body">{renderLinebreaks(about.background)}</div>
+              <div className="about-section__body">{renderLinebreaks(about.background)}</div>
             </div>
           </section>
         )}
 
         {(hasMindsetIntro || hasMindsetList) && (
           <section
-            className={`about-page__card ${hasFocus ? "" : "about-page__card--wide"} card`}
+            className={`card about-section ${hasFocus ? "" : "about-section--wide"}`}
             aria-labelledby="about-work-heading"
           >
-            <div className="about-page__card-icon card-icon" aria-hidden="true">
+            <div className="about-section__icon card-icon" aria-hidden="true">
               <FontAwesomeIcon icon={faTerminal} />
             </div>
-            <div className="about-page__card-content">
+            <div className="about-section__content">
               <h2 id="about-work-heading">2. How I Work</h2>
-              {hasMindsetIntro && <div className="about-page__card-body">{renderLinebreaks(about.mindsetIntro)}</div>}
+              {hasMindsetIntro && <div className="about-section__body">{renderLinebreaks(about.mindsetIntro)}</div>}
               {hasMindsetList && (
                 <ul className="about-page__habit-list">
                   {about.mindsetList.map((mindsetListItem) => (
@@ -75,13 +75,13 @@ function AboutPage() {
         )}
 
         {hasFocus && (
-          <section className="about-page__card card" aria-labelledby="about-focus-heading">
-            <div className="about-page__card-icon card-icon" aria-hidden="true">
+          <section className="card about-section" aria-labelledby="about-focus-heading">
+            <div className="about-section__icon card-icon" aria-hidden="true">
               <FontAwesomeIcon icon={faSeedling} />
             </div>
-            <div className="about-page__card-content">
+            <div className="about-section__content">
               <h2 id="about-focus-heading">3. Current Focus</h2>
-              {hasFocusIntro && <div className="about-page__card-body">{renderLinebreaks(about.focusIntro)}</div>}
+              {hasFocusIntro && <div className="about-section__body">{renderLinebreaks(about.focusIntro)}</div>}
               {hasFocusList && (
                 <ul className="about-page__habit-list">
                   {about.focusList.map((focusListItem) => (
