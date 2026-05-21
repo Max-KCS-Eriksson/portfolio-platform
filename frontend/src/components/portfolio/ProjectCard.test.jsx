@@ -60,7 +60,7 @@ describe("ProjectCard", () => {
       icon: true,
     });
 
-    expect(document.querySelector(".project-card__icon img")).toHaveAttribute(
+    expect(document.querySelector(".project-summary__icon img")).toHaveAttribute(
       "src",
       "/media/portfolio/resources/upload/icons/projects/project-icon.png",
     );
@@ -69,8 +69,8 @@ describe("ProjectCard", () => {
   test("renders the default icon when icon display is enabled and no project icon exists", () => {
     renderProjectCard(createProject({ icon: "" }), { icon: true });
 
-    expect(document.querySelector(".project-card__icon svg")).toBeInTheDocument();
-    expect(document.querySelector(".project-card__icon img")).not.toBeInTheDocument();
+    expect(document.querySelector(".project-summary__icon svg")).toBeInTheDocument();
+    expect(document.querySelector(".project-summary__icon img")).not.toBeInTheDocument();
   });
 
   test("does not render an icon image when icon display is disabled", () => {
@@ -78,8 +78,8 @@ describe("ProjectCard", () => {
       icon: false,
     });
 
-    expect(document.querySelector(".project-card__icon img")).not.toBeInTheDocument();
-    expect(document.querySelector(".project-card__icon")).not.toBeInTheDocument();
+    expect(document.querySelector(".project-summary__icon img")).not.toBeInTheDocument();
+    expect(document.querySelector(".project-summary__icon")).not.toBeInTheDocument();
   });
 
   test("renders featured badge only for featured CTA cards", () => {

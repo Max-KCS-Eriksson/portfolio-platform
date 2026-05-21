@@ -9,7 +9,7 @@ import ProjectStatusBadge from "./ProjectStatusBadge";
 import "./ProjectCard.css";
 
 function getProjectCardClassName(ctaCard, tight) {
-  return ["project-card card", ctaCard ? "cta-card" : "", tight ? "secondary" : ""].filter(Boolean).join(" ");
+  return ["card project-summary", ctaCard ? "cta-card" : "", tight ? "compact" : ""].filter(Boolean).join(" ");
 }
 
 function getRepoLinks(project) {
@@ -33,56 +33,61 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
   const hasLiveUrl = Boolean(project.liveUrl);
   const repoLinks = getRepoLinks(project);
   const detailPath = buildRoute.projectDetail(project.slug);
-  const titleId = `project-card-title-${project.id ?? project.slug}`;
+  const titleId = `project-summary-title-${project.id ?? project.slug}`;
   const techStack = project.techStack?.length > 0 ? project.techStack : ["Project tech stack TBD"];
   const hasStatusBadge = project.status === "beta" || project.status === "prototype";
   const hasFeaturedBadge = project.featured && ctaCard;
 
   return (
     <article className={getProjectCardClassName(ctaCard, tight)}>
-      <Link className="project-card__overlay-link" to={detailPath} aria-labelledby={titleId} />
+      <Link className="project-summary__overlay-link" to={detailPath} aria-labelledby={titleId} />
 
-      <div className="project-card__header">
-        <div className="project-card__identity">
+      <div className="project-summary__header">
+        <div className="project-summary__identity">
           {icon && (
-            <div className="project-card__icon card-icon" aria-hidden="true">
+            <div className="project-summary__icon card-icon" aria-hidden="true">
               {project.icon ? <img src={project.icon} alt="" /> : <FontAwesomeIcon icon={faFileCode} />}
             </div>
           )}
 
-          <h3 className="project-card__title" id={titleId}>
+          <h3 className="project-summary__title" id={titleId}>
             {project.title}
           </h3>
         </div>
 
         {(hasStatusBadge || hasFeaturedBadge) && (
-          <div className="project-card__badges" aria-label={`${project.title} status`}>
+          <div className="project-summary__badges" aria-label={`${project.title} status`}>
             {hasStatusBadge && <ProjectStatusBadge status={project.status} />}
             {hasFeaturedBadge && <ProjectStatusBadge featured={true} />}
           </div>
         )}
       </div>
 
-      <div className="project-card__summary">{renderLinebreaks(project.description)}</div>
+      <div className="project-summary__description">{renderLinebreaks(project.description)}</div>
 
-      <ul className="project-card__tags" aria-label={`${project.title} technologies`}>
+      <ul className="project-summary__tags" aria-label={`${project.title} technologies`}>
         {techStack.map((tech) => (
-          <li className="project-card__tag" key={tech}>
+          <li className="project-summary__tag" key={tech}>
             {tech}
           </li>
         ))}
       </ul>
 
-      <div className="project-card__links">
-        <span className="project-card__link detail">
+      <div className="project-summary__links">
+        <span className="project-summary__link detail">
           <span>View project</span>
           <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
         </span>
 
-        <SocialMediaLinks links={repoLinks} linkClassName="project-card__link secondary" />
+        <SocialMediaLinks links={repoLinks} linkClassName="project-summary__link secondary" />
 
         {hasLiveUrl && (
-          <a className="project-card__link primary" href={project.liveUrl} target="_blank" rel="noreferrer">
+          <a
+            className="project-summary__link primary"
+            href={project.liveUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
             <FontAwesomeIcon icon={faDisplay} aria-hidden="true" />
             <span>Live demo</span>
             <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />

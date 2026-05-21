@@ -136,6 +136,12 @@
   --shadow-card: 0 12px 30px var(--color-black-alpha-18);
   --shadow-panel-featured: 0 18px 45px var(--color-black-alpha-24), 0 0 0 1px var(--color-orange-300-alpha-08);
 
+  --color-card-border: var(--color-border);
+  --color-card-border-hover: var(--color-border-accent-alpha);
+  --color-card-surface-hover: var(--color-surface-elevated);
+  --color-cta-card-border: var(--color-border-accent-alpha);
+  --color-cta-card-border-hover: var(--color-accent-soft);
+
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -147,8 +153,8 @@
   --radius-sm: 6px;
   --radius-chip: 6px;
   --radius-md: 8px;
-  --radius-panel: 8px;
   --radius-card: 8px;
+  --radius-panel: var(--radius-card);
   --page-gutter: 4rem;
   --container-width: 96rem;
 
@@ -329,7 +335,7 @@ main,
   justify-content: space-between;
   gap: var(--space-5);
   min-height: 4.75rem;
-  border-bottom: 1px solid var(--color-border-visible);
+  border-bottom: 1px solid var(--color-card-border);
 }
 
 .navbar h1 {
@@ -521,7 +527,7 @@ main {
 .paragraph-section {
   padding: var(--space-5);
   background: linear-gradient(180deg, var(--color-surface), var(--color-surface-muted));
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-card-border);
   border-radius: var(--radius-panel);
   box-shadow: var(--shadow-panel);
 }
@@ -531,7 +537,7 @@ main {
 .snippet-section {
   padding: var(--space-4);
   background: var(--color-surface-muted);
-  border: 1px solid var(--color-border-soft);
+  border: 1px solid var(--color-card-border);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
   transition:
@@ -542,22 +548,22 @@ main {
 
 .card:hover,
 .main-menu>ul>.nav-item:hover {
-  background: var(--color-surface-elevated);
-  border-color: var(--color-border-accent-alpha);
+  background: var(--color-card-surface-hover);
+  border-color: var(--color-card-border-hover);
 }
 
 .card.cta-card {
-  border-color: var(--color-border-accent-alpha);
+  border-color: var(--color-cta-card-border);
   box-shadow: var(--shadow-panel-featured);
 }
 
 .card.cta-card:hover {
-  border-color: var(--color-accent-soft) !important;
+  border-color: var(--color-cta-card-border-hover);
 }
 
 .card-icon {
   background: var(--color-bg-alt);
-  border: 1px solid var(--color-border-accent-alpha);
+  border: 1px solid var(--color-card-border);
 }
 
 .main-menu {
@@ -604,7 +610,7 @@ main {
   height: 2.35rem;
   color: var(--color-text-soft);
   background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border-soft);
+  border: 1px solid var(--color-card-border);
   border-radius: var(--radius-sm);
   box-shadow: none;
 }
@@ -617,7 +623,7 @@ main {
 #tags-menu-button.active,
 .icon-button.active {
   color: var(--color-accent);
-  border-color: var(--color-border-accent-alpha);
+  border-color: var(--color-card-border-hover);
   background: var(--color-surface-hover);
 }
 
@@ -659,7 +665,7 @@ h1.tag {
   overflow-x: auto;
   color: var(--color-accent-green);
   background: var(--color-bg-code);
-  border: 1px solid var(--color-border-soft);
+  border: 1px solid var(--color-card-border);
   border-radius: var(--radius-card);
 }
 
@@ -691,7 +697,7 @@ h1.tag {
   gap: var(--space-5);
   padding-block: var(--space-5);
   color: var(--color-text-muted);
-  border-top: 1px solid var(--color-border-visible);
+  border-top: 1px solid var(--color-card-border);
 }
 
 .copyright {
@@ -732,7 +738,7 @@ h1.tag {
     width: min(18rem, calc(100vw - 2rem));
     padding: var(--space-4);
     background: var(--color-surface-elevated);
-    border: 1px solid var(--color-border-strong);
+    border: 1px solid var(--color-card-border);
     border-radius: var(--radius-card);
   }
 

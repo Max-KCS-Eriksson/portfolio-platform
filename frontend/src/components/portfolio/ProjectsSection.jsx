@@ -40,11 +40,11 @@ function getProjectsSectionClassName(tight, projectCount, featured) {
   return [
     "projects-section",
     tight ? "secondary" : "",
-    usesFeaturedSingleLayout ? "projects-section--layout-single" : "",
-    usesFeaturedPairedLayout || usesOtherPairedLayout ? "projects-section--layout-paired" : "",
-    usesFeaturedLeadLayout ? "projects-section--layout-lead" : "",
-    usesOtherFifthsLayout ? "projects-section--layout-fifths" : "",
-    usesStackLayout ? "projects-section--layout-stack" : "",
+    usesFeaturedSingleLayout ? "layout-single" : "",
+    usesFeaturedPairedLayout || usesOtherPairedLayout ? "layout-paired" : "",
+    usesFeaturedLeadLayout ? "layout-lead" : "",
+    usesOtherFifthsLayout ? "layout-fifths" : "",
+    usesStackLayout ? "layout-stack" : "",
   ]
     .filter(Boolean)
     .join(" ");

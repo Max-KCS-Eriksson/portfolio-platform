@@ -22,7 +22,7 @@ function ProjectStatusBadge({ featured = false, status = "stable", className = "
   const badgeStatus = featured ? "featured" : status;
   const label = featured ? "Featured" : status.toUpperCase();
   const icon = featured ? faStar : status === "prototype" ? faFlask : faPersonDigging;
-  const classNames = ["project-status-badge", `project-status-badge--${badgeStatus}`, className].filter(Boolean).join(" ");
+  const classNames = ["project-status-badge", badgeStatus, className].filter(Boolean).join(" ");
 
   return (
     <span className={classNames}>
