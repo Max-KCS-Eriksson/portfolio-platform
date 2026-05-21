@@ -12,7 +12,7 @@
   inset: 0;
   content: "";
   pointer-events: none;
-  background-image: radial-gradient(var(--color-border-visible) 1px, var(--color-transparent) 1px);
+  background-image: radial-gradient(var(--color-accent-green-dim) 1px, var(--color-transparent) 1px);
   background-position: right 5rem top 2rem;
   background-size: 0.8rem 0.8rem;
   mask-image: linear-gradient(90deg, transparent 42%, black 72%, transparent 100%);

@@ -87,9 +87,9 @@
 
   --color-surface-strong: var(--color-black-750);
   --color-surface-hover: var(--color-black-700);
-  --color-surface-muted: var(--color-black-850);
-  --color-surface: var(--color-black-825);
   --color-surface-elevated: var(--color-black-800);
+  --color-surface: var(--color-black-825);
+  --color-surface-muted: var(--color-black-850);
 
   --color-border-visible: var(--color-gray-600);
   --color-border: var(--color-gray-700);
@@ -118,6 +118,7 @@
 
   --color-accent-green: var(--color-green-300);
   --color-accent-green-soft: var(--color-green-500);
+  --color-accent-green-dim: var(--color-green-700);
 
   --color-focus: var(--color-orange-300-alpha-45);
   --color-glow-cyan: var(--color-blue-300-alpha-08);
