@@ -27,7 +27,9 @@ class ProjectListViewTest(TestCase):
         self.assertNotIn(private_project.id, returned_project_ids)
 
     def test_filters_featured_projects(self):
-        featured_project = create_project("Featured Project", featured=True)
+        featured_project = create_project(
+            "Featured Project", featured=True, status=Project.Status.STABLE
+        )
         non_featured_project = create_project("Non-featured Project", featured=False)
 
         response = self.get_projects("/api/portfolio/?featured=true")
@@ -38,7 +40,9 @@ class ProjectListViewTest(TestCase):
         self.assertNotIn(non_featured_project.id, returned_project_ids)
 
     def test_filters_non_featured_projects(self):
-        featured_project = create_project("Featured Project", featured=True)
+        featured_project = create_project(
+            "Featured Project", featured=True, status=Project.Status.STABLE
+        )
         other_project = create_project("Other Project")
 
         response = self.get_projects("/api/portfolio/?featured=false")
@@ -125,7 +129,9 @@ class ProjectDetailViewTest(TestCase):
             response.data["thumbnail"],
             "/media/portfolio/resources/upload/thumbnails/detail-project.png",
         )
-        self.assertEqual(response.data["thumbnail_caption"], "Detail project thumbnail.")
+        self.assertEqual(
+            response.data["thumbnail_caption"], "Detail project thumbnail."
+        )
         self.assertEqual(
             response.data["card_icon"],
             "/media/portfolio/resources/upload/icons/projects/detail-project.png",
