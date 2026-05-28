@@ -31,7 +31,7 @@ function AboutPage() {
   const hasFocusIntro = Boolean(about?.focusIntro);
   const hasFocusList = about?.focusList?.length > 0;
   const hasFocus = hasFocusIntro || hasFocusList;
-  const heroActions = <SocialMediaLinks linkClassName="about-page__social-link" />;
+  const heroActions = <SocialMediaLinks />;
 
   return (
     <div className="about-page">

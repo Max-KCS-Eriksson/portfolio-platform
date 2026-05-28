@@ -90,7 +90,7 @@ function PortfolioPage({ featured = undefined }) {
     <div className="portfolio-page">
       <HeroSection headline="Portfolio" intro={intro} />
 
-      {error ? <p className="portfolio-page__empty">Could not load projects.</p> : null}
+      {error ? <p className="empty-state">Could not load projects.</p> : null}
 
       {overviewFeaturedProjects.length > 0 && (
         <ProjectsSection

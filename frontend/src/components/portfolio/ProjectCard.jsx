@@ -50,7 +50,7 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
             </div>
           )}
 
-          <h3 className="project-summary__title" id={titleId}>
+          <h3 className="project-summary__title text-default" id={titleId}>
             {project.title}
           </h3>
         </div>
@@ -63,11 +63,11 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
         )}
       </div>
 
-      <div className="project-summary__description">{renderLinebreaks(project.description)}</div>
+      <div className="project-summary__description card-text">{renderLinebreaks(project.description)}</div>
 
       <ul className="project-summary__tags" aria-label={`${project.title} technologies`}>
         {techStack.map((tech) => (
-          <li className="project-summary__tag" key={tech}>
+          <li className="project-summary__tag text-soft" key={tech}>
             {tech}
           </li>
         ))}
@@ -79,11 +79,11 @@ function ProjectCard({ project, icon = false, ctaCard = false, tight = false }) 
           <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
         </span>
 
-        <SocialMediaLinks links={repoLinks} linkClassName="project-summary__link secondary" />
+        <SocialMediaLinks links={repoLinks} linkClassName="project-summary__link secondary text-muted" />
 
         {hasLiveUrl && (
           <a
-            className="project-summary__link primary"
+            className="project-summary__link primary text-soft"
             href={project.liveUrl}
             target="_blank"
             rel="noreferrer"

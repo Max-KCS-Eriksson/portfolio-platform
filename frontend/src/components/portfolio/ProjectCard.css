@@ -79,7 +79,6 @@
 
 .project-summary__title {
   margin: 0;
-  color: var(--color-text);
   font-size: 1.15rem;
 }
 
@@ -91,18 +90,8 @@
   color: var(--color-accent-strong);
 }
 
-.project-summary__description {
-  max-width: 60ch;
-  color: var(--color-text-muted);
-  line-height: 1.7;
-}
-
 .project-summary.compact .project-summary__description {
   line-height: 1.45;
-}
-
-.project-summary__description>*:last-child {
-  margin-block-end: 0;
 }
 
 .project-summary__tags {
@@ -122,7 +111,6 @@
   align-items: center;
   min-height: 1.9rem;
   padding: 0.15rem 0.65rem;
-  color: var(--color-text-soft);
   font-size: 0.85rem;
   background: var(--color-surface);
   border: 1px solid var(--color-card-border);
@@ -168,17 +156,8 @@
   color: var(--color-accent-strong);
 }
 
-.project-summary__link.primary {
-  color: var(--color-text-soft);
-}
-
 .project-summary__link.primary svg:first-child {
   color: var(--color-accent-cyan);
-}
-
-.project-summary__link.secondary,
-.project-summary__link.secondary svg:first-child {
-  color: var(--color-text-muted);
 }
 
 .project-summary__link:hover,

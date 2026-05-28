@@ -59,14 +59,14 @@ function ProjectPage() {
   ];
   const heroActions = (
     <>
-      <a className="project-detail__link" href={project.repoUrl} target="_blank" rel="noreferrer">
+      <a className="project-detail__link text-muted" href={project.repoUrl} target="_blank" rel="noreferrer">
         <FontAwesomeIcon icon={faGithub} aria-hidden="true" />
         <span>GitHub</span>
         <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />
       </a>
 
       {hasLiveUrl && (
-        <a className="project-detail__link" href={project.liveUrl} target="_blank" rel="noreferrer">
+        <a className="project-detail__link text-muted" href={project.liveUrl} target="_blank" rel="noreferrer">
           <FontAwesomeIcon icon={faDisplay} aria-hidden="true" />
           <span>Live demo</span>
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />
