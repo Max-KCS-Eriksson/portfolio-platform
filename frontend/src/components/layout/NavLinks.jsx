@@ -6,6 +6,10 @@ function NavLinks({ isMenuOpen, onNavigate }) {
   const isHomePage = location.pathname === ROUTES.home;
 
   function isCurrentRoute(path) {
+    if (path !== ROUTES.home && location.pathname.startsWith(path)) {
+      return true;
+    }
+
     return location.pathname === path;
   }
 
