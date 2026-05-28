@@ -31,11 +31,11 @@ function HeroSection({ headline, meta = null, intro, skills = [], actions = null
     <section className="hero-section panel">
       <div className="hero-section__content">
         <div className="hero-section__copy">
-          <h1 className="hero-section__title">{headline}</h1>
+          <h1 className="hero-section__title accent-heading">{headline}</h1>
 
           {hasMeta && <div className="hero-section__meta">{meta}</div>}
 
-          <div className="hero-section__intro">{renderLinebreaks(intro)}</div>
+          <div className="hero-section__intro section-text">{renderLinebreaks(intro)}</div>
         </div>
 
         {(hasSkills || hasActions) && (

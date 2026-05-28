@@ -11,20 +11,7 @@
 }
 
 .overview-card-section__header h2 {
-  position: relative;
   margin: 0;
-  padding-inline-start: var(--space-4);
-}
-
-.overview-card-section__header h2::before {
-  position: absolute;
-  top: 0.12em;
-  bottom: 0.12em;
-  left: 0;
-  width: 0.22rem;
-  content: "";
-  background: var(--color-accent);
-  border-radius: 999px;
 }
 
 .overview-card-section__link {

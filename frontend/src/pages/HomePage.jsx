@@ -58,7 +58,7 @@ function HomePage() {
     <div className="home-page">
       <HeroSection headline={headline} intro={intro} skills={skills} actions={heroActions} />
 
-      {projectsError ? <p className="home-empty-state">Could not load projects.</p> : null}
+      {projectsError ? <p className="empty-state">Could not load projects.</p> : null}
 
       {!projectsError && overviewFeaturedProjects.length > 0 ? (
         <ProjectsSection projects={overviewFeaturedProjects} showAllLink={showFeaturedProjectsLink} />

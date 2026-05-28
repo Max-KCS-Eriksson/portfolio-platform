@@ -4,6 +4,7 @@ import { faSeedling, faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { getAbout } from "../api/coreApi";
 import HeroSection from "../components/core/HeroSection";
+import NumberedHeading from "../components/core/NumberedHeading";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { renderLinebreaks } from "../utils/renderLinebreaks";
@@ -31,7 +32,7 @@ function AboutPage() {
   const hasFocusIntro = Boolean(about?.focusIntro);
   const hasFocusList = about?.focusList?.length > 0;
   const hasFocus = hasFocusIntro || hasFocusList;
-  const heroActions = <SocialMediaLinks linkClassName="about-page__social-link" />;
+  const heroActions = <SocialMediaLinks />;
 
   return (
     <div className="about-page">
@@ -46,8 +47,10 @@ function AboutPage() {
               <FontAwesomeIcon icon={faUser} />
             </div>
             <div className="about-section__content">
-              <h2 id="about-background-heading">1. Background</h2>
-              <div className="about-section__body">{renderLinebreaks(about.background)}</div>
+              <NumberedHeading id="about-background-heading" marker="01">
+                Background
+              </NumberedHeading>
+              <div className="about-section__body section-text">{renderLinebreaks(about.background)}</div>
             </div>
           </section>
         )}
@@ -61,10 +64,12 @@ function AboutPage() {
               <FontAwesomeIcon icon={faTerminal} />
             </div>
             <div className="about-section__content">
-              <h2 id="about-work-heading">2. How I Work</h2>
-              {hasMindsetIntro && <div className="about-section__body">{renderLinebreaks(about.mindsetIntro)}</div>}
+              <NumberedHeading id="about-work-heading" marker="02">
+                How I Work
+              </NumberedHeading>
+              {hasMindsetIntro && <div className="about-section__body section-text">{renderLinebreaks(about.mindsetIntro)}</div>}
               {hasMindsetList && (
-                <ul className="about-page__habit-list">
+                <ul className="about-page__habit-list section-text">
                   {about.mindsetList.map((mindsetListItem) => (
                     <li key={mindsetListItem}>{mindsetListItem}</li>
                   ))}
@@ -80,10 +85,12 @@ function AboutPage() {
               <FontAwesomeIcon icon={faSeedling} />
             </div>
             <div className="about-section__content">
-              <h2 id="about-focus-heading">3. Current Focus</h2>
-              {hasFocusIntro && <div className="about-section__body">{renderLinebreaks(about.focusIntro)}</div>}
+              <NumberedHeading id="about-focus-heading" marker="03">
+                Current Focus
+              </NumberedHeading>
+              {hasFocusIntro && <div className="about-section__body section-text">{renderLinebreaks(about.focusIntro)}</div>}
               {hasFocusList && (
-                <ul className="about-page__habit-list">
+                <ul className="about-page__habit-list section-text">
                   {about.focusList.map((focusListItem) => (
                     <li key={focusListItem}>{focusListItem}</li>
                   ))}

@@ -5,6 +5,7 @@ import { faArrowUpRightFromSquare, faDisplay } from "@fortawesome/free-solid-svg
 import { useParams } from "react-router-dom";
 import { getProject } from "../api/projectsApi";
 import HeroSection from "../components/core/HeroSection";
+import NumberedHeading from "../components/core/NumberedHeading";
 import ProjectStatusBadge from "../components/portfolio/ProjectStatusBadge";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { renderLinebreaks } from "../utils/renderLinebreaks";
@@ -59,14 +60,14 @@ function ProjectPage() {
   ];
   const heroActions = (
     <>
-      <a className="project-detail__link" href={project.repoUrl} target="_blank" rel="noreferrer">
+      <a className="project-detail__link text-muted" href={project.repoUrl} target="_blank" rel="noreferrer">
         <FontAwesomeIcon icon={faGithub} aria-hidden="true" />
         <span>GitHub</span>
         <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />
       </a>
 
       {hasLiveUrl && (
-        <a className="project-detail__link" href={project.liveUrl} target="_blank" rel="noreferrer">
+        <a className="project-detail__link text-muted" href={project.liveUrl} target="_blank" rel="noreferrer">
           <FontAwesomeIcon icon={faDisplay} aria-hidden="true" />
           <span>Live demo</span>
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} aria-hidden="true" />
@@ -100,14 +101,18 @@ function ProjectPage() {
             key={section.marker}
             aria-labelledby={`project-section-${section.marker}`}
           >
-            <h2 id={`project-section-${section.marker}`}>
-              <span className="project-detail__section-marker">{section.marker}</span>
-              <span className="project-detail__section-title">{section.title}</span>
-              {hasStatusBadge && section.marker === "02" && (
-                <ProjectStatusBadge status={project.status} className="project-detail__status-badge" />
-              )}
-            </h2>
-            <div className="project-detail__section-body">{renderLinebreaks(section.body)}</div>
+            <NumberedHeading
+              id={`project-section-${section.marker}`}
+              marker={section.marker}
+              actions={
+                hasStatusBadge && section.marker === "02" ? (
+                  <ProjectStatusBadge status={project.status} className="project-detail__status-badge" />
+                ) : null
+              }
+            >
+              {section.title}
+            </NumberedHeading>
+            <div className="project-detail__section-body section-text">{renderLinebreaks(section.body)}</div>
           </section>
         ))}
       </div>

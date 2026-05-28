@@ -29,7 +29,7 @@ const socialMediaLabels = {
  * @param {string} [props.linkClassName]
  * Optional class name for each anchor so callers can reuse provider icons with caller-owned link styling.
  */
-function SocialMediaLinks({ links, linkClassName = "social-media-link" }) {
+function SocialMediaLinks({ links, linkClassName = "social-media-link text-soft" }) {
   const { coreContext } = useCoreContext();
 
   const socialMediaLinks = links ?? coreContext?.socialMediaLinks ?? [];

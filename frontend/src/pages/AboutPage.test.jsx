@@ -39,7 +39,7 @@ describe("AboutPage", () => {
 
     expect(await screen.findByRole("heading", { name: "About" })).toBeInTheDocument();
     expect(screen.getByText("About intro")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "1. Background" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "01 Background" })).toBeInTheDocument();
     expect(screen.getByText("Write clear code")).toBeInTheDocument();
     expect(screen.getByText("Django")).toBeInTheDocument();
   });

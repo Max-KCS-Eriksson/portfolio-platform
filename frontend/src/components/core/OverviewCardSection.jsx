@@ -86,7 +86,9 @@ function OverviewCardSection({
   return (
     <section className={sectionClassName} aria-labelledby={headingId} id={id}>
       <div className="overview-card-section__header">
-        <h2 id={headingId}>{heading}</h2>
+        <h2 className="accent-heading" id={headingId}>
+          {heading}
+        </h2>
         {linkHref && linkText && (
           <Link className="overview-card-section__link" to={linkHref}>
             <span>{linkText}</span>
