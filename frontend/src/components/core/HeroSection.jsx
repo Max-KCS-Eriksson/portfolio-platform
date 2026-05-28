@@ -9,6 +9,8 @@ import "./HeroSection.css";
  * @param {object} props
  * @param {string} props.headline
  * Primary hero heading.
+ * @param {import("react").ReactNode} [props.meta]
+ * Optional metadata rendered directly under the heading and before the intro.
  * @param {string} props.intro
  * Introductory body copy rendered below the heading.
  * @param {Array<string>} [props.skills]
@@ -18,7 +20,8 @@ import "./HeroSection.css";
  * @param {import("react").ReactNode} [props.visual]
  * Optional visual content rendered in the hero visual area.
  */
-function HeroSection({ headline, intro, skills = [], actions = null, visual = null }) {
+function HeroSection({ headline, meta = null, intro, skills = [], actions = null, visual = null }) {
+  const hasMeta = meta !== null;
   const hasSkills = skills.length > 0;
   const hasActions = actions !== null;
   const hasCustomVisual = visual !== null;
@@ -29,6 +32,8 @@ function HeroSection({ headline, intro, skills = [], actions = null, visual = nu
       <div className="hero-section__content">
         <div className="hero-section__copy">
           <h1 className="hero-section__title">{headline}</h1>
+
+          {hasMeta && <div className="hero-section__meta">{meta}</div>}
 
           <div className="hero-section__intro">{renderLinebreaks(intro)}</div>
         </div>
