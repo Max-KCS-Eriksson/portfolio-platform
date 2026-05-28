@@ -1,9 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { buildRoute } from "../../routes/paths";
-import { getProjectOverviewLayoutGroupSize } from "../../config/overviewLimits";
+import OverviewCardSection from "../core/OverviewCardSection";
 import "./ProjectsSection.css";
 
 function getProjectsSectionConfig(projects) {
@@ -28,28 +25,6 @@ function getProjectsSectionConfig(projects) {
   };
 }
 
-function getProjectsSectionClassName(tight, projectCount, featured) {
-  const layoutGroupSize = getProjectOverviewLayoutGroupSize();
-  const usesFeaturedSingleLayout = featured && projectCount === 1;
-  const usesFeaturedPairedLayout = featured && projectCount === 2;
-  const usesFeaturedLeadLayout = featured && projectCount === layoutGroupSize;
-  const usesOtherPairedLayout = !featured && projectCount % 2 === 0 && projectCount % layoutGroupSize !== 0;
-  const usesOtherFifthsLayout = !featured && projectCount % 5 === 0 && projectCount % 2 !== 0;
-  const usesStackLayout = projectCount < layoutGroupSize;
-
-  return [
-    "projects-section",
-    tight ? "secondary" : "",
-    usesFeaturedSingleLayout ? "layout-single" : "",
-    usesFeaturedPairedLayout || usesOtherPairedLayout ? "layout-paired" : "",
-    usesFeaturedLeadLayout ? "layout-lead" : "",
-    usesOtherFifthsLayout ? "layout-fifths" : "",
-    usesStackLayout ? "layout-stack" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-}
-
 /**
  * Render a list of project cards.
  *
@@ -67,28 +42,24 @@ function getProjectsSectionClassName(tight, projectCount, featured) {
  */
 function ProjectsSection({ projects, cardIcon = false, ctaCards = false, tight = false, showAllLink = false }) {
   const { featured, id, heading, linkHref, linkText } = getProjectsSectionConfig(projects);
-  const headingId = `${id}-heading`;
 
   return (
-    <section className="projects-section-block" aria-labelledby={headingId} id={id}>
-      <div className="projects-section-block__header">
-        <h2 id={headingId}>{heading}</h2>
-        {showAllLink && (
-          <Link className="projects-section-block__link" to={linkHref}>
-            <span>{linkText}</span>
-            <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
-          </Link>
-        )}
-      </div>
-
-      <ul className={getProjectsSectionClassName(tight, projects.length, featured)}>
-        {projects.map((project) => (
-          <li className="projects-section__item" key={project.id ?? project.slug}>
-            <ProjectCard project={project} icon={cardIcon} ctaCard={ctaCards} tight={tight} />
-          </li>
-        ))}
-      </ul>
-    </section>
+    <OverviewCardSection
+      id={id}
+      heading={heading}
+      itemCount={projects.length}
+      className="projects-section-block"
+      listClassName="projects-section"
+      itemClassName="projects-section__item"
+      featured={featured}
+      secondary={tight}
+      linkHref={showAllLink ? linkHref : ""}
+      linkText={showAllLink ? linkText : ""}
+    >
+      {projects.map((project) => (
+        <ProjectCard project={project} icon={cardIcon} ctaCard={ctaCards} tight={tight} key={project.id ?? project.slug} />
+      ))}
+    </OverviewCardSection>
   );
 }
 
