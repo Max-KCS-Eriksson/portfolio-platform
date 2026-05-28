@@ -510,6 +510,10 @@ main {
   font-size: 1.05rem;
 }
 
+.section-text {
+  color: var(--color-text-soft);
+}
+
 .description,
 .intro,
 .paragraph {

@@ -47,7 +47,7 @@ function AboutPage() {
             </div>
             <div className="about-section__content">
               <h2 id="about-background-heading">1. Background</h2>
-              <div className="about-section__body">{renderLinebreaks(about.background)}</div>
+              <div className="about-section__body section-text">{renderLinebreaks(about.background)}</div>
             </div>
           </section>
         )}
@@ -62,9 +62,9 @@ function AboutPage() {
             </div>
             <div className="about-section__content">
               <h2 id="about-work-heading">2. How I Work</h2>
-              {hasMindsetIntro && <div className="about-section__body">{renderLinebreaks(about.mindsetIntro)}</div>}
+              {hasMindsetIntro && <div className="about-section__body section-text">{renderLinebreaks(about.mindsetIntro)}</div>}
               {hasMindsetList && (
-                <ul className="about-page__habit-list">
+                <ul className="about-page__habit-list section-text">
                   {about.mindsetList.map((mindsetListItem) => (
                     <li key={mindsetListItem}>{mindsetListItem}</li>
                   ))}
@@ -81,9 +81,9 @@ function AboutPage() {
             </div>
             <div className="about-section__content">
               <h2 id="about-focus-heading">3. Current Focus</h2>
-              {hasFocusIntro && <div className="about-section__body">{renderLinebreaks(about.focusIntro)}</div>}
+              {hasFocusIntro && <div className="about-section__body section-text">{renderLinebreaks(about.focusIntro)}</div>}
               {hasFocusList && (
-                <ul className="about-page__habit-list">
+                <ul className="about-page__habit-list section-text">
                   {about.focusList.map((focusListItem) => (
                     <li key={focusListItem}>{focusListItem}</li>
                   ))}

@@ -107,7 +107,7 @@ function ProjectPage() {
                 <ProjectStatusBadge status={project.status} className="project-detail__status-badge" />
               )}
             </h2>
-            <div className="project-detail__section-body">{renderLinebreaks(section.body)}</div>
+            <div className="project-detail__section-body section-text">{renderLinebreaks(section.body)}</div>
           </section>
         ))}
       </div>
