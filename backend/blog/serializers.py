@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from .models import BlogPost, BlogPostParagraph, BlogPostSnippet
+from .models import BlogContext, BlogPost, BlogPostParagraph, BlogPostSnippet
+
+
+class BlogContextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogContext
+        fields = ("id", "intro")
 
 
 class TagListFieldSerializer(serializers.ModelSerializer):
