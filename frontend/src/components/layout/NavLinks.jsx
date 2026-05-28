@@ -6,6 +6,10 @@ function NavLinks({ isMenuOpen, onNavigate }) {
   const isHomePage = location.pathname === ROUTES.home;
 
   function isCurrentRoute(path) {
+    if (path !== ROUTES.home && location.pathname.startsWith(path)) {
+      return true;
+    }
+
     return location.pathname === path;
   }
 
@@ -30,6 +34,12 @@ function NavLinks({ isMenuOpen, onNavigate }) {
       <li className="nav-item">
         <Link className={getNavLinkClassName(ROUTES.portfolio)} to={ROUTES.portfolio} onClick={onNavigate}>
           Portfolio
+        </Link>
+      </li>
+
+      <li className="nav-item">
+        <Link className={getNavLinkClassName(ROUTES.blog)} to={ROUTES.blog} onClick={onNavigate}>
+          Blog
         </Link>
       </li>
 

@@ -36,6 +36,18 @@ describe("NavLinks", () => {
     expect(onNavigate).toHaveBeenCalledTimes(1);
   });
 
+  test("renders the blog link", () => {
+    renderNavLinks("/blog/");
+
+    expect(screen.getByRole("link", { name: "Blog" })).toHaveClass("current");
+  });
+
+  test("marks the blog link as current on blog post pages", () => {
+    renderNavLinks("/blog/first-post/");
+
+    expect(screen.getByRole("link", { name: "Blog" })).toHaveClass("current");
+  });
+
   test("applies active class when the menu is open", () => {
     const { container } = renderNavLinks("/portfolio/", { isMenuOpen: true });
 

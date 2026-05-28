@@ -1,11 +1,20 @@
-from blog.serializers import BlogPostSerializer
+from blog.serializers import BlogContextSerializer, BlogPostSerializer
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from taggit.models import Tag
 
-from .models import BlogPost
+from .models import BlogContext, BlogPost
+
+
+class BlogContextView(APIView):
+    def get(self, request):
+        try:
+            blog_context = BlogContext.objects.get(featured=True)
+        except BlogContext.DoesNotExist:
+            return Response({})
+        return Response(BlogContextSerializer(blog_context).data)
 
 
 class BlogPostListView(APIView):

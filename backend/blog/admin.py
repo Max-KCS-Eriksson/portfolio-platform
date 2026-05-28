@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from .models import BlogPost, BlogPostParagraph, BlogPostSnippet
+from .models import BlogContext, BlogPost, BlogPostParagraph, BlogPostSnippet
+
+
+admin.site.register(BlogContext)
 
 
 @admin.register(BlogPost)
