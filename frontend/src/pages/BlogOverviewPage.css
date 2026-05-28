@@ -1,0 +1,31 @@
+.blog-overview-page {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.blog-overview-page__tag-filter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.blog-overview-page__tag-filter-icon {
+  flex: 0 0 auto;
+  color: var(--color-accent);
+  font-size: 1.28rem;
+}
+
+.blog-overview-page__tag-filter-icon-link {
+  display: inline-grid;
+  place-items: center;
+  color: var(--color-accent);
+}
+
+.blog-overview-page__tag-filter-icon-link.clear,
+.blog-overview-page__tag-filter-icon-link.clear .blog-overview-page__tag-filter-icon {
+  color: var(--color-nav-close);
+}
+
+.blog-posts-section__item .card.blog-post-card {
+  width: 100%;
+}
