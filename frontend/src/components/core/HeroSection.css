@@ -46,12 +46,24 @@
   display: block;
 }
 
+.hero-section__title:has(+ .hero-section__meta) {
+  margin-block-end: 0;
+}
+
 .hero-section__intro {
   max-width: 68ch;
   margin-block-end: var(--space-5);
   color: var(--color-text-soft);
   font-size: 1.02rem;
   line-height: 1.8;
+}
+
+.hero-section__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  margin-block: var(--space-4) var(--space-5);
 }
 
 .hero-section__intro>*:last-child {

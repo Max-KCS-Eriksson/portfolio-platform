@@ -89,3 +89,63 @@ class PostViewTest(TestCase):
             [newest_python_post.id, older_python_post.id],
         )
         self.assertNotIn(django_post.id, returned_blog_post_ids)
+
+    def test_returns_blog_post_detail_from_markdown(self):
+        blog_post = create_blog_post(
+            "Markdown Post",
+            as_markdown="""# Markdown Post
+
+Markdown intro text.
+
+## A Section
+
+Some text.
+
+More text.
+
+```hello.py file
+print('hello')
+```
+> Example code
+
+```Bash shell
+python hello.py
+```
+> Running the file
+
+Another paragraph.""",
+        )
+
+        response = self.client.get(f"/api/blog/{blog_post.slug}/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["title"], "Markdown Post")
+        self.assertEqual(response.data["intro"], "Markdown intro text.")
+        self.assertEqual(
+            response.data["content"],
+            [
+                {"type": "title", "text": "Markdown Post"},
+                {"type": "intro", "text": "Markdown intro text."},
+                {
+                    "type": "section",
+                    "heading": "A Section",
+                    "blocks": [
+                        {"type": "paragraph", "text": "Some text."},
+                        {"type": "paragraph", "text": "More text."},
+                        {
+                            "type": "snippet",
+                            "context": "hello.py file",
+                            "snippet": "print('hello')",
+                            "description": "Example code",
+                        },
+                        {
+                            "type": "snippet",
+                            "context": "Bash shell",
+                            "snippet": "python hello.py",
+                            "description": "Running the file",
+                        },
+                        {"type": "paragraph", "text": "Another paragraph."},
+                    ],
+                },
+            ],
+        )

@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from .models import BlogPost, BlogPostParagraph, BlogPostSnippet
+from .models import BlogContext, BlogPost, BlogPostParagraph, BlogPostSnippet
+
+
+class BlogContextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogContext
+        fields = ("id", "intro")
 
 
 class TagListFieldSerializer(serializers.ModelSerializer):
@@ -37,9 +43,22 @@ class BlogPostParagraphSerializer(serializers.ModelSerializer):
 
 
 class BlogPostSerializer(serializers.ModelSerializer):
-    paragraphs = BlogPostParagraphSerializer(many=True, read_only=True)
+    title = serializers.CharField(read_only=True)
+    intro = serializers.CharField(read_only=True)
+    content = serializers.SerializerMethodField()
     tags = TagListFieldSerializer()
 
     class Meta:
         model = BlogPost
-        fields = ("id", "title", "intro", "paragraphs", "tags", "date_added", "slug")
+        fields = (
+            "id",
+            "title",
+            "intro",
+            "content",
+            "tags",
+            "date_added",
+            "slug",
+        )
+
+    def get_content(self, blog_post):
+        return blog_post.parsed_markdown["content"]

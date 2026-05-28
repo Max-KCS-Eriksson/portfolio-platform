@@ -7,6 +7,7 @@ describe("HeroSection", () => {
     render(
       <HeroSection
         headline="Portfolio"
+        meta={<span>31 Dec, 2025</span>}
         intro={"First line\nSecond line"}
         skills={["Python", "Django"]}
         actions={<a href="/portfolio/">View portfolio</a>}
@@ -14,6 +15,7 @@ describe("HeroSection", () => {
     );
 
     expect(screen.getByRole("heading", { name: "Portfolio" })).toBeInTheDocument();
+    expect(screen.getByText("31 Dec, 2025")).toBeInTheDocument();
     expect(screen.getByText((_, element) => element.textContent === "First lineSecond line")).toBeInTheDocument();
     expect(screen.getByRole("list", { name: "Core technologies" })).toBeInTheDocument();
     expect(screen.getByText("Python")).toBeInTheDocument();

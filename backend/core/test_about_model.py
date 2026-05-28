@@ -90,3 +90,23 @@ class AboutModelTest(TestCase):
         self.assertFalse(first.featured)
         second = About.objects.get(pk=2)
         self.assertTrue(second.featured)
+
+    def test_saves_unsorted_lists_with_leading_dash_and_space(self):
+        about = About.objects.create(
+            **{
+                **self.field_values_true,
+                "mindset_list": " -First habit\n- Second habit\n - Third habit",
+                "focus_list": " -First focus\n- Second focus\n - Third focus",
+            }
+        )
+
+        about.refresh_from_db()
+
+        self.assertEqual(
+            about.mindset_list,
+            "- First habit\n- Second habit\n- Third habit",
+        )
+        self.assertEqual(
+            about.focus_list,
+            "- First focus\n- Second focus\n- Third focus",
+        )
