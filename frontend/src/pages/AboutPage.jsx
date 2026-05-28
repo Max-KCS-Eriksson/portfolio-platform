@@ -4,6 +4,7 @@ import { faSeedling, faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { getAbout } from "../api/coreApi";
 import HeroSection from "../components/core/HeroSection";
+import NumberedHeading from "../components/core/NumberedHeading";
 import SocialMediaLinks from "../components/layout/SocialMediaLinks";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { renderLinebreaks } from "../utils/renderLinebreaks";
@@ -46,7 +47,9 @@ function AboutPage() {
               <FontAwesomeIcon icon={faUser} />
             </div>
             <div className="about-section__content">
-              <h2 id="about-background-heading">1. Background</h2>
+              <NumberedHeading id="about-background-heading" marker="01">
+                Background
+              </NumberedHeading>
               <div className="about-section__body section-text">{renderLinebreaks(about.background)}</div>
             </div>
           </section>
@@ -61,7 +64,9 @@ function AboutPage() {
               <FontAwesomeIcon icon={faTerminal} />
             </div>
             <div className="about-section__content">
-              <h2 id="about-work-heading">2. How I Work</h2>
+              <NumberedHeading id="about-work-heading" marker="02">
+                How I Work
+              </NumberedHeading>
               {hasMindsetIntro && <div className="about-section__body section-text">{renderLinebreaks(about.mindsetIntro)}</div>}
               {hasMindsetList && (
                 <ul className="about-page__habit-list section-text">
@@ -80,7 +85,9 @@ function AboutPage() {
               <FontAwesomeIcon icon={faSeedling} />
             </div>
             <div className="about-section__content">
-              <h2 id="about-focus-heading">3. Current Focus</h2>
+              <NumberedHeading id="about-focus-heading" marker="03">
+                Current Focus
+              </NumberedHeading>
               {hasFocusIntro && <div className="about-section__body section-text">{renderLinebreaks(about.focusIntro)}</div>}
               {hasFocusList && (
                 <ul className="about-page__habit-list section-text">

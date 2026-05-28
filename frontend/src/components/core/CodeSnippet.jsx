@@ -49,7 +49,7 @@ function CodeSnippet({ heading = "", code, description = "" }) {
 
   return (
     <section className="code-snippet">
-      {heading && <h3 className="code-snippet__heading">{heading}</h3>}
+      {heading && <h3 className="code-snippet__heading accent-heading">{heading}</h3>}
 
       <div className="code-snippet__code-wrap">
         <pre className={`code-snippet__box ${isCopied ? "copied" : ""}`}>

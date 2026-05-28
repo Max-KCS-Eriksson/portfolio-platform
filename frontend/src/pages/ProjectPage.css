@@ -43,27 +43,6 @@
   padding: var(--space-5);
 }
 
-.project-detail__section h2 {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-4);
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.project-detail__section-marker {
-  color: var(--color-accent);
-  font-size: 1.45rem;
-}
-
-.project-detail__section-title {
-  min-width: 0;
-}
-
-.project-detail__status-badge {
-  margin-inline-start: auto;
-}
-
 .project-detail__section-body {
   line-height: 1.7;
 }

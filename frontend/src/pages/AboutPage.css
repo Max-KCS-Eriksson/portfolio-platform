@@ -35,12 +35,9 @@
 }
 
 .about-section__content {
+  display: grid;
+  gap: var(--space-2);
   min-width: 0;
-}
-
-.about-section h2 {
-  margin-block-end: var(--space-2);
-  font-size: 1.15rem;
 }
 
 .about-section__body {

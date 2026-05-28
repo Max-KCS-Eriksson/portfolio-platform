@@ -560,6 +560,12 @@ main {
   font-size: clamp(1.25rem, 2vw, 1.65rem);
 }
 
+.accent-heading {
+  padding-inline-start: var(--accent-heading-padding, var(--space-4));
+  border-left: var(--accent-heading-border-width, 0.28rem) solid
+    var(--accent-heading-color, var(--color-accent));
+}
+
 .panel,
 .main-menu>.nav-menu,
 .main-menu>ul,

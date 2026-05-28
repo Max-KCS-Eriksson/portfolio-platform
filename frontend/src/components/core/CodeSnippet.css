@@ -5,10 +5,9 @@
 
 .code-snippet__heading {
   margin: var(--space-1) 0 0 0;
-  padding-inline-start: var(--space-4);
+  --accent-heading-color: var(--color-accent-soft);
   color: var(--color-text-soft);
   font-size: 1rem;
-  border-left: 0.28rem solid var(--color-accent-soft);
 }
 
 .code-snippet__code-wrap {

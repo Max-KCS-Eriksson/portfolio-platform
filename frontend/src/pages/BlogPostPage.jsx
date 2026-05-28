@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { getBlogPost } from "../api/blogApi";
 import CodeSnippet from "../components/core/CodeSnippet";
 import HeroSection from "../components/core/HeroSection";
+import NumberedHeading from "../components/core/NumberedHeading";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { formatDate } from "../utils/formatDate";
 import { renderLinebreaks } from "../utils/renderLinebreaks";
@@ -172,13 +173,13 @@ function BlogPostPage() {
               key={sectionLinks[sectionIndex].id}
             >
               <div className="blog-post-page__section-content">
-                <h2
+                <NumberedHeading
                   id={`${sectionLinks[sectionIndex].id}-heading`}
+                  marker={String(sectionIndex + 1).padStart(2, "0")}
                   aria-label={`${String(sectionIndex + 1).padStart(2, "0")} ${section.heading}`}
                 >
-                  <span className="blog-post-page__section-marker">{String(sectionIndex + 1).padStart(2, "0")}</span>
-                  <span className="blog-post-page__section-title">{section.heading}</span>
-                </h2>
+                  {section.heading}
+                </NumberedHeading>
                 {section.blocks.map((childBlock, index) => renderContentBlock(childBlock, `${sectionIndex}-${index}`))}
               </div>
             </section>
@@ -187,7 +188,7 @@ function BlogPostPage() {
 
         {sectionLinks.length > 0 && (
           <aside className="blog-post-page__toc" aria-label="On this page">
-            <h2>On this page</h2>
+            <h2 className="accent-heading">On this page</h2>
             <ol>
               {sectionLinks.map((sectionLink) => (
                 <li key={sectionLink.id}>

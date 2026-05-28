@@ -1,0 +1,22 @@
+.numbered-heading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.numbered-heading__marker {
+  color: var(--color-accent);
+  font-size: 1.45rem;
+}
+
+.numbered-heading__title {
+  min-width: 0;
+}
+
+.numbered-heading__actions {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: auto;
+}
