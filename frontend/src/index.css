@@ -63,6 +63,7 @@
   --color-blue-300-alpha-08: #83a59814;
   --color-blue-300-alpha-22: #83a59838;
   --color-blue-300-alpha-24: #83a5983d;
+  --color-blue-300-alpha-48: #83a598cd;
 
   --color-green-300: #8ec07c;
   --color-green-500: #689d6a;
@@ -82,8 +83,8 @@
   --color-bg-soft: var(--color-black-850);
   --color-bg: var(--color-black-900);
   --color-bg-alt: var(--color-black-925);
+  --color-bg-code: var(--color-black-925);
   --color-bg-deep: var(--color-black-950);
-  --color-bg-code: var(--color-black-950);
 
   --color-surface-strong: var(--color-black-750);
   --color-surface-hover: var(--color-black-700);
@@ -115,6 +116,7 @@
 
   --color-accent-cyan: var(--color-blue-300);
   --color-accent-cyan-soft: var(--color-blue-500);
+  --color-accent-cyan-muted: var(--color-blue-300-alpha-48);
 
   --color-accent-green: var(--color-green-300);
   --color-accent-green-soft: var(--color-green-500);
@@ -483,7 +485,6 @@ main {
 .main-content>*:last-child,
 .main-menu>*:last-child,
 .paragraph-section>*:last-child,
-.snippet-section>*:last-child,
 .description>*:last-child,
 .summary>*:last-child,
 .intro>*:last-child {
@@ -498,8 +499,7 @@ main {
 .summary,
 .description,
 .intro,
-.paragraph,
-.snippet-description {
+.paragraph {
   max-width: 74ch;
   color: var(--color-text-soft);
   line-height: 1.75;
@@ -533,8 +533,7 @@ main {
 }
 
 .card,
-.main-menu>ul>.nav-item,
-.snippet-section {
+.main-menu>ul>.nav-item {
   padding: var(--space-4);
   background: var(--color-surface-muted);
   border: 1px solid var(--color-card-border);
@@ -601,7 +600,6 @@ main {
 
 .project-link,
 .remove-tag-filter,
-.copy-snippet,
 #tags-menu-button,
 .icon-button {
   display: inline-grid;
@@ -617,7 +615,6 @@ main {
 
 .project-link:hover,
 .remove-tag-filter:hover,
-.copy-snippet:hover,
 #tags-menu-button:hover,
 .icon-button:hover,
 #tags-menu-button.active,
@@ -657,32 +654,6 @@ h1.tag {
   flex-wrap: wrap;
   gap: var(--space-3);
   margin: 0;
-}
-
-.snippet-box {
-  position: relative;
-  padding: var(--space-4);
-  overflow-x: auto;
-  color: var(--color-accent-green);
-  background: var(--color-bg-code);
-  border: 1px solid var(--color-card-border);
-  border-radius: var(--radius-card);
-}
-
-.snippet,
-.snippet.scroll {
-  display: block;
-  min-width: 0;
-  white-space: pre-wrap;
-}
-
-.snippet.scroll {
-  white-space: pre;
-}
-
-.copy-snippet {
-  margin-block-start: var(--space-2);
-  cursor: pointer;
 }
 
 #tags-menu-button,
@@ -764,8 +735,7 @@ h1.tag {
 
   .main-menu>.nav-menu,
   .main-menu>ul,
-  .paragraph-section,
-  .snippet-section {
+  .paragraph-section {
     padding: var(--space-4);
   }
 
