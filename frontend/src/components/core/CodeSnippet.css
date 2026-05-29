@@ -12,18 +12,20 @@
 
 .code-snippet__code-wrap {
   position: relative;
-}
-
-.code-snippet__box {
-  position: relative;
-  margin: 0;
-  padding: var(--space-4);
+  padding: var(--space-3);
+  padding-block-end: 0;
   padding-inline-end: var(--space-7);
-  overflow-x: auto;
   color: var(--color-accent-cyan);
   background: var(--color-bg-code);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-card);
+}
+
+.code-snippet__box {
+  margin: 0;
+  padding-block-end: var(--space-3);
+  overflow-x: auto;
+  color: inherit;
 }
 
 .code-snippet__code {
