@@ -162,7 +162,7 @@
 
 .project-summary__link:hover,
 .project-summary__link:hover svg {
-  color: var(--color-accent-strong);
+  color: var(--color-accent-strong) !important;
 }
 
 /* Medium devices */
