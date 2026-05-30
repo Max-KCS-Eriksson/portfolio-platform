@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import BlogContext, BlogPost, BlogPostParagraph, BlogPostSnippet
+from .models import BlogContext, BlogPost
 
 
 class BlogContextSerializer(serializers.ModelSerializer):
@@ -19,27 +19,6 @@ class TagListFieldSerializer(serializers.ModelSerializer):
         if not isinstance(data, list):
             raise serializers.ValidationError("Tags must be a list of strings")
         return data
-
-
-class BlogPostSnippetSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BlogPostSnippet
-        fields = (
-            "id",
-            "paragraph",
-            "snippet",
-            "side_scroll",
-            "description",
-            "intended_location",
-        )
-
-
-class BlogPostParagraphSerializer(serializers.ModelSerializer):
-    snippets = BlogPostSnippetSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = BlogPostParagraph
-        fields = ("id", "blog_post", "heading", "text", "snippets")
 
 
 class BlogPostSerializer(serializers.ModelSerializer):
